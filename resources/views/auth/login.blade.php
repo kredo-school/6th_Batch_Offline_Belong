@@ -22,8 +22,8 @@
                 <div class="container d-flex justify-content-center align-items-center vh-100">
                         <div class="card p-5 shadow-lg rounded-3" style="max-width: 500px; width: 100%;">
                             <h1 class="text-center mb-4">Login</h1>
-                            <form action="/register" method="POST">
-                                
+                            <form action="{{route('login'))}}" method="POST">
+
                                 <div class="row mb-3">
                                     <div class="col">
                                         <label for="email" class="form-label">Email</label>
