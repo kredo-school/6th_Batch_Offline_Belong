@@ -19,9 +19,8 @@
             overflow: hidden;
             position: relative;
         }
-
         .overlay {
-            /* background-color: rgba(255, 255, 255, 0.6); オーバーレイの色 */
+            background-color: rgba(0, 0, 0, 0.5);
             position: absolute;
             top: 0;
             left: 0;
@@ -31,47 +30,46 @@
         }
         .welcome-text {
             text-align: center;
-            color: black; 
+            color: white;
             font-size: 40px;
             font-weight: bold;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.8);
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
             position: relative;
             z-index: 2;
         }
         .card-columns {
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-around; /* カードを散りばめるために変更 */
+            justify-content: center;
             gap: 20px;
             z-index: 1;
-            margin-top: 30px; 
         }
         .card {
-            width: 250px; 
-            height: auto; 
+            width: 250px; /* カードの幅を広げる */
+            height: auto; /* 高さを自動に */
             position: relative;
             transition: transform 0.3s;
-            overflow: hidden; 
+            overflow: hidden; /* オーバーフローを隠す */
         }
         .card img {
-            width: 100%; 
-            height: 150px; 
+            width: 100%; /* 画像の幅を100%に設定 */
+            height: 150px; /* 固定の高さを設定 */
             object-fit: cover;
         }
         .card-body {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; 
-            padding: 10px; 
+            justify-content: flex-start; /* 上寄せにする */
+            padding: 10px; /* パディングを追加 */
         }
         .card-title {
-            font-size: 16px; 
-            margin-bottom: 5px; 
+            font-size: 16px; /* フォントサイズを調整 */
+            margin-bottom: 5px; /* タイトルとテキストの間隔 */
         }
         .card-text {
-            font-size: 14px; 
-            margin-bottom: 0; 
+            font-size: 14px; /* テキストのフォントサイズを調整 */
+            margin-bottom: 0; /* マージンをゼロに */
         }
         .card:hover {
             transform: scale(1.05);
@@ -144,8 +142,8 @@
 
         <main class="py-5">
             <div class="container text-center mt-3 pt-5">
-                <div class="welcome-text text-white">Welcome to "Belong"</div>
-                <div class="card-columns">
+                <div class="welcome-text">Welcome to "Belong"</div>
+                <div class="card-columns mt-5">
                     <div class="card">
                         <img src="{{ asset('images/toppage1.jpg') }}" class="card-img-top" alt="...">
                         <div class="card-body">
@@ -199,7 +197,7 @@
         </main>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-OqV1v6sEDXLN2S9H8Pci/Jtt5jZ6OcdAW8b/sQeN+GEO/wuLxqzm6NN6MJ4PrqAb" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-c8I1X8EQZRX2Ex0uhpl7qL/JzDFtdkV4FFRSNjH8B+XgNPpE/ZOGxDr9tupYHqkL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
