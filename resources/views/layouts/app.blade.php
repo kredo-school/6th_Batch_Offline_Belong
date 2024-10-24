@@ -34,55 +34,56 @@
                     <!-- 左側は空のまま -->
                     <ul class="navbar-nav me-auto"></ul>
 
-                    <!-- 右側のナビゲーションアイコン（ログイン後のみ表示） -->
-                    @auth
+                    <!-- 右側のナビゲーション -->
                     <ul class="navbar-nav ms-auto">
-                        <!-- アイコンのリスト -->
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-regular fa-clipboard" style="font-size: 30px;"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-regular fa-heart" style="font-size: 30px;"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
-                        </li>
+                        @guest
+                            <!-- ログインしていない時に表示されるリンク -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            </li>
+                            @if (Route::has('register'))
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                </li>
+                            @endif
+                        @else
+                            <!-- ログインしている時に表示されるアイコン -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa-regular fa-clipboard" style="font-size: 30px;"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa-regular fa-heart" style="font-size: 30px;"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
+                            </li>
 
-                        <!-- ユーザーのドロップダウンメニュー -->
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                 document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                            <!-- ドロップダウンメニュー（ログアウト） -->
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
-                    @endauth
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
 
-                    <!-- ログインしていない場合はログインアイコンのみ表示 -->
-                    @guest
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}"><i class="fa-solid fa-circle-user" style="font-size: 30px;"></i></a>
-                        </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endguest
                     </ul>
-                    @endguest
                 </div>
             </div>
         </nav>
