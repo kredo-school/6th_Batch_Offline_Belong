@@ -12,32 +12,64 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet"> <!-- Add Noto Serif KR -->
 
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <!-- calendar -->
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+
+    <!-- calendar -->
+    <script>
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            // カレンダーの設定をここに追加
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            // デフォルトのイベントデータを設定
+            events: [
+                {
+                    title: 'Event 1',
+                    start: '2024-10-25'
+                },
+                {
+                    title: 'Event 2',
+                    start: '2024-10-27',
+                    end: '2024-10-29'
+                }
+            ]
+        });
+    });
+    </script>
+
+
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0"> <!-- mb-0 で下のマージンをなくす -->
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height:100px; width: 100px;">
-                    <span style="font-size: 36px;">
+                    <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
+                    <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;"> <!-- Apply Noto Serif KR -->
                         {{ config('app.name', 'Belong') }}
                     </span>
                 </a>
 
                 <div class="navbar-collapse" id="navbarSupportedContent">
-                    <!-- 左側は空のまま -->
                     <ul class="navbar-nav me-auto"></ul>
 
-                    <!-- 右側のナビゲーション -->
                     <ul class="navbar-nav ms-auto">
                         @guest
-                            <!-- ログインしていない時に表示されるリンク -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
@@ -47,7 +79,6 @@
                                 </li>
                             @endif
                         @else
-                            <!-- ログインしている時に表示されるアイコン -->
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fa-regular fa-clipboard" style="font-size: 30px;"></i></a>
                             </li>
@@ -63,8 +94,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
                             </li>
-
-                            <!-- ドロップダウンメニュー（ログアウト） -->
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
@@ -88,7 +117,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-0"> <!-- py-0 で上下のパディングをなくす -->
             @yield('content')
         </main>
     </div>
