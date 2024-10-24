@@ -26,13 +26,10 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-<<<<<<< HEAD
-                    <img src="{{ asset('assets/images/Belongicon.png') }}" alt="Logo" style="height:60px; width: 60px;">
-                    <span style="font-size: 30px; font-weight: bold; font-family: 'Noto Serif KR', serif;">
-=======
+
                     <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height:100px; width: 100px;">
                     <span style="font-size: 36px;">
->>>>>>> 631b701845a695c2325c5fb2e3008b4b38522315
+
                         {{ config('app.name', 'Belong') }}
                     </span>
                 </a>
