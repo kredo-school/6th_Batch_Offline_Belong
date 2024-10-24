@@ -90,9 +90,11 @@
                         </div>
                     </div>
 
+
                     <p class="text-center mt-3">
                         <a href="login" class="text-decoration-none">→ Have an account?</a>
                     </p>
+
 
                 </form>
             </div>
