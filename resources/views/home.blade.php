@@ -222,7 +222,7 @@
                         <img src="{{ asset('images/image4.jpg') }}" alt="Image 4" style="width: 100%; height: auto;">
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Image 4</h5> <!-- 画像名をタイトルに -->
+                        <h5 class="card-title">Image sample</h5> <!-- 画像名をタイトルに -->
                         <p class="card-text">ここに説明文を入れることができます。</p> <!-- 説明文 -->
                         <a href="#" class="btn btn-primary">詳細</a> <!-- ボタン -->
                     </div>
