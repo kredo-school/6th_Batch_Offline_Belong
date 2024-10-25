@@ -155,21 +155,92 @@
             </div>
         </div>
         <hr>
+        <br>
+    
 
-        <!-- カレンダーの表示 -->
-        <div class="row justify-content-center mt-4"> <!-- 中央揃え -->
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header text-center">
-                        <h5>カレンダー</h5>
+       <!-- カレンダーを表示する場所 --> 
+<div class="row justify-content-start mt-4"> <!-- 左揃え -->
+    <div class="col-md-8"> <!-- カレンダーのカラム -->
+        <div class="card calendar-card"> <!-- calendar-cardクラスを追加 -->
+            <div class="card-header text-center">
+                <h5>カレンダー</h5>
+            </div>
+            <div class="card-body">
+                <div id="calendar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3"> <!-- カードを配置するカラム -->
+        <div class="text-left mb-2" style="margin-left: -260px;"> <!-- "Sort post"テキストを左に配置 -->
+            <h5 style="font-size: 60px; font-weight: bold;">Sort post</h5>
+        </div>
+        
+        <div class="row" style="margin-left: -260px; margin-top: 50px;"> <!-- カード用の行を追加し、左に配置 -->
+            <div class="col-6 mb-4"> <!-- 1つ目のカード -->
+                <div class="card h-100"> <!-- h-100クラスを追加 -->
+                    <div class="card-img-top text-center" style="position: relative;">
+                        <img src="{{ asset('images/image1.jpg') }}" alt="Image 1" style="width: 100%; height: auto;">
                     </div>
                     <div class="card-body">
-                        <!-- カレンダーを表示する場所 -->
-                        <div id="calendar"></div>
+                        <h5 class="card-title">Image 1</h5> <!-- 画像名をタイトルに -->
+                        <p class="card-text">ここに説明文を入れることができます。</p> <!-- 説明文 -->
+                        <a href="#" class="btn btn-primary">詳細</a> <!-- ボタン -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 mb-4"> <!-- 2つ目のカード -->
+                <div class="card h-100"> <!-- h-100クラスを追加 -->
+                    <div class="card-img-top text-center" style="position: relative;">
+                        <img src="{{ asset('images/image2.jpg') }}" alt="Image 2" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Image 2</h5> <!-- 画像名をタイトルに -->
+                        <p class="card-text">ここに説明文を入れることができます。</p> <!-- 説明文 -->
+                        <a href="#" class="btn btn-primary">詳細</a> <!-- ボタン -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 mb-4"> <!-- 3つ目のカード -->
+                <div class="card h-100"> <!-- h-100クラスを追加 -->
+                    <div class="card-img-top text-center" style="position: relative;">
+                        <img src="{{ asset('images/image3.jpg') }}" alt="Image 3" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Image 3</h5> <!-- 画像名をタイトルに -->
+                        <p class="card-text">ここに説明文を入れることができます。</p> <!-- 説明文 -->
+                        <a href="#" class="btn btn-primary">詳細</a> <!-- ボタン -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 mb-4"> <!-- 4つ目のカード -->
+                <div class="card h-100"> <!-- h-100クラスを追加 -->
+                    <div class="card-img-top text-center" style="position: relative;">
+                        <img src="{{ asset('images/image4.jpg') }}" alt="Image 4" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Image 4</h5> <!-- 画像名をタイトルに -->
+                        <p class="card-text">ここに説明文を入れることができます。</p> <!-- 説明文 -->
+                        <a href="#" class="btn btn-primary">詳細</a> <!-- ボタン -->
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<br>
+<br>
+
+
+
+
+
+
+
+
 
     </div>
 </div>

@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html> 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -12,10 +12,12 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet"> <!-- Add Noto Serif KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
     <!-- calendar -->
     <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
@@ -23,17 +25,14 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
 
-    <!-- calendar -->
     <script>
     $(document).ready(function() {
         $('#calendar').fullCalendar({
-            // カレンダーの設定をここに追加
             header: {
                 left: 'prev,next today',
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            // デフォルトのイベントデータを設定
             events: [
                 {
                     title: 'Event 1',
@@ -49,18 +48,41 @@
     });
     </script>
 
+    <style>
+        /* カレンダーを表示するカードのサイズと位置調整 */
+        .calendar-card {
+            width: 550px;
+            margin-left: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
 
+        /* カレンダー自体のサイズと位置を指定 */
+        #calendar {
+            max-width: 500px;
+            height: 450px;
+            margin: 0 auto;
+        }
+
+        /* フッターのスタイル */
+        footer {
+            background-color: #FDCEDF;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+        }
+    </style>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0"> <!-- mb-0 で下のマージンをなくす -->
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
-                    <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;"> <!-- Apply Noto Serif KR -->
+                    <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
                         {{ config('app.name', 'Belong') }}
                     </span>
                 </a>
@@ -117,9 +139,26 @@
             </div>
         </nav>
 
-        <main class="py-0"> <!-- py-0 で上下のパディングをなくす -->
+        <main class="py-0">
             @yield('content')
         </main>
+
+        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;">
+    <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
+    <div style="text-align: right; display: flex; align-items: center;">
+        <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a> <!-- Twitterの色を黒 -->
+        <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a> <!-- Facebookの色を青 -->
+        <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->        
+        <a href="#" style="margin-left: 15px;">About Us</a>
+        <a href="#" style="margin-left: 15px;">FAQ</a>
+    </div>
+</footer>
+
+
+
+
+
+
     </div>
 </body>
 </html>
