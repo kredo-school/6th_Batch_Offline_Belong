@@ -1,12 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header text-center" style="background-color: #f8d7da;">
-                        <h2>Create Post</h2>
+                    <div class="card-header" style="background-color: #fdcdef;">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <a href="#" style="color: black;">
+                                <i class="fa-solid fa-chevron-left"></i>
+                            </a>
+                            <h2 class="text-black fw-bold m-0 mx-auto">Create Post</h2>
+                            <div style="width: 24px;"></div> <!-- アイコンのスペースを確保 -->
+                        </div>
                     </div>
 
                     <div class="card-body">
@@ -19,7 +26,6 @@
                                 <div class="col-md-8">
                                     <select id="category" class="form-select" name="category">
                                         <option value="" disabled selected>Select a category</option>
-                                        <!-- Add categories here -->
                                         <option value="play">Play</option>
                                         <option value="watchandlearn">Watch and Learn</option>
                                         <option value="eat">Eat</option>
@@ -91,6 +97,8 @@
                                     <input id="image" type="file" class="form-control" name="image">
                                 </div>
                             </div>
+
+                            <hr>
 
                             <!-- Buttons -->
                             <div class="mb-3 row">
