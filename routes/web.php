@@ -10,7 +10,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // トップページのルート
-Route::get('/', function () {return view('welcome');});
+
 
 Route::prefix('posts')->group(function () {
     Route::get('/create', [PostController::class, 'create'])->name('posts.create');
