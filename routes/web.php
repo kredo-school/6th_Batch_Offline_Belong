@@ -16,6 +16,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Route::group(['prefix' => 'footer', 'as' => 'footer.'], function() {
     Route::get('/faq', [App\Http\Controllers\FooterController::class, 'index'])->name('faq');
+    Route::get('/about', [App\Http\Controllers\FooterController::class, 'about'])->name('about');
 });
 
 
