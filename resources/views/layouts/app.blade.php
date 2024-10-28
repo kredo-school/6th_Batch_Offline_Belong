@@ -1,4 +1,4 @@
-<!doctype html> 
+<!doctype html>   
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -12,13 +12,10 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
 
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 
     <!-- calendar -->
     <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
@@ -72,8 +69,28 @@
             text-align: center;
             color: #333;
         }
-    </style>
 
+        /* 検索フォームのスタイル */
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .search-button {
+            background-color: #FDCEDF;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -103,14 +120,33 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa-regular fa-clipboard" style="font-size: 30px;"></i></a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" id="clipboardDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
+                                    <a class="dropdown-item" href="">Create</a>
+                                    <a class="dropdown-item" href="">Schedule</a>                                   
+                                </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa-regular fa-heart" style="font-size: 30px;"></i></a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" id="heartDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-regular fa-heart" style="font-size: 30px;"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
+                                    <a class="dropdown-item" href="">Booked</a>
+                                    <a class="dropdown-item" href="">Attended</a>
+                                    <a class="dropdown-item" href="">held</a>
+                                </div>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i></a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
+                                    <a class="dropdown-item" href="">#</a>
+                                    <a class="dropdown-item" href="">User</a>
+                                </div>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
@@ -124,6 +160,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="">Profile</a> <!-- プロフィールボタン -->
+                                    <a class="dropdown-item" href="">Admin</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -146,21 +184,15 @@
         </main>
 
         <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;">
-    <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
-    <div style="text-align: right; display: flex; align-items: center;">
-        <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a> <!-- Twitterの色を黒 -->
-        <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a> <!-- Facebookの色を青 -->
-        <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->        
-        <a href="#" style="margin-left: 15px;">About Us</a>
-        <a href="#" style="margin-left: 15px;">FAQ</a>
-    </div>
-</footer>
-
-
-
-
-
-
+            <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
+            <div style="text-align: right; display: flex; align-items: center;">
+                <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a> <!-- Twitterの色を黒 -->
+                <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a> <!-- Facebookの色を青 -->
+                <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->        
+                <a href="#" style="margin-left: 15px;">About Us</a>
+                <a href="#" style="margin-left: 15px;">FAQ</a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>
