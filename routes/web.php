@@ -7,6 +7,8 @@ use App\Http\Controllers\PostController;
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function () {
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // トップページのルート
@@ -18,3 +20,4 @@ Route::prefix('posts')->group(function () {
     // 追加のルートがあればここに追加...
 });
 
+});

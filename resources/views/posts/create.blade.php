@@ -2,13 +2,13 @@
 
 @section('content')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <div class="container">
+    <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header" style="background-color: #fdcdef;">
                         <div class="d-flex align-items-center justify-content-between">
-                            <a href="#" style="color: black;">
+                            <a href="{{ route('home') }}" style="color: black;">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </a>
                             <h2 class="text-black fw-bold m-0 mx-auto">Create Post</h2>
