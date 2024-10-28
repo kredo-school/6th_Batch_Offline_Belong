@@ -8,6 +8,8 @@ use App\Http\Controllers\FooterController;
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function () {
+
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -29,4 +31,8 @@ Route::prefix('posts')->group(function () {
 
 
 
+
+
+
+});
 

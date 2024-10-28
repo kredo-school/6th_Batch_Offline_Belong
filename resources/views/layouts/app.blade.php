@@ -125,8 +125,8 @@
                                     <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
-                                    <a class="dropdown-item" href="">Create</a>
-                                    <a class="dropdown-item" href="">Schedule</a>                                   
+                                    <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-calendar-days"></i> Schedule</a>                                   
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -134,9 +134,9 @@
                                     <i class="fa-regular fa-heart" style="font-size: 30px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
-                                    <a class="dropdown-item" href="">Booked</a>
-                                    <a class="dropdown-item" href="">Attended</a>
-                                    <a class="dropdown-item" href="">held</a>
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-heart-circle-check"></i> Booked</a>
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-flag-checkered"></i> Attended</a>
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-check-to-slot"></i> held</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -144,8 +144,8 @@
                                     <i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
-                                    <a class="dropdown-item" href="">#</a>
-                                    <a class="dropdown-item" href="">User</a>
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-magnifying-glass"></i> #</a>
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-user-tag"></i> User</a>
                                 </div>
                             </li>
                             <li class="nav-item">
@@ -160,12 +160,12 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="">Profile</a> <!-- プロフィールボタン -->
-                                    <a class="dropdown-item" href="">Admin</a>
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
