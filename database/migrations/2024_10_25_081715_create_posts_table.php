@@ -18,10 +18,13 @@ class CreatePostsTable extends Migration
             $table->decimal('participation_fee', 8, 2)->nullable()->comment('Participation fee');  // Participation fee
             $table->text('description')->nullable()->comment('Description of the event');  // Description
             $table->string('image', 255)->nullable()->comment('Event image URL');  // Image related to the post
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');  // Foreign key referencing users table
+            $table->unsignedBigInteger("user_id");  // Foreign key referencing users table
             $table->string('status', 50)->default('draft')->comment('Post status: draft, published');  // Status of the post
             $table->timestamps();  // Post creation date and last updated date
-            $table->softDeletes()->comment('Soft delete flag');  // Soft delete flag
+            // $table->softDeletes()->comment('Soft delete flag');  // Soft delete flag
+
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
