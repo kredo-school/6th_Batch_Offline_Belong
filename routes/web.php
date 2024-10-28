@@ -19,26 +19,30 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
 
     });
+
+    Route::group(['prefix' => 'footer', 'as' => 'footer.'], function() {
+        Route::get('/faq', [App\Http\Controllers\FooterController::class, 'index'])->name('faq');
+        Route::get('/about', [App\Http\Controllers\FooterController::class, 'about'])->name('about');
+    });
+
+    Route::prefix('posts')->group(function () {
+        Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+        Route::post('/', [PostController::class, 'store'])->name('posts.store');
+        // 追加のルートがあればここに追加...
+    });
+
+
 });
 
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
 
 
 
 // トップページのルート
 
-Route::group(['prefix' => 'footer', 'as' => 'footer.'], function() {
-    Route::get('/faq', [App\Http\Controllers\FooterController::class, 'index'])->name('faq');
-    Route::get('/about', [App\Http\Controllers\FooterController::class, 'about'])->name('about');
-});
-
-
-Route::prefix('posts')->group(function () {
-    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/', [PostController::class, 'store'])->name('posts.store');
-    // 追加のルートがあればここに追加...
-});
 
 
 
@@ -47,6 +51,5 @@ Route::prefix('posts')->group(function () {
 
 
 
-});
 
 
