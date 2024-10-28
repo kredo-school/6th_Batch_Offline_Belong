@@ -189,7 +189,7 @@
                 <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a> <!-- Twitterの色を黒 -->
                 <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a> <!-- Facebookの色を青 -->
                 <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->        
-                <a href="#" style="margin-left: 15px;">About Us</a>
+                <a href="{{ route('footer.about') }}" class="about" style="margin-left: 15px;">About Us</a>
                 <a href="{{ route('footer.faq') }}" class="faq" style="margin-left: 15px;">FAQ</a>
             </div>
         </footer>
