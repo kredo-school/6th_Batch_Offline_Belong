@@ -71,6 +71,11 @@ class PostController extends Controller
         return view('posts.show', compact('post')); // 'posts.show'は表示するビューの名前
     }
 
+    public function index()
+    {
+        $posts = Post::with('user')->paginate(6); // 1ページに6件表示
+        return view('posts.schedule', compact('posts'));
+    }
     public function edit($id)
     {
         $post = Post::findOrFail($id);
