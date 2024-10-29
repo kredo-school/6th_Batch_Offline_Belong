@@ -3,12 +3,16 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\FooterController;
+use App\Http\Controllers\PaymentController;
 
 
 
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/payment', [PaymentController::class, 'show'])->name('payment');
+
 
 
 
