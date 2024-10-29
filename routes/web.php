@@ -17,6 +17,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [PostController::class, 'show'])->name('posts.show'); // Route for showing a single post
         Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
         Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+        Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
     });
 
@@ -25,11 +26,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/about', [App\Http\Controllers\FooterController::class, 'about'])->name('about');
     });
 
-    Route::prefix('posts')->group(function () {
-        Route::get('/create', [PostController::class, 'create'])->name('posts.create');
-        Route::post('/', [PostController::class, 'store'])->name('posts.store');
-        // 追加のルートがあればここに追加...
-    });
 
 
 });
@@ -40,8 +36,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 
-
-// トップページのルート
 
 
 

@@ -22,6 +22,9 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+
+
+    // return $request;
         // バリデーション
         $request->validate([
             'title' => 'required|string|max:255',
@@ -35,30 +38,32 @@ class PostController extends Controller
         ]);
 
         // 投稿の保存
-        $post = new Post();
-        $post->title = $request->title;
-        $post->date = $request->date;
-        $post->reservation_due_date = $request->reservation_due_date;
-        $post->place = $request->place;
-        $post->planned_number_of_people = $request->planned_number_of_people;
-        $post->participation_fee = $request->participation_fee;
-        $post->description = $request->description;
-        $post->user_id = auth()->id();
-
-        // 画像の保存
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $post->image = $imagePath;
+       
+        
+        $this->post->title = $request->title;
+        $this->post->date = $request->date;
+        $this->post->reservation_due_date = $request->reservation_due_date;
+        $this->post->place = $request->place;
+        $this->post->planned_number_of_people = $request->planned_number_of_people;
+        $this->post->participation_fee = $request->participation_fee;
+        $this->post->description = $request->description;
+        $this->post->user_id = auth()->id();
+        if ($request->image) {
+            # code...
+            $this->post->image     = 'data:image/' . $request->image->extension() .
+        ';base64,' . base64_encode(file_get_contents($request->image));
         }
 
-        $post->save();
+        $this->post->save();
 
         // 保存後に詳細ページへリダイレクト
-        return redirect()->route('posts.show', ['id' => $post->id]);
+        return redirect()->route('posts.show', ['id' => $this->post->id]);
     }
 
     public function show($id)
     {
+        $posts = Post::with('user')->latest()->get(); // 投稿とユーザー情報を取得
+    
         // 指定されたIDの投稿を取得
         $post = Post::findOrFail($id); // 存在しない場合は404エラーを投げる
 
@@ -105,6 +110,15 @@ class PostController extends Controller
         $post->save();
 
         return redirect()->route('posts.show', $post->id)->with('success', 'Post updated successfully.');
+    }
+
+    public function destroy($id)
+    {
+        $post = $this->post->findOrFail($id);
+        $post->forceDelete();
+
+        // 削除後に投稿一覧ページにリダイレクト
+        return redirect()->route('posts.show')->with('success', 'Post deleted successfully.');
     }
 
 
