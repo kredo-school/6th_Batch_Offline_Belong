@@ -17,6 +17,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{id}', [PostController::class, 'show'])->name('posts.show'); // Route for showing a single post
         Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
         Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+        Route::get('/posts/schedule', [PostController::class, 'index'])->name('posts.schedule');
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
     });
