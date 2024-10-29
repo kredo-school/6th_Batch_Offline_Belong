@@ -5,15 +5,15 @@
 @section('content')
     <style>
         .card-body {
-            position: relative; /* 相対的な位置 */
+            position: relative;
         }
         .avatar {
-            width: 100px;  /* プロフィール画像の幅を大きく */
-            height: 50px; /* プロフィール画像の高さを大きく */
+            width: 100px;
+            height: 50px;
         }
         .user-name {
-            font-size: 2.0rem; /* ユーザーネームのフォントサイズを大きく */
-            font-weight: bold; /* ユーザーネームを太字に */
+            font-size: 2.0rem;
+            font-weight: bold;
         }
     </style>
 
@@ -23,13 +23,13 @@
                 <div class="card-header bg-white py-3">
                     <div class="row align-items-center">
                         <div class="col-auto">
-                        <a href="#">
-                            @if($post->user->avatar)
-                                <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-circle avatar-sm">
-                            @else
-                                <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
-                            @endif
-                        </a>
+                            <a href="#">
+                                @if($post->user->avatar)
+                                    <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-circle avatar">
+                                @else
+                                    <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
+                                @endif
+                            </a>
                         </div>
                         <div class="col ps-0">
                             <a href="#" class="text-decoration-none text-dark">{{ $post->user->name }}</a>
@@ -44,23 +44,21 @@
                                     <i class="fa-regular fa-pen-to-square"></i>Edit
                                 </a>
                                 <button class="dropdown-item text-danger" data-bs-toggle="modal"
-                                    data-bs-target="#">
+                                    data-bs-target="#delete-post-{{ $post->id }}">
                                     <i class="fa-regular fa-trash-can"></i>Delete
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 画像の表示 -->
                     @if ($post->image)
-                        <img src="{{ asset('storage/' . $post->image) }}" alt="Post ID {{ $post->id }}" class="w-100 mb-3">
+                        <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="w-100 mb-3">
                     @endif
-                    
-                    <!-- 投稿内容の表示 -->
+
                     <div class="mt-3">
-                        <h4 class="fw-bold">Title: {{ $post->title }}</h4> <!-- ポストタイトル -->
-                        <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br> <!-- 開催日 -->
-                        <strong>Reservation Due Date:</strong> {{ date('M d, Y', strtotime($post->reservation_due_date)) }}<br> <!-- 締切日 -->
+                        <h4 class="fw-bold">Title: {{ $post->title }}</h4>
+                        <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br>
+                        <strong>Reservation Due Date:</strong> {{ date('M d, Y', strtotime($post->reservation_due_date)) }}<br>
                         <strong>Place:</strong> {{ $post->place }}<br>
                         <strong>Participation Fee:</strong> {{ $post->participation_fee }}<br>
                         <strong>Planned Number of People:</strong> {{ $post->planned_number_of_people }}<br>
@@ -88,4 +86,6 @@
             </div>
         </div>
     </div>
+
+    @include('posts.contents.modals.delete', ['post' => $post])
 @endsection

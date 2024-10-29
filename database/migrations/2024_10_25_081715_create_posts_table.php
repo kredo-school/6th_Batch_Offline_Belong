@@ -17,7 +17,7 @@ class CreatePostsTable extends Migration
             $table->integer('planned_number_of_people')->nullable()->comment('Planned number of attendees');  // Planned number of people
             $table->decimal('participation_fee', 8, 2)->nullable()->comment('Participation fee');  // Participation fee
             $table->text('description')->nullable()->comment('Description of the event');  // Description
-            $table->string('image', 255)->nullable()->comment('Event image URL');  // Image related to the post
+            $table->longText('image', 255)->nullable()->comment('Event image URL');  // Image related to the post
             $table->unsignedBigInteger("user_id");  // Foreign key referencing users table
             $table->string('status', 50)->default('draft')->comment('Post status: draft, published');  // Status of the post
             $table->timestamps();  // Post creation date and last updated date
