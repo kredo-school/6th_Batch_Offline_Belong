@@ -73,7 +73,7 @@ class RegisterController extends Controller
 
     protected function registered(Request $request, $user)
     {
-        return redirect()->route('payment');
+        return redirect()->route('payment.show');
     }
 
 }

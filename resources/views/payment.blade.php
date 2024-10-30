@@ -17,7 +17,7 @@
     <div class="container d-flex justify-content-center align-items-center vh-100">
         <div class="card p-5 shadow-lg rounded-3" style="max-width: 500px; width: 100%; background-color: rgba(255, 255, 255, 0.9);">
             <h1 class="text-center mb-4">Payment</h1>
-            <form method="POST" action="{{ route('payment') }}" onsubmit="return validateForm()">
+            <form method="POST" action="{{ route('payment.store') }}" onsubmit="return validateForm()">
                 @csrf
                 
                 <div class="text-center mb-4">
