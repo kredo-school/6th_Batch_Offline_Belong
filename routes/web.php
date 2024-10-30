@@ -5,6 +5,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SuccessController;
+use App\Http\Controllers\RuleController;
 
 Auth::routes();
 
@@ -13,6 +14,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/payment', [PaymentController::class, 'show'])->name('payment.show');
     Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store'); // POSTルート
+
+    Route::get('/rules', [RuleController::class, 'rules'])->name('rules.page');
+
 
     Route::get('/success', [SuccessController::class, 'index'])->name('success.page'); // 成功ページのルート
 
