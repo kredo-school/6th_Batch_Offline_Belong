@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/', [PostController::class, 'store'])->name('posts.store'); // Route for storing a new post
         Route::get('/{id}', [PostController::class, 'show'])->name('posts.show'); // Route for showing a single post
 
-      
+
         Route::get('/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
         Route::put('/{post}', [PostController::class, 'update'])->name('posts.update');
 
@@ -56,9 +56,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
-    
 
-});
+
 
 
 
