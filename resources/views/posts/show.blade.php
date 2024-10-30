@@ -15,6 +15,13 @@
             font-size: 2.0rem;
             font-weight: bold;
         }
+        .icon-count {
+            font-size: 1.5rem; /* カウントのフォントサイズを調整 */
+            margin-left: 5px; /* アイコンとカウントの間のスペース */
+        }
+        .icon-lg {
+            font-size: 1.5rem; /* アイコンのサイズを大きくする */
+        }
     </style>
 
     <div class="row border shadow mt-5 mb-5 col-6 mx-auto">
@@ -66,6 +73,29 @@
                         <p class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime($post->created_at)) }}</p>
                     </div>
 
+                    <div class="text-end">
+                        <!-- 人物アイコン：参加者リストページへのリンク -->
+                        <a href="#" class="btn btn-sm shadow-none p-0">
+                            <i class="fa-solid fa-user icon-lg"></i> <!-- アイコンのサイズを大きく -->
+                            <span class="icon-count">{{ $post->books->count() }}</span> <!-- カウントのフォントサイズを調整 -->
+                        </a>
+
+                        <!-- ハートアイコン：ブック機能のリンク -->
+                        @if($post->isBooked())
+                            <form action="{{ route('bookings.destroy', $post->id) }}" method="post" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm shadow-none p-0" title="Cancel Booking">
+                                    <i class="fa-solid fa-heart text-danger icon-lg"></i> <!-- アイコンのサイズを大きく -->
+                                </button>
+                            </form>
+                        @else
+                            <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
+                                <i class="fa-regular fa-heart text-danger icon-lg"></i> <!-- アイコンのサイズを大きく -->
+                            </a>
+                        @endif
+                    </div>
+                                
                     <hr>
 
                     <!-- コメント機能 -->
