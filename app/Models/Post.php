@@ -43,5 +43,10 @@ class Post extends Model
         // 現在のユーザーがこの投稿をすでにブックしているかを確認
         return $this->books()->where('user_id', auth()->id())->exists();
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
 
