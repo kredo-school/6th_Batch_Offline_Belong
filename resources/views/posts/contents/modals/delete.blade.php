@@ -1,5 +1,5 @@
 <!-- Delete Modal -->
-<div class="modal fade" id="delete-post-{{ $post->id }}" tabindex="-1" aria-labelledby="deletePostLabel" aria-hidden="true">
+<div class="modal fade" id="delete-post-{{ $posts->id }}" tabindex="-1" aria-labelledby="deletePostLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-danger">
             <div class="modal-header border-danger">

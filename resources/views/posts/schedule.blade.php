@@ -137,9 +137,9 @@
 
     <!-- ページネーション -->
     <div class="d-flex justify-content-start mt-4">
-        {{ $posts->links('vendor.pagination.bootstrap-5') }}
+    
     </div>
 </div>
 
-@include('posts.contents.modals.delete', ['post' => $post])
+
 @endsection
