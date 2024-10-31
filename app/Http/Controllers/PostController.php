@@ -18,8 +18,9 @@ class PostController extends Controller
     }
     public function create()
     {
+        $post = new Post();
         $all_categories = Category::all(); // すべてのカテゴリーを取得
-        return view('posts.create', compact('all_categories')); // カテゴリーをビューに渡す
+        return view('posts.create', compact('post', 'all_categories')); // $postも渡す
     }
 
     public function store(Request $request)
@@ -74,9 +75,11 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::with('user')->paginate(6); // 1ページに6件表示
-        return view('posts.schedule', compact('posts'));
+         // 1ページに6件表示
+         $posts = Post::latest()->paginate(6);
+        return view('posts.schedule')->with('posts', $posts);
     }
+
     public function edit($id)
     {
         $post = Post::findOrFail($id);
