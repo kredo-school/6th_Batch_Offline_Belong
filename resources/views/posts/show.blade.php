@@ -15,6 +15,17 @@
             font-size: 2.0rem;
             font-weight: bold;
         }
+        .icon-count {
+            font-size: 1.5rem;
+            margin-left: 5px;
+        }
+        .icon-lg {
+            font-size: 1.5rem;
+        }
+        .comment-meta {
+            font-size: 0.8rem; /* Smaller font size for date and delete */
+            color: #6c757d;
+        }
     </style>
 
     <div class="row border shadow mt-5 mb-5 col-6 mx-auto">
@@ -36,18 +47,19 @@
                         </div>
 
                         <div class="col-auto">
-                            <button class="btn btn-sm shadow-none" data-bs-toggle="dropdown">
-                                <i class="fa-solid fa-ellipsis"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                                <a href="{{ route('posts.edit', $post->id) }}" class="dropdown-item">
-                                    <i class="fa-regular fa-pen-to-square"></i>Edit
-                                </a>
-                                <button class="dropdown-item text-danger" data-bs-toggle="modal"
-                                    data-bs-target="#delete-post-{{ $post->id }}">
-                                    <i class="fa-regular fa-trash-can"></i>Delete
+                            @if(Auth::user()->id === $post->user->id)
+                                <button class="btn btn-sm shadow-none" data-bs-toggle="dropdown">
+                                    <i class="fa-solid fa-ellipsis"></i>
                                 </button>
-                            </div>
+                                <div class="dropdown-menu">
+                                    <a href="{{ route('posts.edit', $post->id) }}" class="dropdown-item">
+                                        <i class="fa-regular fa-pen-to-square"></i> Edit
+                                    </a>
+                                    <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-post-{{ $post->id }}">
+                                        <i class="fa-regular fa-trash-can"></i> Delete
+                                    </button>
+                                </div>
+                            @endif
                         </div>
                     </div>
 
@@ -62,30 +74,70 @@
                         <strong>Place:</strong> {{ $post->place }}<br>
                         <strong>Participation Fee:</strong> {{ $post->participation_fee }}<br>
                         <strong>Planned Number of People:</strong> {{ $post->planned_number_of_people }}<br>
-                        <p class="fw-light">{{ $post->description }}</p>
                         <p class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime($post->created_at)) }}</p>
+                    </div>
+
+                    <div class="text-end">
+                        <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#booksModal{{ $post->id }}">
+                            <i class="fa-solid fa-user icon-lg"></i>
+                            <span class="icon-count">{{ $post->books->count() }}</span>
+                        </a>
+
+                        @if($post->isBooked())
+                            <form action="{{ route('bookings.destroy', $post->id) }}" method="post" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm shadow-none p-0" title="Cancel Booking">
+                                    <i class="fa-solid fa-heart text-danger icon-lg"></i>
+                                </button>
+                            </form>
+                        @else
+                            <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
+                                <i class="fa-regular fa-heart text-danger icon-lg"></i>
+                            </a>
+                        @endif
                     </div>
 
                     <hr>
 
-                    <!-- コメント機能 -->
-                    <form action="#" method="post">
+                    <form action="{{ route('comment.store', $post->id) }}" method="post">
                         @csrf
                         <div class="input-group">
-                            <textarea name="comment_body{{ $post->id }}" rows="1" class="form-control form-control-sm"
-                                      placeholder="Add a comment..." required>{{ old('comment_body' . $post->id) }}</textarea>
+                            <textarea name="comment_body{{ $post->id }}" rows="1" class="form-control form-control-sm" placeholder="Add a comment..." required>{{ old('comment_body' . $post->id) }}</textarea>
                             <button class="btn btn-outline-secondary btn-sm">Post</button>
                         </div>
                         @error('comment_body_' . $post->id)
                             <div class="text-danger small">{{ $message }}</div>
                         @enderror
                     </form>
-                    
-                    <hr>
+
+                    @if($post->comments && $post->comments->isNotEmpty())
+                        <hr>
+                        <ul class="list-group">
+                            @foreach($post->comments as $comment)
+                                <li class="list-group-item border-0 p-0 mb-2">
+                                    <!-- コメントユーザー名とコメント本文 -->
+                                    <a href="#" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
+                                    <p class="d-inline fw-light">{{ $comment->body }}</p>
+
+                                    <!-- 日付と削除ボタンを下に配置 -->
+                                    <div class="d-flex justify-content-between mt-1">
+                                        <span class="text-muted small">{{ date('M d, Y', strtotime($comment->created_at)) }}</span>
+
+                                        @if(Auth::user()->id === $comment->user->id)
+                                            <form action="{{ route('comment.destroy', $comment->id) }}" method="post" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="border-0 bg-transparent text-danger p-0 small">Delete</button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
         </div>
     </div>
-
-    @include('posts.contents.modals.delete', ['post' => $post])
 @endsection

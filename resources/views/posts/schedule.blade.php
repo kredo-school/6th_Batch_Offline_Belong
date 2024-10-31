@@ -48,8 +48,7 @@
                                     <a href="{{ route('posts.edit', $post->id) }}" class="dropdown-item">
                                         <i class="fa-regular fa-pen-to-square"></i>Edit
                                     </a>
-                                    <button class="dropdown-item text-danger" data-bs-toggle="modal"
-                                        data-bs-target="#delete-post-{{ $post->id }}">
+                                    <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-post-{{ $post->id }}">
                                         <i class="fa-regular fa-trash-can"></i>Delete
                                     </button>
                                 </div>
@@ -58,7 +57,9 @@
                     </div>
 
                     @if ($post->image)
-                        <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="w-100 mb-3">
+                        <a href="{{ route('posts.show', $post->id) }}">
+                            <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="w-100 mb-3">
+                        </a>
                     @endif
 
                     <div class="mt-3">
@@ -72,22 +73,63 @@
                         <p class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime($post->created_at)) }}</p>
                     </div>
 
+                    <div class="text-end">
+                        <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#booksModal{{ $post->id }}">
+                            <i class="fa-solid fa-user icon-lg"></i>
+                            <span class="icon-count">{{ $post->books->count() }}</span>
+                        </a>
+
+                        @if($post->isBooked())
+                            <form action="{{ route('bookings.destroy', $post->id) }}" method="post" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm shadow-none p-0" title="Cancel Booking">
+                                    <i class="fa-solid fa-heart text-danger icon-lg"></i>
+                                </button>
+                            </form>
+                        @else
+                            <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
+                                <i class="fa-regular fa-heart text-danger icon-lg"></i>
+                            </a>
+                        @endif
+                    </div>
+
                     <hr>
 
-                    <!-- コメント機能 -->
-                    <form action="#" method="post">
+                    <form action="{{ route('comment.store', $post->id) }}" method="post">
                         @csrf
                         <div class="input-group">
-                            <textarea name="comment_body{{ $post->id }}" rows="1" class="form-control form-control-sm"
-                                      placeholder="Add a comment..." required>{{ old('comment_body' . $post->id) }}</textarea>
+                            <textarea name="comment_body{{ $post->id }}" rows="1" class="form-control form-control-sm" placeholder="Add a comment..." required>{{ old('comment_body' . $post->id) }}</textarea>
                             <button class="btn btn-outline-secondary btn-sm">Post</button>
                         </div>
                         @error('comment_body_' . $post->id)
                             <div class="text-danger small">{{ $message }}</div>
                         @enderror
                     </form>
-                    
-                    <hr>
+
+                    @if($post->comments && $post->comments->isNotEmpty())
+                        <hr>
+                        <ul class="list-group">
+                            @foreach($post->comments as $comment)
+                                <li class="list-group-item border-0 p-0 mb-2">
+                                    <a href="#" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
+                                    <p class="d-inline fw-light">{{ $comment->body }}</p>
+
+                                    <div class="d-flex justify-content-between mt-1">
+                                        <span class="text-muted small">{{ date('M d, Y', strtotime($comment->created_at)) }}</span>
+
+                                        @if(Auth::user()->id === $comment->user->id)
+                                            <form action="{{ route('comment.destroy', $comment->id) }}" method="post" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="border-0 bg-transparent text-danger p-0 small">Delete</button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
             </div>
         @endforeach
@@ -95,10 +137,8 @@
 
     <!-- ページネーション -->
     <div class="d-flex justify-content-start mt-4">
-        {{ $posts->links('vendor.pagination.bootstrap-5') }} <!-- カスタマイズしたページネーション -->
+        {{ $posts->links('vendor.pagination.bootstrap-5') }}
     </div>
-
-
 </div>
 
 @include('posts.contents.modals.delete', ['post' => $post])
