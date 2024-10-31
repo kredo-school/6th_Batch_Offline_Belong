@@ -196,8 +196,9 @@
             @yield('content')
         </main>
 
-        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;">
+        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;"> 
             <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
+            @if (!request()->is('login') && !request()->is('register') && !request()->is('rules') && !request()->is('success') && !request()->is('payment'))
             <div style="text-align: right; display: flex; align-items: center;">
                 <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a> <!-- Twitterの色を黒 -->
                 <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a> <!-- Facebookの色を青 -->
@@ -205,7 +206,9 @@
                 <a href="{{ route('footer.about') }}" class="about" style="margin-left: 15px;">About Us</a>
                 <a href="{{ route('footer.faq') }}" class="faq" style="margin-left: 15px;">FAQ</a>
             </div>
+            @endif
         </footer>
+
     </div>
 </body>
 </html>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Payment; // モデルのインポート
+use Illuminate\Support\Facades\Auth; // Authのインポート
 
 class PaymentController extends Controller
 {
@@ -15,7 +16,7 @@ class PaymentController extends Controller
 
     public function store(Request $request)
     {
-    // バリデーション
+        // バリデーション
         $request->validate([
             'card_number' => 'required|string',
             'expiry_month' => 'required|string',
@@ -26,6 +27,7 @@ class PaymentController extends Controller
 
         // 支払い情報を保存
         Payment::create([
+            'user_id' => Auth::id(), // 現在のユーザーIDを追加
             'card_number' => $request->card_number,
             'expiry_month' => $request->expiry_month,
             'expiry_year' => $request->expiry_year,
