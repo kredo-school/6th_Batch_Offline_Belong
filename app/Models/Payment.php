@@ -18,4 +18,9 @@ class Payment extends Model
         'cvv',
         'name',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

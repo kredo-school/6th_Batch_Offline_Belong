@@ -97,30 +97,42 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
-                    <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
-                        {{ config('app.name', 'Belong') }}
-                    </span>
-                </a>
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
+    <div class="container">
+        @if (Request::is('rules') || Request::is('payment') || Request::is('success'))
+            <!-- ルール、ペイメント、サクセスページでは、クリックできないロゴとテキストを表示 -->
+            <div class="navbar-brand">
+                <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
+                <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
+                    {{ config('app.name', 'Belong') }}
+                </span>
+            </div>
+        @else
+            <!-- 他のページではクリック可能なロゴとテキストを表示 -->
+            <a class="navbar-brand" href="{{ url('/') }}">
+                <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
+                <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
+                    {{ config('app.name', 'Belong') }}
+                </span>
+            </a>
+        @endif
 
-                <div class="navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto"></ul>
+        @if (!Request::is('rules') && !Request::is('success') && !Request::is('payment'))
+            <div class="navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto"></ul>
 
-                    <ul class="navbar-nav ms-auto">
-                        @guest
+                <ul class="navbar-nav ms-auto">
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
+                        @endif
+                    @else
+                    <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" id="clipboardDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
                                 </a>
@@ -158,7 +170,6 @@
                                 <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
@@ -167,17 +178,19 @@
                                                      document.getElementById('logout-form').submit();">
                                         <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
                             </li>
-                        @endguest
-                    </ul>
-                </div>
+
+                    @endguest
+                </ul>
             </div>
-        </nav>
+        @endif
+    </div>
+</nav>
+
 
         <main class="py-0">
             @yield('content')
