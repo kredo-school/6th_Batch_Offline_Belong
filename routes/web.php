@@ -6,6 +6,7 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\FooterController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SuccessController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
 
 Auth::routes();
@@ -39,6 +40,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/posts/schedule', [PostController::class, 'index'])->name('posts.schedule');
 
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+    });
+
+     // コメント関連のルート
+     Route::group(['prefix' => 'comment', 'as' => 'comment.'], function () {
+        Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
+        Route::delete('/{id}', [CommentController::class, 'destroy'])->name('destroy');
     });
 
     // Bookings routes
