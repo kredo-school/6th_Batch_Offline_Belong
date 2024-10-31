@@ -17,6 +17,7 @@ class Payment extends Model
         'expiry_year',
         'cvv',
         'name',
+        'user_id'
     ];
 
     public function user()
