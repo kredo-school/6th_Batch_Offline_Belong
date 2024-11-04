@@ -65,7 +65,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::latest()->paginate(6);
-        return view('posts.schedule')->with('posts', $posts);
+        return view('posts.all-post')->with('posts', $posts);
     }
 
     public function edit($id)
