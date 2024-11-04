@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 namespace App\Http\Controllers;
 
@@ -14,19 +14,28 @@ class ProfileController extends Controller
         return view('profile.show', compact('profile'));
     }
 
+    public function edit()
+    {
+        $profile = Profile::where('user_id', Auth::id())->first(); // プロフィール情報を取得
+        return view('profile.show', compact('profile')); // 編集用のビューを返す
+    }
+
     public function update(Request $request)
     {
         // バリデーション
         $request->validate([
             'age' => 'nullable|integer',
             'gender' => 'nullable|string|max:10',
+            'bio' => 'nullable|string|max:500', // バリデーションの追加
         ]);
 
-        $profile = Profile::updateOrCreate(
-            ['user_id' => Auth::id()], // ユーザーIDで検索
-            $request->only('age', 'gender') // プロファイル情報を更新
+        // プロファイル情報を更新または作成
+        Profile::updateOrCreate(
+            ['user_id' => Auth::id()],
+            $request->only('age', 'gender', 'bio')
         );
 
-        return redirect()->route('profile.show')->with('message', 'Profile updated successfully!');
+        // 編集ページにリダイレクトし、成功メッセージを表示
+        return redirect()->route('profile.edit')->with('message', 'Profile updated successfully!');
     }
 }

@@ -25,7 +25,7 @@
             <textarea name="bio" id="bio" class="form-control">{{ old('bio', $profile->bio ?? '') }}</textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">Update Profile</button>
+        <button type="submit" class="btn btn-primary">Edit Profile</button>
     </form>
 </div>
 @endsection

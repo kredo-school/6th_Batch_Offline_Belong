@@ -1,5 +1,5 @@
 <!-- Delete Modal -->
-<div class="modal fade" id="delete-post-{{ $posts->id }}" tabindex="-1" aria-labelledby="deletePostLabel" aria-hidden="true">
+<div class="modal fade" id="delete-post-{{ $post->id }}" tabindex="-1" aria-labelledby="deletePostLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-danger">
             <div class="modal-header border-danger">
@@ -13,7 +13,7 @@
                 <div class="mt-3">
                     <!-- 投稿画像の表示 -->
                     @if ($post->image)
-                        <img src="{{ asset('storage/' . $post->image) }}" alt="post id {{ $post->id }}" class="img-fluid rounded">
+                        <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="w-100 mb-3">
                     @endif
 
                     <div class="mt-3">  

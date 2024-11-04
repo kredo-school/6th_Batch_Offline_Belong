@@ -40,6 +40,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
         Route::get('/posts/schedule', [PostController::class, 'index'])->name('posts.schedule');
 
+        Route::get('/category/play', [PostController::class, 'play'])->name('category.play');
+        Route::get('/category/watch-and-learn', [PostController::class, 'watchAndLearn'])->name('category.watch-and-learn');
+        Route::get('/category/eat', [PostController::class, 'eat'])->name('category.eat');
+        Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
+
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
     });
 
@@ -65,6 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::middleware(['auth'])->group(function () {
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
         Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     });
 
 });

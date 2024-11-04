@@ -64,12 +64,23 @@
 
                     <div class="mt-3">
                         <h4 class="fw-bold">Title: {{ $post->title }}</h4>
+                        <div class="col text-start">
+                            @if($post->categories->isNotEmpty())
+                                @foreach($post->categories as $category)
+                                    <div class="badge bg-secondary bg-opacity-50">
+                                        {{ $category->name }}
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="badge bg-dark text-wrap">Uncategorized</div>
+                            @endif
+                        </div>
                         <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br>
                         <strong>Reservation Due Date:</strong> {{ date('M d, Y', strtotime($post->reservation_due_date)) }}<br>
                         <strong>Place:</strong> {{ $post->place }}<br>
                         <strong>Participation Fee:</strong> {{ $post->participation_fee }}<br>
                         <strong>Planned Number of People:</strong> {{ $post->planned_number_of_people }}<br>
-                        <p class="fw-light">{{ $post->description }}</p>
+                        <strong>Description:{{ $post->description }}</strong>
                         <p class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime($post->created_at)) }}</p>
                     </div>
 
