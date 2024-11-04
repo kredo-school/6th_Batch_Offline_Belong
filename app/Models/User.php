@@ -50,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class)->latest();
     }
+       
+
+    public function postCount() {
+        return $this->posts()->count(); // 投稿数をカウント
+    }
+
 }
