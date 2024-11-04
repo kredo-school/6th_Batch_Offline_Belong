@@ -9,7 +9,7 @@ class Profile extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'age', 'gender', 'bio']; // マスアサインメント可能なカラム
+    protected $fillable = ['user_id', 'age', 'gender', 'bio', 'profile_image']; // マスアサインメント可能なカラム
 
     public function user()
     {

@@ -90,7 +90,7 @@
                         </div>
 
                         <div class="text-end">
-                            <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#booksModal{{ $post->id }}">
+                            <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#usersModal{{ $post->id }}">
                                 <i class="fa-solid fa-user icon-lg"></i>
                                 <span class="icon-count">{{ $post->books->count() }}</span>
                             </a>
@@ -109,6 +109,10 @@
                                 </a>
                             @endif
                         </div>
+
+                        <!-- 参加しているユーザーのモーダルをインクルード -->
+                        @include('posts.contents.modals.users', ['post' => $post])
+
 
                         <hr>
 
