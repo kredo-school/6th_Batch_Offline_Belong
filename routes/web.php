@@ -8,6 +8,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
+use App\Http\Controllers\ReviewController;
 
 Auth::routes();
 
@@ -64,6 +65,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'footer', 'as' => 'footer.'], function() {
         Route::get('/faq', [FooterController::class, 'index'])->name('faq');
         Route::get('/about', [FooterController::class, 'about'])->name('about');
+    });
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+        Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
     });
 
 });

@@ -138,7 +138,7 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
                                     <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
-                                    <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> Schedule</a>                                   
+                                    <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>                                   
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
