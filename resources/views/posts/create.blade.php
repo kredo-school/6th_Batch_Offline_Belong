@@ -24,21 +24,23 @@
                             <div class="mb-3">
                                 <label class="form-label d-block fw-bold">Category <span class="text-muted fw-normal">(Select one)</span></label>
 
-                                @foreach($all_categories as $category)
-                                    <div class="form-check">
-                                        <input type="radio" name="category" id="category_{{ $category->id }}" 
-                                        value="{{ $category->id }}" class="form-check-input" required>
-                                        <label for="category_{{ $category->id }}" class="form-check-label">
-                                            {{ $category->name }}
-                                        </label>
-                                    </div>
-                                @endforeach
+                                <div class="d-flex flex-column"> <!-- Flexboxを使用して縦に並べる -->
+                                    @foreach($all_categories as $category)
+                                        <div class="form-check form-check-inline"> <!-- インラインに変更 -->
+                                            <input type="radio" name="category" id="category_{{ $category->id }}" 
+                                            value="{{ $category->id }}" class="form-check-input" required>
+                                            <label for="category_{{ $category->id }}" class="form-check-label">
+                                                {{ $category->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
 
                                 @error('category')
                                     <div class="text-danger small">{{ $message }}</div>
                                 @enderror
                             </div>
-
+                            
                             <!-- Title -->
                             <div class="mb-3 row">
                                 <label for="title" class="col-md-4 col-form-label">Title :</label>

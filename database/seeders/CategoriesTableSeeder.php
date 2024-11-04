@@ -7,6 +7,12 @@ use App\Models\Category; // Categoryモデルをインポート
 
 class CategoriesTableSeeder extends Seeder
 {
+    private $category;
+
+    public function __construct(Category $category)
+    {
+        $this->category = $category;
+    }
     public function run()
     {
         $categories = [
@@ -32,7 +38,7 @@ class CategoriesTableSeeder extends Seeder
             ]
         ];
 
-        // Categoryモデルを使用して挿入する
-        Category::insert($categories); // Insert the lists of category to the categories table
-    }
+        $this->category->insert($categories);//Insert the lists of category to the categories table
+    } 
+     
 }

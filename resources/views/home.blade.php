@@ -111,9 +111,9 @@
                             <img src="{{ asset('images/image1.jpg') }}" alt="Image 1" style="width: 100%; height: auto;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Image 1</h5> <!-- 画像名をタイトルに -->
-                            <p class="card-text">ここに説明文を入れることができます。</p> <!-- 説明文 -->
-                            <a href="#" class="btn btn-primary">詳細</a> <!-- ボタン -->
+                            <h5 class="card-title">Play</h5> <!-- 画像名をタイトルに -->
+                            <p class="card-text">Sports/Game etc.</p> <!-- 説明文 -->
+                            <a href="{{ route('category.play') }}" class="btn btn-primary">詳細</a> <!-- ボタン -->
                         </div>
                     </div>
                 </div>
@@ -123,9 +123,9 @@
                             <img src="{{ asset('images/image2.jpg') }}" alt="Image 2" style="width: 100%; height: auto;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Image 2</h5> <!-- 画像名をタイトルに -->
-                            <p class="card-text">ここに説明文を入れることができます。</p> <!-- 説明文 -->
-                            <a href="#" class="btn btn-primary">詳細</a> <!-- ボタン -->
+                            <h5 class="card-title">Watch and Learn</h5> <!-- 画像名をタイトルに -->
+                            <p class="card-text">Nature/Culture etc.</p> <!-- 説明文 -->
+                            <a href="{{ route('category.watch-and-learn') }}" class="btn btn-primary">詳細</a> <!-- ボタン -->
                         </div>
                     </div>
                 </div>
@@ -135,9 +135,9 @@
                             <img src="{{ asset('images/image3.jpg') }}" alt="Image 3" style="width: 100%; height: auto;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Image 3</h5> <!-- 画像名をタイトルに -->
-                            <p class="card-text">ここに説明文を入れることができます。</p> <!-- 説明文 -->
-                            <a href="#" class="btn btn-primary">詳細</a> <!-- ボタン -->
+                            <h5 class="card-title">Eat</h5> <!-- 画像名をタイトルに -->
+                            <p class="card-text">Food/Drinking parties etc.</p> <!-- 説明文 -->
+                            <a href="{{ route('category.eat') }}" class="btn btn-primary">詳細</a> <!-- ボタン -->
                         </div>
                     </div>
                 </div>
@@ -147,9 +147,9 @@
                             <img src="{{ asset('images/image4.jpg') }}" alt="Image 4" style="width: 100%; height: auto;">
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">Image sample</h5> <!-- 画像名をタイトルに -->
-                            <p class="card-text">ここに説明文を入れることができます。</p> <!-- 説明文 -->
-                            <a href="#" class="btn btn-primary">詳細</a> <!-- ボタン -->
+                            <h5 class="card-title">Others</h5> <!-- 画像名をタイトルに -->
+                            <p class="card-text">Home party/Love affair/International etc.</p> <!-- 説明文 -->
+                            <a href="{{ route('category.others') }}" class="btn btn-primary">詳細</a> <!-- ボタン -->
                         </div>
                     </div>
                 </div>

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post; // PostモデルをインポートApp\Http\Controllers\Category
-use App\Models\Category; // これを追加
+use App\Models\Post;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
 
 class PostController extends Controller
 {
@@ -16,11 +15,12 @@ class PostController extends Controller
     {
         $this->post = $post;
     }
+
     public function create()
     {
         $post = new Post();
-        $all_categories = Category::all(); // すべてのカテゴリーを取得
-        return view('posts.create', compact('post', 'all_categories')); // $postも渡す
+        $all_categories = Category::all();
+        return view('posts.create', compact('post', 'all_categories'));
     }
 
     public function store(Request $request)
@@ -35,62 +35,50 @@ class PostController extends Controller
             'participation_fee' => 'nullable|numeric',
             'description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
-            'category' => 'required|exists:categories,id', // カテゴリーのバリデーションを追加
+            'category' => 'required|exists:categories,id',
         ]);
 
         // 投稿の保存
-        $this->post->title = $request->title;
-        $this->post->date = $request->date;
-        $this->post->reservation_due_date = $request->reservation_due_date;
-        $this->post->place = $request->place;
-        $this->post->planned_number_of_people = $request->planned_number_of_people;
-        $this->post->participation_fee = $request->participation_fee;
-        $this->post->description = $request->description;
+        $this->post->fill($request->except('image', 'category'));
         $this->post->user_id = auth()->id();
 
-        if ($request->image) {
+        if ($request->hasFile('image')) {
             $this->post->image = 'data:image/' . $request->image->extension() .
                 ';base64,' . base64_encode(file_get_contents($request->image));
         }
 
         $this->post->save();
 
-        // 投稿に選択されたカテゴリーを関連付ける
-        $this->post->categories()->attach($request->category);
-
-        // 保存後に詳細ページへリダイレクト
+        $categories = is_array($request->category) ? $request->category : [$request->category];
+        $this->post->categories()->attach($categories);
+    
         return redirect()->route('posts.show', ['id' => $this->post->id]);
     }
 
     public function show($id)
     {
-        $posts = Post::with('user')->latest()->get(); // 投稿とユーザー情報を取得
-    
-        // 指定されたIDの投稿を取得
-        $post = Post::findOrFail($id); // 存在しない場合は404エラーを投げる
-
-        // ビューに投稿を渡して表示
-        return view('posts.show', compact('post')); // 'posts.show'は表示するビューの名前
+        $post = Post::with(['user', 'categories'])->findOrFail($id);
+        return view('posts.show', compact('post'));
     }
+
 
     public function index()
     {
-         // 1ページに6件表示
-         $posts = Post::latest()->paginate(6);
+        $posts = Post::latest()->paginate(6);
         return view('posts.schedule')->with('posts', $posts);
     }
 
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $all_categories = Category::all(); // すべてのカテゴリーを取得
-        return view('posts.edit', compact('post', 'all_categories')); // カテゴリーをビューに渡す
+        $all_categories = Category::all();
+        return view('posts.edit', compact('post', 'all_categories'));
     }
 
     public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
-    
+        
         // バリデーション
         $request->validate([
             'title' => 'required|string|max:255',
@@ -101,43 +89,107 @@ class PostController extends Controller
             'participation_fee' => 'nullable|numeric',
             'description' => 'nullable|string',
             'image' => 'nullable|image|max:2048',
-            'category' => 'required|exists:categories,id', // カテゴリーのバリデーションを追加
+            'category' => 'required|exists:categories,id',
         ]);
-    
+
         // 投稿の更新
-        $post->title = $request->title;
-        $post->date = $request->date;
-        $post->reservation_due_date = $request->reservation_due_date;
-        $post->place = $request->place;
-        $post->planned_number_of_people = $request->planned_number_of_people;
-        $post->participation_fee = $request->participation_fee;
-        $post->description = $request->description;
-    
-        // 画像がアップロードされた場合は更新
+        $post->fill($request->except('image', 'category'));
+
         if ($request->hasFile('image')) {
-            $post->image = $request->file('image')->store('posts', 'public');
+            $post->image = 'data:image/' . $request->image->extension() .
+                ';base64,' . base64_encode(file_get_contents($request->image));
         }
-    
+
         $post->save();
-    
-        // カテゴリーを更新
-        $post->categories()->sync([$request->category]);
-    
+
+        // リクエストからカテゴリIDのリストを取得
+        $categories = is_array($request->category) ? $request->category : [$request->category];
+        $post->categories()->sync($categories);
+
         return redirect()->route('posts.show', $post->id)->with('success', 'Post updated successfully.');
     }
     
+        public function category($category)
+    {
+        $posts = Post::whereHas('categories', function ($query) use ($category) {
+            $query->where('name', $category);
+        })->latest()->paginate(6);
+
+        return view("posts.$category", compact('posts'));
+    }
+
+    // app/Http/Controllers/PostController.php
+
+    public function play()
+    {
+        // 'play' カテゴリのIDを取得
+        $category = Category::where('name', 'play')->first();
+
+        if (!$category) {
+            // カテゴリが存在しない場合の処理
+            return redirect()->route('posts.schedule')->with('error', 'Play category not found.');
+        }
+
+        // 'play' カテゴリに属するポストを取得
+        $posts = Post::whereHas('categories', function ($query) use ($category) {
+            $query->where('categories.id', $category->id); // カテゴリIDを明示的に指定
+        })->latest()->paginate(6); // ページネーションを適用
+
+        return view('posts.play', compact('posts'));
+    }
+
+    public function watchAndLearn()
+    {
+        $category = Category::where('name', 'Watch and Learn')->first();
+
+        if (!$category) {
+            return redirect()->route('posts.schedule')->with('error', 'Watch and Learn category not found.');
+        }
+
+        $posts = Post::whereHas('categories', function ($query) use ($category) {
+            $query->where('categories.id', $category->id);
+        })->latest()->paginate(6);
+        
+        return view('posts.watch-and-learn', compact('posts'));
+    }
+
+    public function eat()
+    {
+        $category = Category::where('name', 'eat')->first();
+
+        if (!$category) {
+            return redirect()->route('posts.schedule')->with('error', 'Eat category not found.');
+        }
+
+        $posts = Post::whereHas('categories', function ($query) use ($category) {
+            $query->where('categories.id', $category->id);
+        })->latest()->paginate(6);
+        
+        return view('posts.eat', compact('posts'));
+    }
+
+    public function others()
+    {
+        $category = Category::where('name', 'others')->first();
+
+        if (!$category) {
+            return redirect()->route('posts.schedule')->with('error', 'Others category not found.');
+        }
+
+        $posts = Post::whereHas('categories', function ($query) use ($category) {
+            $query->where('categories.id', $category->id);
+        })->latest()->paginate(6);
+        
+        return view('posts.others', compact('posts'));
+    }
 
     public function destroy($id)
     {
         $post = $this->post->findOrFail($id);
         $post->forceDelete();
 
-        // 削除後に投稿一覧ページにリダイレクト
-        return redirect()->route('posts.show')->with('success', 'Post deleted successfully.');
+        return redirect()->route('posts.schedule')->with('success', 'Post deleted successfully.');
     }
 
 
-
 }
-
-
