@@ -8,9 +8,11 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
+<<<<<<< HEAD
 use App\Http\Controllers\ProfileController;
+=======
 use App\Http\Controllers\ReviewController;
-
+>>>>>>> 8e186fc302fe513e0281a66750cd034559910422
 
 Auth::routes();
 
@@ -48,7 +50,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
-
     });
 
      // コメント関連のルート
@@ -61,9 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('bookings')->group(function () {
         Route::get('/{post}', [BookController::class, 'show'])->name('bookings.show'); // 予約ページの表示
         Route::post('/bookings/{post}', [BookController::class, 'store'])->name('bookings.store');
-        Route::get('/posts/booked', [BookController::class, 'index'])->name('posts.booked');
-        Route::delete('/posts/{post}/cancel', [BookController::class, 'destroy'])->name('posts.cancel');
-
+        Route::delete('/{post}', [BookController::class, 'destroy'])->name('bookings.destroy'); // 予約キャンセル
     });
 
     // Footer routes
@@ -73,14 +72,15 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::middleware(['auth'])->group(function () {
+<<<<<<< HEAD
         Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
         Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
-
+=======
         Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
         Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
         Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
-
+>>>>>>> 8e186fc302fe513e0281a66750cd034559910422
     });
 
 });
