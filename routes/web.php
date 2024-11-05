@@ -9,6 +9,14 @@ use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\ReviewController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\ProfileController;
+
+
+
+
+>>>>>>> 8796348e404714b0bde3be9c38ac649fb742411d
 
 Auth::routes();
 
@@ -49,7 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
-     // コメント関連のルート
+
      Route::group(['prefix' => 'comment', 'as' => 'comment.'], function () {
         Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
         Route::delete('/{id}', [CommentController::class, 'destroy'])->name('destroy');
@@ -62,7 +70,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/posts/booked', [BookController::class, 'index'])->name('posts.booked');
         Route::get('/posts/attended', [BookController::class, 'attendedPosts'])->name('posts.attended');
         Route::delete('/posts/{id}/cancel', [BookController::class, 'destroy'])->name('posts.cancel');
-        
+
 
     });
 
