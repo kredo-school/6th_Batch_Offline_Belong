@@ -6,7 +6,6 @@
         Profile - {{ $user->name }}
     </h1>
 
-
     @if (session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
     @endif
@@ -27,7 +26,7 @@
         </div>
     </div>
 
-    <form action="{{ route('profile.edit) }}" method="POST" enctype="multipart/form-data"> 
+    <form action="{{ route('profile.edit') }}" method="POST" enctype="multipart/form-data"> 
         @csrf
 
         <div class="form-group">
