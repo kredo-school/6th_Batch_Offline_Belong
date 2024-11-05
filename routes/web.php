@@ -9,9 +9,13 @@ use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
 
+use App\Http\Controllers\ReviewController;
+
+
 use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\ReviewController;
+
 
 Auth::routes();
 
@@ -49,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
     });
 
      // コメント関連のルート
@@ -61,7 +66,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('bookings')->group(function () {
         Route::get('/{post}', [BookController::class, 'show'])->name('bookings.show'); // 予約ページの表示
         Route::post('/bookings/{post}', [BookController::class, 'store'])->name('bookings.store');
-        Route::delete('/{post}', [BookController::class, 'destroy'])->name('bookings.destroy'); // 予約キャンセル
+        Route::get('/posts/booked', [BookController::class, 'index'])->name('posts.booked');
+
     });
 
     // Footer routes
@@ -70,6 +76,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/about', [FooterController::class, 'about'])->name('about');
     });
 });
+
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+        Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+
+    });
 
 
 
