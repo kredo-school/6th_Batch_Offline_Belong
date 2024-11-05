@@ -8,6 +8,7 @@ class ProfileController extends Controller
 {
     //
 
+
     private $user;
     public function __construct(User $user) {
         $this->user = $user;
@@ -19,6 +20,24 @@ class ProfileController extends Controller
 
     public function update(Request $request, $id) {
         
+
+    private $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
+
+    public function edit($id)
+    {
+
+    }
+
+    public function update(Request $request, $id)
+    {
+
+
     }
 
 }
