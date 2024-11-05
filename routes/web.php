@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
-     // コメント関連のルート
+
      Route::group(['prefix' => 'comment', 'as' => 'comment.'], function () {
         Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
         Route::delete('/{id}', [CommentController::class, 'destroy'])->name('destroy');
