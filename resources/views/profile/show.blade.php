@@ -1,14 +1,17 @@
-@extends('layouts.app')    
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1 class="text-center">Profile - {{ $user->name }}</h1> <!-- ユーザーネームを表示 -->
+    <h1 class="text-center" style="font-size: 3rem; font-weight: bold;">
+        Profile - {{ $user->name }}
+    </h1>
+
 
     @if (session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
     @endif
 
-    <div class="d-flex">
+    <div class="d-flex align-items-center">
         <!-- プロファイル画像の表示 -->
         <div class="profile-image mb-3">
             @if(isset($profile) && $profile->profile_image)
@@ -19,12 +22,12 @@
         </div>
 
         <!-- 投稿数の表示 -->
-        <div class="ml-3">
-            <h4>Your Posts: {{ $user->postCount() }}</h4> <!-- 投稿数を表示 -->
+        <div class="ml-4"> <!-- ここで ml-4 クラスまたはスタイル属性で余白を調整 -->
+            <h3>Your Posts: {{ $user->postCount() }}</h3> <!-- 投稿数を表示 -->
         </div>
     </div>
 
-    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data"> 
+    <form action="" method="POST" enctype="multipart/form-data"> 
         @csrf
 
         <div class="form-group">
@@ -44,6 +47,9 @@
 
         <a href="{{ route('profile.edit') }}" class="btn btn-secondary mt-3">Edit Profile</a>
     </form>
+    <br>
+    <br>
+    
 </div>
 @endsection
 
@@ -53,5 +59,8 @@
     height: 250px; /* 高さを調整 */
     border-radius: 50%; /* 丸くする */
     object-fit: cover; /* 画像の収め方を調整 */
+}
+.ml-4 {
+    margin-left: 2rem; /* 左マージンを増やす */
 }
 </style>
