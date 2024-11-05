@@ -13,9 +13,6 @@ use App\Http\Controllers\ProfileController;
 
 
 
-use App\Http\Controllers\ProfileController;
-
-
 
 
 Auth::routes();
@@ -70,7 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/posts/booked', [BookController::class, 'index'])->name('posts.booked');
         Route::get('/posts/attended', [BookController::class, 'attendedPosts'])->name('posts.attended');
         Route::delete('/posts/{id}/cancel', [BookController::class, 'destroy'])->name('posts.cancel');
-        
+
 
     });
 
