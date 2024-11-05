@@ -27,22 +27,30 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request, $id)
-{
-    // バリデーションルールを定義
-    $request->validate([
-        'age' => 'required|integer',
-        'gender' => 'required|string',
-        'bio' => 'nullable|string',
-    ]);
-
-    // ユーザーを取得し、データを更新
-    $user = User::findOrFail($id);
-    $user->profile()->update([
-        'age' => $request->age,
-        'gender' => $request->gender,
-        'bio' => $request->bio,
-    ]);
-
-    return redirect()->route('profile.show', $user->id)->with('message', 'Profile updated successfully.');
-}
+    {
+        // バリデーションルールを定義
+        $request->validate([
+            'age' => 'required|integer',
+            'gender' => 'required|string',
+            'bio' => 'nullable|string',
+            'profile_image' => 'nullable|image|mimes:jpeg,png|max:2048', // 画像バリデーション
+        ]);
+    
+        // ユーザーを取得
+        $user = User::findOrFail($id); // $userを定義する
+    
+        // ユーザー情報の更新
+        $user->fill($request->except('profile_image'));
+    
+        // プロファイル画像の処理
+        if ($request->hasFile('profile_image')) {
+            $user->profile_image = 'data:profile_image/' . $request->profile_image->extension() .
+                ';base64,' . base64_encode(file_get_contents($request->profile_image));
+        }
+    
+        $user->save();
+    
+        return redirect()->route('profile.show', $user->id)->with('success', 'Profile updated successfully.');
+    }
+    
 }

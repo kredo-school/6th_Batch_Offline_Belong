@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app') 
 
 @section('content')
 <div class="container">
@@ -26,22 +26,28 @@
         </div>
     </div>
 
+    <!-- プロフィール編集フォーム -->
     <form action="{{ route('profile.edit') }}" method="POST" enctype="multipart/form-data"> 
         @csrf
 
         <div class="form-group">
             <label for="age">Age</label>
-            <input type="number" name="age" id="age" class="form-control" value="{{ old('age', $user->age ?? '') }}">
+            <input type="number" name="age" id="age" class="form-control" value="{{ old('age', $user->profile->age ?? '') }}">
         </div>
 
         <div class="form-group">
             <label for="gender">Gender</label>
-            <input type="text" name="gender" id="gender" class="form-control" value="{{ old('gender', $user->gender ?? '') }}">
+            <select name="gender" id="gender" class="form-control">
+                <option value="">Please select</option>
+                <option value="男性" {{ (old('gender', $user->profile->gender ?? '') == '男性') ? 'selected' : '' }}>Male</option>
+                <option value="女性" {{ (old('gender', $user->profile->gender ?? '') == '女性') ? 'selected' : '' }}>Female</option>
+                <option value="その他" {{ (old('gender', $user->profile->gender ?? '') == 'その他') ? 'selected' : '' }}>Other</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="bio">Bio</label>
-            <textarea name="bio" id="bio" class="form-control">{{ old('bio', $user->bio ?? '') }}</textarea>
+            <textarea name="bio" id="bio" class="form-control">{{ old('bio', $user->profile->bio ?? '') }}</textarea>
         </div>
 
         <button type="submit" class="btn btn-secondary mt-3">Edit Profile</button>

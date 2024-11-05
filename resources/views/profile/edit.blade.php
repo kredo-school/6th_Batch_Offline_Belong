@@ -13,13 +13,13 @@
     <!-- プロファイル画像の表示 -->
     <div class="profile-image mb-3">
         @if($user && $user->profile_image)
-            <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image" class="rounded-image" style="width: 250px; height: 250px;">
+            <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Profile Image" class="rounded-image" style="width: 250px; height: 250px;">
         @else
             <img src="default-image-url" alt="Default Image" class="rounded-image" style="width: 250px; height: 250px;">
         @endif
     </div>
 
-    <form action="{{ route('profile.update', ['id' => Auth::id()])}}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('profile.update', ['id' => Auth::id()]) }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -29,22 +29,22 @@
 
         <div class="form-group">
             <label for="age">Age</label>
-            <input type="number" name="age" class="form-control" value="{{ old('age', $profile->age ?? '') }}">
+            <input type="number" name="age" class="form-control" value="{{ old('age', $user->profile->age ?? '') }}">
         </div>
 
         <div class="form-group">
             <label for="gender">Gender</label>
             <select name="gender" class="form-control">
                 <option value="">Please select</option>
-                <option value="男性" {{ (old('gender', $profile->gender ?? '') == '男性') ? 'selected' : '' }}>Male</option>
-                <option value="女性" {{ (old('gender', $profile->gender ?? '') == '女性') ? 'selected' : '' }}>Female</option>
-                <option value="その他" {{ (old('gender', $profile->gender ?? '') == 'その他') ? 'selected' : '' }}>Other</option>
+                <option value="男性" {{ (old('gender', $user->profile->gender ?? '') == '男性') ? 'selected' : '' }}>男性</option>
+                <option value="女性" {{ (old('gender', $user->profile->gender ?? '') == '女性') ? 'selected' : '' }}>女性</option>
+                <option value="その他" {{ (old('gender', $user->profile->gender ?? '') == 'その他') ? 'selected' : '' }}>その他</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="bio">Self-introduction</label>
-            <textarea name="bio" class="form-control">{{ old('bio', $profile->bio ?? '') }}</textarea>
+            <textarea name="bio" class="form-control">{{ old('bio', $user->profile->bio ?? '') }}</textarea>
         </div>
         <br>
 
