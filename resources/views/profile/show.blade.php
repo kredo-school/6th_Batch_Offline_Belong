@@ -14,8 +14,8 @@
     <div class="d-flex align-items-center">
         <!-- プロファイル画像の表示 -->
         <div class="profile-image mb-3">
-            @if(isset($profile) && $profile->profile_image)
-                <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image" class="rounded-image">
+            @if(isset($user) && $user->profile_image)
+                <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Profile Image" class="rounded-image">
             @else
                 <img src="default-image-url" alt="Default Image" class="rounded-image"> <!-- デフォルト画像を指定 -->
             @endif
@@ -27,25 +27,26 @@
         </div>
     </div>
 
-    <form action="" method="POST" enctype="multipart/form-data"> 
+    <form action="{{ route('profile.edit) }}" method="POST" enctype="multipart/form-data"> 
         @csrf
 
         <div class="form-group">
             <label for="age">Age</label>
-            <input type="number" name="age" id="age" class="form-control" value="{{ old('age', $profile->age ?? '') }}">
+            <input type="number" name="age" id="age" class="form-control" value="{{ old('age', $user->age ?? '') }}">
         </div>
 
         <div class="form-group">
             <label for="gender">Gender</label>
-            <input type="text" name="gender" id="gender" class="form-control" value="{{ old('gender', $profile->gender ?? '') }}">
+            <input type="text" name="gender" id="gender" class="form-control" value="{{ old('gender', $user->gender ?? '') }}">
         </div>
 
         <div class="form-group">
             <label for="bio">Bio</label>
-            <textarea name="bio" id="bio" class="form-control">{{ old('bio', $profile->bio ?? '') }}</textarea>
+            <textarea name="bio" id="bio" class="form-control">{{ old('bio', $user->bio ?? '') }}</textarea>
         </div>
 
-        <a href="{{ route('profile.edit') }}" class="btn btn-secondary mt-3">Edit Profile</a>
+        <button type="submit" class="btn btn-secondary mt-3">Edit Profile</button>
+        
     </form>
     <br>
     <br>

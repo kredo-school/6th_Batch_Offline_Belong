@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -8,18 +8,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
-<<<<<<< HEAD
 use App\Http\Controllers\ProfileController;
-=======
-
 use App\Http\Controllers\ReviewController;
-
-
-use App\Http\Controllers\ProfileController;
-
->>>>>>> 4592502906e58c552f08f8713e7f765112325b25
-use App\Http\Controllers\ReviewController;
-
 
 Auth::routes();
 
@@ -46,12 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/eat', [PostController::class, 'eat'])->name('category.eat');
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
-<<<<<<< HEAD
         Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
-=======
-        Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
-
->>>>>>> 2f26ca9e579c8532ac8f9ceb558ff369a5cd2378
     });
 
     // Comment routes
@@ -62,16 +47,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Bookings routes
     Route::prefix('bookings')->group(function () {
-<<<<<<< HEAD
         Route::get('/{post}', [BookController::class, 'show'])->name('bookings.show'); // Show booking page
         Route::post('/{post}', [BookController::class, 'store'])->name('bookings.store'); // Store booking
         Route::delete('/{post}', [BookController::class, 'destroy'])->name('bookings.destroy'); // Cancel booking
-=======
-        Route::get('/{post}', [BookController::class, 'show'])->name('bookings.show'); // 予約ページの表示
-        Route::post('/bookings/{post}', [BookController::class, 'store'])->name('bookings.store');
-        Route::get('/posts/booked', [BookController::class, 'index'])->name('posts.booked');
-
->>>>>>> 2f26ca9e579c8532ac8f9ceb558ff369a5cd2378
     });
 
     // Footer routes
@@ -79,50 +57,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/faq', [FooterController::class, 'index'])->name('faq');
         Route::get('/about', [FooterController::class, 'about'])->name('about');
     });
-<<<<<<< HEAD
 
     // Profile routes
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
+Route::post('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // IDを含める
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit'); // IDを含める
+
+
 
     // Reviews routes
     Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
     Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 });
-=======
-});
-
-
-    Route::middleware(['auth'])->group(function () {
-        Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
-        Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-        Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
-
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> 4592502906e58c552f08f8713e7f765112325b25

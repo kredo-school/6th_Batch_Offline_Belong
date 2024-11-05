@@ -12,14 +12,14 @@
 
     <!-- プロファイル画像の表示 -->
     <div class="profile-image mb-3">
-        @if($profile && $profile->profile_image)
+        @if($user && $user->profile_image)
             <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image" class="rounded-image" style="width: 250px; height: 250px;">
         @else
             <img src="default-image-url" alt="Default Image" class="rounded-image" style="width: 250px; height: 250px;">
         @endif
     </div>
 
-    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('profile.update', ['id' => Auth::id()])}}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
