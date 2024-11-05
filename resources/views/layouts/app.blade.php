@@ -145,9 +145,15 @@
                                 <a class="nav-link" href="#" id="heartDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-regular fa-heart" style="font-size: 30px;"></i>
                                 </a>
+
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-heart"></i> Booked</a>
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-flag-checkered"></i> Attended</a>
+
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
+                                    <a class="dropdown-item" href="{{ route('posts.booked') }}"><i class="fa-solid fa-heart"></i> Booked</a>
+                                    <a class="dropdown-item" href="{{ route('posts.attended') }}"><i class="fa-solid fa-flag-checkered"></i> Attended</a>
+
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-check-to-slot"></i> held</a>
                                 </div>
                             </li>

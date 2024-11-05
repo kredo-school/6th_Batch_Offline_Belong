@@ -13,6 +13,11 @@ use App\Http\Controllers\ProfileController;
 
 
 
+use App\Http\Controllers\ProfileController;
+
+
+
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
@@ -63,6 +68,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/{post}', [BookController::class, 'show'])->name('bookings.show'); // 予約ページの表示
         Route::post('/bookings/{post}', [BookController::class, 'store'])->name('bookings.store');
         Route::get('/posts/booked', [BookController::class, 'index'])->name('posts.booked');
+        Route::get('/posts/attended', [BookController::class, 'attendedPosts'])->name('posts.attended');
+        Route::delete('/posts/{id}/cancel', [BookController::class, 'destroy'])->name('posts.cancel');
+        
 
     });
 
