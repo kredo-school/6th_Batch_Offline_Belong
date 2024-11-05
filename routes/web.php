@@ -8,10 +8,11 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
-
+<<<<<<< HEAD
 use App\Http\Controllers\ProfileController;
-
+=======
 use App\Http\Controllers\ReviewController;
+>>>>>>> 8e186fc302fe513e0281a66750cd034559910422
 
 Auth::routes();
 
@@ -69,9 +70,20 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/faq', [FooterController::class, 'index'])->name('faq');
         Route::get('/about', [FooterController::class, 'about'])->name('about');
     });
+
+    Route::middleware(['auth'])->group(function () {
+<<<<<<< HEAD
+        Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+        Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+=======
+        Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+        Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+>>>>>>> 8e186fc302fe513e0281a66750cd034559910422
+    });
+
 });
-
-
 
 
 
