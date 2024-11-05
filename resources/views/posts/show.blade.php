@@ -96,9 +96,13 @@
                         </a>
 
                         @if($post->isBooked())
-                            <span class="btn btn-sm shadow-none p-0 text-muted" title="Already Booked">
-                                <i class="fa-solid fa-heart text-danger icon-lg"></i>
-                            </span>
+                            <form action="{{ route('bookings.destroy', $post->id) }}" method="post" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm shadow-none p-0" title="Cancel Booking">
+                                    <i class="fa-solid fa-heart text-danger icon-lg"></i>
+                                </button>
+                            </form>
                         @else
                             <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
                                 <i class="fa-regular fa-heart text-danger icon-lg"></i>
@@ -151,7 +155,7 @@
                                         @else
                                             <button class="btn btn-secondary btn-sm" disabled>Review (Unavailable)</button>
                                         @endif
-                                        <a href="{{ route('reviews.index', $post) }}" class="btn btn-danger btn-sm">View Reviews</a>
+                                        <a href="{{ route('reviews.index', $post) }}" class="btn btn-info btn-sm">View Reviews</a>
                                     </div>
 
 

@@ -85,21 +85,25 @@
                     </div>
 
                     <div class="text-end">
-                        <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#usersModal{{ $post->id }}">
-                            <i class="fa-solid fa-user icon-lg"></i>
-                            <span class="icon-count">{{ $post->books->count() }}</span>
-                        </a>
-
-                        @if($post->isBooked())
-                            <span class="btn btn-sm shadow-none p-0 text-muted" title="Already Booked">
-                                <i class="fa-solid fa-heart text-danger icon-lg"></i>
-                            </span>
-                        @else
-                            <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
-                                <i class="fa-regular fa-heart text-danger icon-lg"></i>
+                            <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#usersModal{{ $post->id }}">
+                                <i class="fa-solid fa-user icon-lg"></i>
+                                <span class="icon-count">{{ $post->books->count() }}</span>
                             </a>
-                        @endif
-                    </div>
+
+                            @if($post->isBooked())
+                                <form action="{{ route('bookings.destroy', $post->id) }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm shadow-none p-0" title="Cancel Booking">
+                                        <i class="fa-solid fa-heart text-danger icon-lg"></i>
+                                    </button>
+                                </form>
+                            @else
+                                <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
+                                    <i class="fa-regular fa-heart text-danger icon-lg"></i>
+                                </a>
+                            @endif
+                        </div>
 
                         <!-- 参加しているユーザーのモーダルをインクルード -->
                         @include('posts.contents.modals.users', ['post' => $post])
