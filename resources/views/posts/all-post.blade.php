@@ -84,10 +84,6 @@
                         <p class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime($post->created_at)) }}</p>
                     </div>
 
-                    <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#users-{{ $post->id }}">Users</button>
-                    </div>
-
                         <div class="text-end">
                             <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#usersModal{{ $post->id }}">
                                 <i class="fa-solid fa-user icon-lg"></i>

@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -49,7 +49,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::prefix('bookings')->group(function () {
         Route::get('/{post}', [BookController::class, 'show'])->name('bookings.show'); // Show booking page
         Route::post('/{post}', [BookController::class, 'store'])->name('bookings.store'); // Store booking
-        Route::delete('/{post}', [BookController::class, 'destroy'])->name('bookings.destroy'); // Cancel booking
+        Route::delete('/posts/{id}/cancel', [BookController::class, 'destroy'])->name('posts.cancel'); // Cancel booking
+        Route::get('/posts/booked', [BookController::class, 'index'])->name('posts.booked');
+        Route::get('/posts/attended', [BookController::class, 'attendedPosts'])->name('posts.attended');
     });
 
     // Footer routes
@@ -59,11 +61,9 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     // Profile routes
-Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
-Route::post('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // IDを含める
-Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit'); 
-
-
+    Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // Include ID
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit'); 
 
     // Reviews routes
     Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
