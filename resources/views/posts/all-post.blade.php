@@ -80,29 +80,29 @@
                         <strong>Place:</strong> {{ $post->place }}<br>
                         <strong>Participation Fee:</strong> {{ $post->participation_fee }}<br>
                         <strong>Planned Number of People:</strong> {{ $post->planned_number_of_people }}<br>
-                        <strong>Description:{{ $post->description }}</strong>
+                        <strong>Description:</strong> {{ $post->description }}
                         <p class="text-uppercase text-muted xsmall">{{ date('M d, Y', strtotime($post->created_at)) }}</p>
                     </div>
 
-                        <div class="text-end">
-                            <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#usersModal{{ $post->id }}">
-                                <i class="fa-solid fa-user icon-lg"></i>
-                                <span class="icon-count">{{ $post->books->count() }}</span>
+                    <div class="text-end">
+                        <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#usersModal{{ $post->id }}">
+                            <i class="fa-solid fa-user icon-lg"></i>
+                            <span class="icon-count">{{ $post->books->count() }}</span>
+                        </a>
+
+                        @if($post->isBooked())
+                            <span class="btn btn-sm shadow-none p-0 text-muted" title="Already Booked">
+                                <i class="fa-solid fa-heart text-danger icon-lg"></i>
+                            </span>
+                        @else
+                            <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
+                                <i class="fa-regular fa-heart text-danger icon-lg"></i>
                             </a>
+                        @endif
+                    </div>
 
-                            @if($post->isBooked())
-                                <span class="btn btn-sm shadow-none p-0 text-muted" title="Already Booked">
-                                    <i class="fa-solid fa-heart text-danger icon-lg"></i>
-                                </span>
-                            @else
-                                <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
-                                    <i class="fa-regular fa-heart text-danger icon-lg"></i>
-                                </a>
-                            @endif
-                        </div>
-
-                        <!-- 参加しているユーザーのモーダルをインクルード -->
-                        @include('posts.contents.modals.users', ['post' => $post])
+                    <!-- 参加しているユーザーのモーダルをインクルード -->
+                    @include('posts.contents.modals.users', ['post' => $post])
 
                     <hr>
 
@@ -112,7 +112,7 @@
                             <textarea name="comment_body{{ $post->id }}" rows="1" class="form-control form-control-sm" placeholder="Add a comment..." required>{{ old('comment_body' . $post->id) }}</textarea>
                             <button class="btn btn-outline-secondary btn-sm">Post</button>
                         </div>
-                        @error('comment_body_' . $post->id)
+                        @error('comment_body' . $post->id)
                             <div class="text-danger small">{{ $message }}</div>
                         @enderror
                     </form>
@@ -145,11 +145,6 @@
         @endforeach
     </div>
 
-    <!-- ページネーション -->
-    <div class="d-flex justify-content-start mt-4">
-    
-    </div>
 </div>
-
 
 @endsection

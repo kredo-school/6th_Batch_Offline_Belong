@@ -9,14 +9,7 @@ use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\ReviewController;
-<<<<<<< HEAD
-=======
 use App\Http\Controllers\ProfileController;
-
-
-
-
->>>>>>> 8796348e404714b0bde3be9c38ac649fb742411d
 
 Auth::routes();
 

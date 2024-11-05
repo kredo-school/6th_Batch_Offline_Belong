@@ -13,7 +13,7 @@
     @else
         <table class="table table-bordered text-center">
             <thead>
-                <tr>
+                <tr class="">
                     <th>Post</th>
                     <th>Title</th>
                     <th>Created By</th>

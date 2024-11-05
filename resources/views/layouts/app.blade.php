@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html>   
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -90,6 +90,7 @@
             cursor: pointer;
             border-radius: 4px;
         }
+        
     </style>
 
     <!-- Scripts -->
@@ -136,36 +137,25 @@
                                 <a class="nav-link" href="#" id="clipboardDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
                                     <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
-                                    <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>
+                                    <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>                                   
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" id="heartDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-regular fa-heart" style="font-size: 30px;"></i>
                                 </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-heart"></i> Booked</a>
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-flag-checkered"></i> Attended</a>
-
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
                                     <a class="dropdown-item" href="{{ route('posts.booked') }}"><i class="fa-solid fa-heart"></i> Booked</a>
                                     <a class="dropdown-item" href="{{ route('posts.attended') }}"><i class="fa-solid fa-flag-checkered"></i> Attended</a>
-
-                                    <!-- <a class="dropdown-item" href=""><i class="fa-solid fa-check-to-slot"></i> held</a> -->
-
-
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-check-to-slot"></i> held</a>
-
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-magnifying-glass"></i> #</a>
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-user-tag"></i> User</a>
                                 </div>
@@ -181,7 +171,7 @@
                                     <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
@@ -206,13 +196,13 @@
             @yield('content')
         </main>
 
-        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;">
+        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;"> 
             <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
             @if (!request()->is('login') && !request()->is('register') && !request()->is('rules') && !request()->is('success') && !request()->is('payment'))
             <div style="text-align: right; display: flex; align-items: center;">
                 <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a> <!-- Twitterの色を黒 -->
                 <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a> <!-- Facebookの色を青 -->
-                <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->
+                <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->        
                 <a href="{{ route('footer.about') }}" class="about" style="margin-left: 15px;">About Us</a>
                 <a href="{{ route('footer.faq') }}" class="faq" style="margin-left: 15px;">FAQ</a>
             </div>
