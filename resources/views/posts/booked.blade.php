@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($bookedPosts as $book)
+                @foreach($bookedPosts as $book) <!-- This $book is defined in the loop -->
                     <tr>
                         <td>
                             <a href="{{ route('posts.show', $book->post->id) }}">
