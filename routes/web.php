@@ -8,7 +8,13 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
+<<<<<<< HEAD
 use App\Http\Controllers\ProfileController;
+=======
+
+use App\Http\Controllers\ProfileController;
+
+>>>>>>> 4592502906e58c552f08f8713e7f765112325b25
 use App\Http\Controllers\ReviewController;
 
 Auth::routes();
@@ -57,6 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/faq', [FooterController::class, 'index'])->name('faq');
         Route::get('/about', [FooterController::class, 'about'])->name('about');
     });
+<<<<<<< HEAD
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
@@ -68,3 +75,30 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 });
+=======
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 4592502906e58c552f08f8713e7f765112325b25
