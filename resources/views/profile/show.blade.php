@@ -1,4 +1,4 @@
-@extends('layouts.app')  
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -40,9 +40,11 @@
         </div>
     </div>
 
-    <!-- プロフィール編集リンク -->
-    <a href="{{ route('profile.edit') }}" class="btn-link mt-3">Edit Profile</a>
-    
+    <!-- プロフィール編集リンク (自分のプロフィールの場合のみ表示) -->
+    @if(Auth::check() && Auth::user()->id == $user->id)
+        <a href="{{ route('profile.edit') }}" class="btn-link mt-3">Edit Profile</a>
+    @endif
+
     <br><br>
 </div>
 @endsection
