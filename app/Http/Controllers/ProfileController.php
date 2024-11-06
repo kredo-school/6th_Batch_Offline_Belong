@@ -29,12 +29,12 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         // バリデーションルールを定義
-        $request->validate([
-            'age' => 'required|integer',
-            'gender' => 'required|string',
-            'bio' => 'nullable|string',
-            'profile_image' => 'nullable|image|mimes:jpeg,png|max:2048', // 画像バリデーション
-        ]);
+        // $request->validate([
+        //     'age' => 'required|integer',
+        //     'gender' => 'required|string',
+        //     'bio' => 'nullable|string',
+        //     'profile_image' => 'nullable|image|mimes:jpeg,png|max:2048', // 画像バリデーション
+        // ]);
     
         // ユーザーを取得
         $user = User::findOrFail($id); // $userを定義する

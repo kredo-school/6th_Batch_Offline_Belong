@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -21,41 +21,15 @@
         </div>
 
         <!-- 投稿数の表示 -->
-        <div class="ml-4"> <!-- ここで ml-4 クラスまたはスタイル属性で余白を調整 -->
+        <div class="ml-4">
             <h3>Your Posts: {{ $user->postCount() }}</h3> <!-- 投稿数を表示 -->
         </div>
     </div>
 
-    <!-- プロフィール編集フォーム -->
-    <form action="{{ route('profile.edit') }}" method="POST" enctype="multipart/form-data"> 
-        @csrf
-
-        <div class="form-group">
-            <label for="age">Age</label>
-            <input type="number" name="age" id="age" class="form-control" value="{{ old('age', $user->profile->age ?? '') }}">
-        </div>
-
-        <div class="form-group">
-            <label for="gender">Gender</label>
-            <select name="gender" id="gender" class="form-control">
-                <option value="">Please select</option>
-                <option value="男性" {{ (old('gender', $user->profile->gender ?? '') == '男性') ? 'selected' : '' }}>Male</option>
-                <option value="女性" {{ (old('gender', $user->profile->gender ?? '') == '女性') ? 'selected' : '' }}>Female</option>
-                <option value="その他" {{ (old('gender', $user->profile->gender ?? '') == 'その他') ? 'selected' : '' }}>Other</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="bio">Bio</label>
-            <textarea name="bio" id="bio" class="form-control">{{ old('bio', $user->profile->bio ?? '') }}</textarea>
-        </div>
-
-        <button type="submit" class="btn btn-secondary mt-3">Edit Profile</button>
-        
-    </form>
-    <br>
-    <br>
+    <!-- プロフィール編集リンク -->
+    <a href="{{ route('profile.edit') }}" class="btn-link mt-3">Edit Profile</a> <!-- aタグに変更 -->
     
+    <br><br>
 </div>
 @endsection
 
@@ -68,5 +42,18 @@
 }
 .ml-4 {
     margin-left: 2rem; /* 左マージンを増やす */
+}
+.btn-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    color: #fff;
+    background-color: #6c757d;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    font-size: 1rem;
+}
+.btn-link:hover {
+    background-color: #5a6268;
+    text-decoration: none;
 }
 </style>
