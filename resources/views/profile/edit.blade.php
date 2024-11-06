@@ -1,8 +1,10 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
-    <h1>プロフィール編集</h1>
+    <h1 class="text-center" style="font-size: 3rem; font-weight: bold;">
+        Edit Profile
+    </h1>
 
     @if (session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
@@ -10,42 +12,61 @@
 
     <!-- プロファイル画像の表示 -->
     <div class="profile-image mb-3">
-        @if($profile && $profile->profile_image)
-            <img src="{{ asset('storage/' . $profile->profile_image) }}" alt="Profile Image" class="rounded-image">
+        @if($user && $user->profile_image)
+            <!-- 画像がある場合、データベースに保存されたパスを表示 -->
+            <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Profile Image" class="rounded-image">
         @else
-            <img src="default-image-url" alt="Default Image" class="rounded-image"> <!-- デフォルト画像を指定 -->
+            <!-- 画像がない場合、デフォルト画像を表示 -->
+            <img src="{{ asset('storage/profile_images/default-image.jpg') }}" alt="Default Image" class="rounded-image"> <!-- デフォルト画像URL -->
         @endif
     </div>
 
-    <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
+    <!-- プロフィール編集フォーム -->
+    <form action="{{ route('profile.update', ['id' => Auth::id()]) }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
-            <label for="profile_image">プロファイル画像 (JPEG, PNG, 最大2MB)</label>
+            <label for="profile_image">Profile Image (JPEG, PNG, max 2MB)</label>
             <input type="file" name="profile_image" class="form-control" accept="image/*">
         </div>
 
         <div class="form-group">
-            <label for="age">年齢</label>
-            <input type="number" name="age" class="form-control" value="{{ old('age', $profile->age ?? '') }}">
+            <label for="age">Age</label>
+            <input type="number" name="age" class="form-control" value="{{ old('age', $user->age ?? '') }}">
         </div>
 
+        @php
+            $selectedGender = old('gender', $user->gender ?? '');
+        @endphp
+
         <div class="form-group">
-            <label for="gender">性別</label>
+            <label for="gender">Gender</label>
             <select name="gender" class="form-control">
-                <option value="">選択してください</option>
-                <option value="男性" {{ (old('gender', $profile->gender ?? '') == '男性') ? 'selected' : '' }}>男性</option>
-                <option value="女性" {{ (old('gender', $profile->gender ?? '') == '女性') ? 'selected' : '' }}>女性</option>
-                <option value="その他" {{ (old('gender', $profile->gender ?? '') == 'その他') ? 'selected' : '' }}>その他</option>
+                <option value="">Please select</option>
+                <option value="男性" {{ $selectedGender == '男性' ? 'selected' : '' }}>男性</option>
+                <option value="女性" {{ $selectedGender == '女性' ? 'selected' : '' }}>女性</option>
+                <option value="その他" {{ $selectedGender == 'その他' ? 'selected' : '' }}>その他</option>
             </select>
         </div>
 
         <div class="form-group">
-            <label for="bio">自己紹介</label>
-            <textarea name="bio" class="form-control">{{ old('bio', $profile->bio ?? '') }}</textarea>
+            <label for="bio">Self-introduction</label>
+            <textarea name="bio" class="form-control">{{ old('bio', $user->bio ?? '') }}</textarea>
         </div>
+        <br>
 
-        <button type="submit" class="btn btn-primary">更新</button>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
     </form>
+    <br>
 </div>
 @endsection
+
+<!-- CSSのスタイル定義 -->
+<style>
+    .rounded-image {
+        width: 250px;
+        height: 250px;
+        border-radius: 50%; /* 画像を丸くする */
+        object-fit: cover; /* 画像をコンテナにフィットさせる */
+    }
+</style>

@@ -109,6 +109,7 @@ class PostController extends Controller
         return redirect()->route('posts.show', $post->id)->with('success', 'Post updated successfully.');
     }
     
+
         public function category($category)
     {
         $posts = Post::whereHas('categories', function ($query) use ($category) {
