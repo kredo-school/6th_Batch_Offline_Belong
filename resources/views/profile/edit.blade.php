@@ -29,22 +29,26 @@
 
         <div class="form-group">
             <label for="age">Age</label>
-            <input type="number" name="age" class="form-control" value="{{ old('age', $user->profile->age ?? '') }}">
+            <input type="number" name="age" class="form-control" value="{{ old('age', $user->age ?? '') }}">
         </div>
+
+        @php
+            $selectedGender = old('gender', $user->gender ?? '');
+        @endphp
 
         <div class="form-group">
             <label for="gender">Gender</label>
             <select name="gender" class="form-control">
                 <option value="">Please select</option>
-                <option value="男性" {{ (old('gender', $user->profile->gender ?? '') == '男性') ? 'selected' : '' }}>男性</option>
-                <option value="女性" {{ (old('gender', $user->profile->gender ?? '') == '女性') ? 'selected' : '' }}>女性</option>
-                <option value="その他" {{ (old('gender', $user->profile->gender ?? '') == 'その他') ? 'selected' : '' }}>その他</option>
+                <option value="男性" {{ $selectedGender == '男性' ? 'selected' : '' }}>男性</option>
+                <option value="女性" {{ $selectedGender == '女性' ? 'selected' : '' }}>女性</option>
+                <option value="その他" {{ $selectedGender == 'その他' ? 'selected' : '' }}>その他</option>
             </select>
         </div>
 
         <div class="form-group">
             <label for="bio">Self-introduction</label>
-            <textarea name="bio" class="form-control">{{ old('bio', $user->profile->bio ?? '') }}</textarea>
+            <textarea name="bio" class="form-control">{{ old('bio', $user->bio ?? '') }}</textarea>
         </div>
         <br>
 

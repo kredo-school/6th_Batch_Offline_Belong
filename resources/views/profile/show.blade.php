@@ -16,7 +16,7 @@
             @if(isset($user) && $user->profile_image)
                 <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Profile Image" class="rounded-image">
             @else
-                <img src="default-image-url" alt="Default Image" class="rounded-image"> <!-- デフォルト画像を指定 -->
+                <img src="{{ asset('path/to/default-image.jpg') }}" alt="Default Image" class="rounded-image"> <!-- デフォルト画像URLを指定 -->
             @endif
         </div>
 
@@ -26,8 +26,15 @@
         </div>
     </div>
 
+    <!-- 年齢、性別、自己紹介文の表示 -->
+    <div class="profile-details mt-4">
+        <p><strong>Age:</strong> {{ $user->age ?? 'Not specified' }}</p>
+        <p><strong>Gender:</strong> {{ $user->gender ?? 'Not specified' }}</p>
+        <p><strong>Bio:</strong> {{ $user->bio ?? 'No bio available' }}</p>
+    </div>
+
     <!-- プロフィール編集リンク -->
-    <a href="{{ route('profile.edit') }}" class="btn-link mt-3">Edit Profile</a> <!-- aタグに変更 -->
+    <a href="{{ route('profile.edit') }}" class="btn-link mt-3">Edit Profile</a>
     
     <br><br>
 </div>
@@ -55,5 +62,9 @@
 .btn-link:hover {
     background-color: #5a6268;
     text-decoration: none;
+}
+.profile-details p {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
 }
 </style>
