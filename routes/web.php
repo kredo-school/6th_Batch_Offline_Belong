@@ -10,6 +10,11 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProfileController;
+>>>>>>> cbfad97aef8670df23df51f5263eae2912b91655
 
 Auth::routes();
 
@@ -36,11 +41,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/eat', [PostController::class, 'eat'])->name('category.eat');
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
+<<<<<<< HEAD
         Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
     });
 
     // Comment routes
     Route::group(['prefix' => 'comment', 'as' => 'comment.'], function () {
+=======
+        Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
+
+        Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    });
+
+
+     Route::group(['prefix' => 'comment', 'as' => 'comment.'], function () {
+>>>>>>> cbfad97aef8670df23df51f5263eae2912b91655
         Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
         Route::delete('/{id}', [CommentController::class, 'destroy'])->name('destroy');
     });
@@ -52,6 +68,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/posts/{id}/cancel', [BookController::class, 'destroy'])->name('posts.cancel'); // Cancel booking
         Route::get('/posts/booked', [BookController::class, 'index'])->name('posts.booked');
         Route::get('/posts/attended', [BookController::class, 'attendedPosts'])->name('posts.attended');
+<<<<<<< HEAD
+=======
+        Route::delete('/posts/{id}/cancel', [BookController::class, 'destroy'])->name('posts.cancel');
+
+
+>>>>>>> cbfad97aef8670df23df51f5263eae2912b91655
     });
 
     // Footer routes
@@ -71,3 +93,39 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
 });
+<<<<<<< HEAD
+=======
+
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+        Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+
+    });
+
+    Route::get('/search-users', [UserController::class, 'search'])->name('posts.search.user');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> cbfad97aef8670df23df51f5263eae2912b91655

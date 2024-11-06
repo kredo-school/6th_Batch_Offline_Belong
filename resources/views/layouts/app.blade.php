@@ -47,6 +47,13 @@
     </script>
 
     <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden; /* 横スクロールを無効にする */
+        }
         /* カレンダーを表示するカードのサイズと位置調整 */
         .calendar-card {
             width: 550px;
@@ -60,6 +67,14 @@
             max-width: 500px;
             height: 450px;
             margin: 0 auto;
+            overflow: hidden; /* カレンダー内の余分なスクロールを非表示にする */
+        }
+
+        /* ここにページ全体に対するレイアウト調整を追加 */
+        main {
+            width: 100%;
+            height: calc(100% - 100px); /* ナビゲーションとフッターを除いた高さ */
+            
         }
 
         /* フッターのスタイル */
@@ -68,8 +83,10 @@
             padding: 20px;
             text-align: center;
             color: #333;
+            bottom: 0;
+            left: 0;
+            
         }
-
         /* 検索フォームのスタイル */
         .search-form {
             display: flex;
@@ -90,6 +107,7 @@
             cursor: pointer;
             border-radius: 4px;
         }
+        
     </style>
 
     <!-- Scripts -->
@@ -148,7 +166,6 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
                                     <a class="dropdown-item" href="{{ route('posts.booked') }}"><i class="fa-solid fa-heart"></i> Booked</a>
                                     <a class="dropdown-item" href="{{ route('posts.attended') }}"><i class="fa-solid fa-flag-checkered"></i> Attended</a>
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-check-to-slot"></i> held</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
@@ -156,8 +173,8 @@
                                     <i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-magnifying-glass"></i> #</a>
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-user-tag"></i> User</a>
+                                    <a class="dropdown-item" href="{{ route('posts.search') }}"><i class="fa-solid fa-magnifying-glass"></i> Post</a>
+                                    <a class="dropdown-item" href="{{ route('posts.search.user') }}"><i class="fa-solid fa-user-tag"></i> User</a>
                                 </div>
                             </li>
                             <li class="nav-item">
@@ -171,11 +188,15 @@
                                     <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+<<<<<<< HEAD
 
                                     <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::id()]) }}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
 
                                     <a class="dropdown-item" href="#"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
 
+=======
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+>>>>>>> cbfad97aef8670df23df51f5263eae2912b91655
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

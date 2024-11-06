@@ -184,6 +184,22 @@ class PostController extends Controller
         return view('posts.others', compact('posts'));
     }
 
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        
+        // クエリが空でない場合のみ検索
+        if ($query) {
+            $posts = Post::where('title', 'like', '%' . $query . '%')
+                ->orWhere('content', 'like', '%' . $query . '%')
+                ->get();
+        } else {
+            $posts = Post::all();  // クエリが空の場合は全件取得
+        }
+
+        return view('posts.posts', compact('posts', 'query'));
+    }
+
     public function destroy($id)
     {
         $post = $this->post->findOrFail($id);
