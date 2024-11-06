@@ -1,4 +1,7 @@
+
 <?php  
+
+
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -12,10 +15,15 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 
+
+
+
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/search-users', [UserController::class, 'search'])->name('posts.search.user');
+
 
     Route::get('/payment', [PaymentController::class, 'show'])->name('payment.show');
     Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store'); // POST route
@@ -38,11 +46,22 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
         Route::get('/search', [PostController::class, 'search'])->name('posts.search');
+
         Route::delete('/{post}', [PostController::class, 'destroy'])->name('posts.destroy');
     });
 
     // Comment routes
     Route::group(['prefix' => 'comment', 'as' => 'comment.'], function () {
+
+        Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
+
+        Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
+
+    });
+
+
+     Route::group(['prefix' => 'comment', 'as' => 'comment.'], function () {
+
         Route::post('/{post_id}/store', [CommentController::class, 'store'])->name('store');
         Route::delete('/{id}', [CommentController::class, 'destroy'])->name('destroy');
     });
@@ -54,6 +73,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/posts/{id}/cancel', [BookController::class, 'destroy'])->name('posts.cancel'); // Cancel booking
         Route::get('/posts/booked', [BookController::class, 'index'])->name('posts.booked');
         Route::get('/posts/attended', [BookController::class, 'attendedPosts'])->name('posts.attended');
+        Route::delete('/posts/{id}/cancel', [BookController::class, 'destroy'])->name('posts.cancel');
+
+
+
     });
 
     // Footer routes
@@ -71,7 +94,36 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
     Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
     Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+});
+
+
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+        Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+        Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+
+    });
 
     // User search route
-    Route::get('/search-users', [UserController::class, 'search'])->name('posts.search.user');
-});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
