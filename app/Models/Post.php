@@ -44,6 +44,12 @@ class Post extends Model
         return $this->books()->where('user_id', auth()->id())->exists();
     }
 
+    public function isBookedBy($user)
+    {
+        // 指定されたユーザーがこの投稿をすでにブックしているかを確認
+        return $this->books->contains('user_id', $user->id);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

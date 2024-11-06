@@ -11,10 +11,6 @@ use App\Http\Controllers\RuleController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProfileController;
 
-
-
-
-
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
