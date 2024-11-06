@@ -10,6 +10,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\ProfileController;
 
 Auth::routes();
