@@ -40,19 +40,21 @@
                                 <a href="#" class="text-decoration-none text-dark">{{ $post->user->name }}</a>
                             </div>
 
-                            <div class="col-auto">
-                                <button class="btn btn-sm shadow-none" data-bs-toggle="dropdown">
-                                    <i class="fa-solid fa-ellipsis"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a href="{{ route('posts.edit', $post->id) }}" class="dropdown-item">
-                                        <i class="fa-regular fa-pen-to-square"></i>Edit
-                                    </a>
-                                    <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-post-{{ $post->id }}">
-                                        <i class="fa-regular fa-trash-can"></i>Delete
+                            @if (Auth::user()->id === $post->user_id) <!-- 投稿者のみドロップダウンメニューを表示 -->
+                                <div class="col-auto">
+                                    <button class="btn btn-sm shadow-none" data-bs-toggle="dropdown">
+                                        <i class="fa-solid fa-ellipsis"></i>
                                     </button>
+                                    <div class="dropdown-menu">
+                                        <a href="{{ route('posts.edit', $post->id) }}" class="dropdown-item">
+                                            <i class="fa-regular fa-pen-to-square"></i> Edit
+                                        </a>
+                                        <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-post-{{ $post->id }}">
+                                            <i class="fa-regular fa-trash-can"></i> Delete
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
 
@@ -101,7 +103,7 @@
                         @endif
                     </div>
 
-                    <!-- 参加しているユーザーのモーダルをインクルード -->
+                    <!-- Include modal for viewing participating users -->
                     @include('posts.contents.modals.users', ['post' => $post])
 
                     <hr>
@@ -128,7 +130,7 @@
                                     <div class="d-flex justify-content-between mt-1">
                                         <span class="text-muted small">{{ date('M d, Y', strtotime($comment->created_at)) }}</span>
 
-                                        @if(Auth::user()->id === $comment->user->id)
+                                        @if(Auth::user()->id === $comment->user_id) <!-- Check if the comment's author is the logged-in user -->
                                             <form action="{{ route('comment.destroy', $comment->id) }}" method="post" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -140,11 +142,33 @@
                             @endforeach
                         </ul>
                     @endif
+
+                    <!-- Modal for confirming post deletion -->
+                    <div class="modal fade" id="delete-post-{{ $post->id }}" tabindex="-1" aria-labelledby="deletePostModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="deletePostModalLabel">Confirm Deletion</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to delete this post?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    <form action="{{ route('posts.destroy', $post->id) }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         @endforeach
     </div>
-
 </div>
 
 @endsection

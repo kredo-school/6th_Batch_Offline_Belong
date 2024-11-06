@@ -38,9 +38,8 @@
                             <td>{{ $post->participation_fee }}</td>
                             <td>{{ $post->date }}</td>
                             <td>
-                                <a href="{{ route('reviews.index', $post->id) }}" class="btn btn-outline-primary btn-sm">
-                                     Review
-                                </a>
+                                <a href="{{ route('reviews.create', $post->id) }}" class="btn btn-outline-danger btn-sm">Write Review</a>
+                                <a href="{{ route('reviews.index', $post->id) }}" class="btn btn-outline-primary btn-sm">View Review</a>
                             </td>
                         </tr>
                     @endif

@@ -155,10 +155,14 @@
                 <hr>
 
                 <div class="text-center mt-2">
-                    @if(now() > \Carbon\Carbon::parse($post->date)) <!-- イベントの日付を基準にする -->
-                    <a href="{{ route('reviews.create', $post) }}" class="btn btn-primary btn-sm">Write Review</a>
+                    @if(now() > \Carbon\Carbon::parse($post->date)) <!-- イベント日が過去かを確認 -->
+                        @if($post->isBookedBy(Auth::user())) <!-- ログインユーザーが予約したかを確認 -->
+                            <a href="{{ route('reviews.create', $post) }}" class="btn btn-primary btn-sm">Write Review</a>
+                        @else
+                            <button class="btn btn-secondary btn-sm" disabled>Review (Unavailable)</button>
+                        @endif
                     @else
-                    <button class="btn btn-secondary btn-sm" disabled>Review (Unavailable)</button>
+                        <button class="btn btn-secondary btn-sm" disabled>Review (Unavailable)</button>
                     @endif
                     <a href="{{ route('reviews.index', $post) }}" class="btn btn-danger btn-sm">View Reviews</a>
                 </div>
