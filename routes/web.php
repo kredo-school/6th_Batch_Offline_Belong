@@ -9,6 +9,7 @@ use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 
 Auth::routes();
@@ -46,6 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/eat', [PostController::class, 'eat'])->name('category.eat');
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
+        Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
+
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
     });
@@ -82,6 +85,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     });
 
+    Route::get('/search-users', [UserController::class, 'search'])->name('posts.search.user');
 
 
 
