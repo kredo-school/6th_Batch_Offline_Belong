@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app')  
 
 @section('content')
 <div class="container">
@@ -14,9 +14,11 @@
         <!-- プロファイル画像の表示 -->
         <div class="profile-image mb-3">
             @if(isset($user) && $user->profile_image)
+                <!-- 画像のURLが正しく保存されていれば、画像を表示 -->
                 <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Profile Image" class="rounded-image">
             @else
-                <img src="{{ asset('path/to/default-image.jpg') }}" alt="Default Image" class="rounded-image"> <!-- デフォルト画像URLを指定 -->
+                <!-- デフォルト画像を表示 -->
+                <img src="{{ asset('storage/profile_images/default-image.jpg') }}" alt="Default Image" class="rounded-image"> <!-- デフォルト画像URL -->
             @endif
         </div>
 
@@ -28,9 +30,14 @@
 
     <!-- 年齢、性別、自己紹介文の表示 -->
     <div class="profile-details mt-4">
-        <p><strong>Age:</strong> {{ $user->age ?? 'Not specified' }}</p>
-        <p><strong>Gender:</strong> {{ $user->gender ?? 'Not specified' }}</p>
-        <p><strong>Bio:</strong> {{ $user->bio ?? 'No bio available' }}</p>
+        <p class="mb-3"><strong>Age:</strong> {{ $user->age ?? 'Not specified' }}</p>
+        <p class="mb-3"><strong>Gender:</strong> {{ $user->gender ?? 'Not specified' }}</p>
+
+        <!-- 自己紹介文のみを枠内に表示 -->
+        <p><strong>Bio:</strong></p>
+        <div class="bio-box">
+            <p>{{ $user->bio ?? 'No bio available' }}</p>
+        </div>
     </div>
 
     <!-- プロフィール編集リンク -->
@@ -66,5 +73,12 @@
 .profile-details p {
     font-size: 1.2rem;
     margin: 0.5rem 0;
+}
+.bio-box {
+    border: 2px solid black; /* 枠線を透明にする */
+    padding: 1rem; /* 内側の余白 */
+    margin-top: 0.5rem; /* 上部の余白 */
+    background-color: transparent; /* 背景色を透明にする */
+    border-radius: 5px; /* 角丸にする */
 }
 </style>

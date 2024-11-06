@@ -27,36 +27,36 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        // バリデーションルールを定義
-        $request->validate([
-            'age' => 'required|integer',
-            'gender' => 'required|string',
-            'bio' => 'nullable|string',
-            'profile_image' => 'nullable|image|max:2048', // 画像バリデーション
-        ]);
+{
+    // バリデーション
+    // $request->validate([
+    //     'age' => 'required|integer',
+    //     'gender' => 'required|string',
+    //     'bio' => 'nullable|string',
+    //     'profile_image' => 'nullable|image|max:2048', // 画像バリデーション
+    // ]);
 
-        // ユーザーを取得
-        $user = User::findOrFail($id);
+    // ユーザーを取得
+    $user = User::findOrFail($id);
 
-        // プロフィール情報の更新
-        $user->age = $request->input('age');
-        $user->gender = $request->input('gender');
-        $user->bio = $request->input('bio');
+    // プロフィール情報の更新
+    $user->age = $request->input('age');
+    $user->gender = $request->input('gender');
+    $user->bio = $request->input('bio');
 
-        // プロファイル画像の処理
-        if ($request->hasFile('profile_image')) {
-            // 既存の画像があれば削除
-            if ($user->profile_image) {
-                Storage::delete($user->profile_image);
-            }
-            // 新しい画像を保存し、パスをデータベースに保存
-            $path = $request->file('profile_image')->store('profile_images', 'public');
-            $user->profile_image = $path;
-        }
-
-        $user->save();
-
-        return redirect()->route('profile.show', $user->id)->with('message', 'Profile updated successfully.');
+    // プロファイル画像の処理
+    if ($request->hasFile('profile_image')) {
+        // 画像の保存
+        $path = $request->file('profile_image')->store('profile_images', 'public');
+        $user->profile_image = $path;  // ファイル名をデータベースに保存
     }
+
+    // ユーザー情報を保存
+    $user->save();
+
+    return redirect()->route('profile.show', $user->id)->with('message', 'Profile updated successfully.');
+}
+
+    
+
 }
