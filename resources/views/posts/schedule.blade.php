@@ -22,7 +22,7 @@
 
 <div class="container mt-5">
     <div class="row">
-        @foreach ($posts as $post)
+        @foreach ($all_posts as $post)
             <div class="col-md-6">
                 <div class="card post-card border-0">
                     <div class="card-header bg-white py-3">
@@ -169,6 +169,9 @@
             </div>
         @endforeach
     </div>
+</div>
+<div class="d-flex justify-content-center">
+        {{ $all_posts->links() }}
 </div>
 
 @endsection

@@ -179,10 +179,11 @@
                                     
                                     <!-- 管理者だけが表示されるリンク -->
                                     @if(auth()->user() && auth()->user()->role_id == 1) <!-- ユーザーが管理者かどうかをrole_idで確認 -->
-                                        <a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-user-tie"></i> Admin</a>
+                                        <a class="dropdown-item text-danger" href="{{ route('admin.users') }}"><i class="fa-solid fa-user-tie"></i> Admin</a>
                                     @endif
 
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -201,9 +202,28 @@
 
         </nav>
 
-        <!-- Main content -->
-        <main class="py-0">
-            @yield('content')
+        <main class="py-4">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <!-- Admin Controls -->
+                    @if(request()->is('admin/*'))
+                        <div class="col-3">
+                            
+                            <div class="list-group">
+                                <a href="{{ route('admin.users') }}" class="list-group-item {{ request()->is('admin.users') ? 'active':'' }}">
+                                    <i class="fa-solid fa-users"></i> Users
+                                </a>
+                                <a href="{{ route('admin.posts') }}" class="list-group-item {{ request()->is('admin.posts') ? 'active':'' }}">
+                                    <i class="fa-solid fa-newspaper"></i> Posts
+                                </a>
+                            </div>
+                        </div>
+                    @endif
+                    <div class="col-9">
+                        @yield('content')
+                    </div>
+                </div>
+            </div>
         </main>
 
         <!-- Footer -->
