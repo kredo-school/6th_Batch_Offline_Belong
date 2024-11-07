@@ -10,6 +10,11 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
+<<<<<<< HEAD
+=======
+use App\Http\Controllers\AccountController;
+
+>>>>>>> 9d5b385d15b1b2eef9a206e315266e13b288c13b
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\ProfileController;
@@ -77,6 +82,24 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/faq', [FooterController::class, 'index'])->name('faq');
         Route::get('/about', [FooterController::class, 'about'])->name('about');
     });
+<<<<<<< HEAD
+=======
+
+    // Profile routes
+    Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // Include ID
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    // Account routes
+    Route::get('/account/{id}/show', [AccountController::class, 'show'])->name('account.show');
+    Route::post('/account/{id}/update', [AccountController::class, 'update'])->name('account.update'); // Include ID
+    Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
+
+    // Reviews routes
+    Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
+    Route::post('/posts/{post}/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::get('/posts/{post}/reviews', [ReviewController::class, 'index'])->name('reviews.index');
+>>>>>>> 9d5b385d15b1b2eef9a206e315266e13b288c13b
 });
 
 
