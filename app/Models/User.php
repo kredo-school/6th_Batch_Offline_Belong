@@ -12,6 +12,9 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
+    const ADMIN_ROLE_ID = 1; // administrator
+    const USER_ROLE_ID = 2; //the regular user
+
     /**
      * The attributes that are mass assignable.
      *
@@ -56,4 +59,5 @@ class User extends Authenticatable
         return $this->posts()->count(); // 投稿数をカウント
     }
 
+    
 }

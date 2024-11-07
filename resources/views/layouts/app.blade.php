@@ -54,6 +54,7 @@
             padding: 0;
             overflow-x: hidden; /* 横スクロールを無効にする */
         }
+        
         /* カレンダーを表示するカードのサイズと位置調整 */
         .calendar-card {
             width: 550px;
@@ -150,6 +151,17 @@
                             </li>
                         @endif
                     @else
+
+                    <!-- 管理者用メニュー追加 -->
+                    @if (Auth::user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.users') }}">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#}">Posts</a>
+                        </li>
+                    @endif
+
                     <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" id="clipboardDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
@@ -181,23 +193,27 @@
                                 <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
+                                <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-<<<<<<< HEAD
+
 
                                     <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::id()]) }}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
 
-                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+                                    
 
-=======
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
->>>>>>> cbfad97aef8670df23df51f5263eae2912b91655
+                                    <!-- 管理者だけが表示されるリンク -->
+                                    @if(auth()->user() && auth()->user()->role_id == 1) <!-- ユーザーが管理者かどうかをrole_idで確認 -->
+                                        <a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-user-tie"></i> Admin</a>
+                                    @endif
+
+
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

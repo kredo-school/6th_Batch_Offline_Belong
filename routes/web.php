@@ -1,5 +1,5 @@
 
-<?php  
+<?php
 
 
 
@@ -14,8 +14,9 @@ use App\Http\Controllers\RuleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AccountController;
 
-
+use App\Http\Controllers\Admin\UsersController;
 
 
 Auth::routes();
@@ -89,6 +90,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // Include ID
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    // Account routes
+    Route::get('/account/{id}/show', [AccountController::class, 'show'])->name('account.show');
+    Route::post('/account/{id}/update', [AccountController::class, 'update'])->name('account.update'); // Include ID
+    Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
 
     // Reviews routes
     Route::get('/posts/{post}/reviews/create', [ReviewController::class, 'create'])->name('reviews.create');
