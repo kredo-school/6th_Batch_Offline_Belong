@@ -65,5 +65,10 @@ class Post extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function categoryPost()
+    {
+        return $this->hasMany(CategoryPost::class);
+    }
+
 }
 
