@@ -16,8 +16,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\ProfileController;
-8c976d05b35204f3f5674f095864d5e845489
+
 
 Auth::routes();
 
