@@ -201,19 +201,12 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-
                                     <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::id()]) }}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
-
-                                    <a class="dropdown-item" href="#"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
-
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
 
                                     <!-- 管理者だけが表示されるリンク -->
                                     @if(auth()->user() && auth()->user()->role_id == 1) <!-- ユーザーが管理者かどうかをrole_idで確認 -->
                                         <a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-user-tie"></i> Admin</a>
                                     @endif
-
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
