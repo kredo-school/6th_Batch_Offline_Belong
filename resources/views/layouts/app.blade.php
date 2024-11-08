@@ -54,34 +54,6 @@
             padding: 0;
             overflow-x: hidden; /* 横スクロールを無効にする */
         }
-<<<<<<< HEAD
-=======
-
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1;
-            width: 100%;
-            padding-bottom: 60px; /* フッターの高さ分だけ余白を確保 */
-        }
-
-        footer {
-            background-color: #FDCEDF;
-            padding: 20px;
-            text-align: center;
-            color: #333;
-            position: fixed; /* フッターを画面の下に固定 */
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 9999; /* 他のコンテンツの上に表示されるようにする */
-        }
-
-    /* ナビゲーションのスタイル */
->>>>>>> 395de02854d99bd6ec266cb8d5e4515ef2f94af7
         /* カレンダーを表示するカードのサイズと位置調整 */
         .calendar-card {
             width: 550px;
@@ -90,14 +62,7 @@
             border-radius: 8px;
         }
 
-<<<<<<< HEAD
-        /* カレンダー自体のサイズと位置を指定 */
-=======
-<<<<<<< HEAD
-        /* カレンダー自体のサイズと位置を指定 */
-=======
->>>>>>> ada1f1ad1bec398e137ce5e73682ecc3fe16f472
->>>>>>> 395de02854d99bd6ec266cb8d5e4515ef2f94af7
+
         #calendar {
             max-width: 500px;
             height: 450px;
@@ -105,7 +70,6 @@
             overflow: hidden; /* カレンダー内の余分なスクロールを非表示にする */
         }
 
-<<<<<<< HEAD
         /* ここにページ全体に対するレイアウト調整を追加 */
         main {
             width: 100%;
@@ -123,9 +87,6 @@
             left: 0;
             
         }
-=======
-       
->>>>>>> 395de02854d99bd6ec266cb8d5e4515ef2f94af7
         /* 検索フォームのスタイル */
         .search-form {
             display: flex;
@@ -154,7 +115,6 @@
 </head>
 <body>
     <div id="app">
-<<<<<<< HEAD
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
                 <div class="container">
@@ -268,106 +228,6 @@
 
         <!-- Footer -->
         <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;">
-=======
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
-    <div class="container">
-        @if (Request::is('rules') || Request::is('payment') || Request::is('success'))
-            <!-- ルール、ペイメント、サクセスページでは、クリックできないロゴとテキストを表示 -->
-            <div class="navbar-brand">
-                <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
-                <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
-                    {{ config('app.name', 'Belong') }}
-                </span>
-            </div>
-        @else
-            <!-- 他のページではクリック可能なロゴとテキストを表示 -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
-                <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
-                    {{ config('app.name', 'Belong') }}
-                </span>
-            </a>
-        @endif
-
-        @if (!Request::is('rules') && !Request::is('success') && !Request::is('payment'))
-            <div class="navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto"></ul>
-
-                <ul class="navbar-nav ms-auto">
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
-
-                     <!-- 管理者用メニュー追加 -->
-                     @if (Auth::user()->role === 'admin')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.users') }}">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.posts') }}">Posts</a>
-                        </li>
-                    @endif
-                    
-                    <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" id="clipboardDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
-                                    <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
-                                    <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" id="heartDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa-regular fa-heart" style="font-size: 30px;"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
-                                    <a class="dropdown-item" href="{{ route('posts.booked') }}"><i class="fa-solid fa-heart"></i> Booked</a>
-                                    <a class="dropdown-item" href="{{ route('posts.attended') }}"><i class="fa-solid fa-flag-checkered"></i> Attended</a>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
-                                    <a class="dropdown-item" href="{{ route('posts.search') }}"><i class="fa-solid fa-magnifying-glass"></i> Post</a>
-                                    <a class="dropdown-item" href="{{ route('posts.search.user') }}"><i class="fa-solid fa-user-tag"></i> User</a>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fas fa-cog" style="font-size: 30px;"></i></a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-<<<<<<< HEAD
-                                    <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::id()]) }}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
-                                    <a class="dropdown-item" href="{{ route('admin.users') }}"><i class="fa-solid fa-user-tie"></i> Admin</a>
-=======
-
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
-
-                                    <!-- 管理者だけが表示されるリンク -->
-                                    @if(auth()->user() && auth()->user()->role_id == 1) <!-- ユーザーが管理者かどうかをrole_idで確認 -->
-                                        <a class="dropdown-item text-danger" href="{{ route('admin.users') }}"><i class="fa-solid fa-user-tie"></i> Admin</a>
-                                    @endif
-
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
-
->>>>>>> ada1f1ad1bec398e137ce5e73682ecc3fe16f472
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -387,47 +247,17 @@
 </nav>
 
 
-<<<<<<< HEAD
         <main class="py-0">
             @yield('content')
-=======
-        <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <!-- Admin Controls -->
-                    @if(request()->is('admin/*'))
-                        <div class="col-3">
-
-                            <div class="list-group">
-                                <a href="{{ route('admin.users') }}" class="list-group-item {{ request()->is('admin.users') ? 'active':'' }}">
-                                    <i class="fa-solid fa-users"></i> Users
-                                </a>
-                                <a href="{{ route('admin.posts') }}" class="list-group-item {{ request()->is('admin.posts') ? 'active':'' }}">
-                                    <i class="fa-solid fa-newspaper"></i> Posts
-                                </a>
-                            </div>
-                        </div>
-                    @endif
-                    <div class="col-9">
-                        @yield('content')
-                    </div>
-                </div>
-            </div>
->>>>>>> ada1f1ad1bec398e137ce5e73682ecc3fe16f472
         </main>
 
         <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;"> 
->>>>>>> 395de02854d99bd6ec266cb8d5e4515ef2f94af7
             <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
             @if (!request()->is('login') && !request()->is('register') && !request()->is('rules') && !request()->is('success') && !request()->is('payment'))
             <div style="text-align: right; display: flex; align-items: center;">
                 <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a> <!-- Twitterの色を黒 -->
                 <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a> <!-- Facebookの色を青 -->
-<<<<<<< HEAD
                 <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->
-=======
-                <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->        
->>>>>>> 395de02854d99bd6ec266cb8d5e4515ef2f94af7
                 <a href="{{ route('footer.about') }}" class="about" style="margin-left: 15px;">About Us</a>
                 <a href="{{ route('footer.faq') }}" class="faq" style="margin-left: 15px;">FAQ</a>
             </div>
