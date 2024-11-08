@@ -5,7 +5,7 @@
 @section('content')
 
     <div class="d-flex justify-content-end mb-3">
-        <form action="#" style="width: 300px">
+        <form action="{{ route('admin.users.search') }}" style="width: 300px">
             <input type="search" name="search" class="form-control form-control-sm" placeholder="Search for names">
         </form>
     </div>
@@ -32,7 +32,7 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('profile.show',$user->id) }}" class="text-decoration-none text-dark fw-bold">{{ $user->name }}</a>
+                        <a href="#" class="text-decoration-none text-dark fw-bold">{{ $user->name }}</a>
                     </td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->age }}</td>  <!-- ageを表示 -->
@@ -62,7 +62,7 @@
                                             Are you sure you want to delete {{ $user->name }}? This action cannot be undone.
                                         </div>
                                         <div class="modal-footer">
-                                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                            <form action="#" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

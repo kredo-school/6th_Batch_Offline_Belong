@@ -64,8 +64,11 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::latest()->paginate(6);
-        return view('posts.all-post')->with('posts', $posts);
+        // 投稿を取得（ページネーション付き）
+        $all_posts = Post::latest()->paginate(6);
+
+        // ビューに変数を渡す
+        return view('posts.schedule')->with('all_posts', $all_posts);
     }
 
     public function edit($id)
