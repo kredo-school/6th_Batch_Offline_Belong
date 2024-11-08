@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctype html>   
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -17,13 +17,12 @@
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    <!-- FullCalendar dependencies -->
+    <!-- calendar -->
     <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
 
-    <!-- Calendar script -->
     <script>
     $(document).ready(function() {
         $('#calendar').fullCalendar({
@@ -33,46 +32,53 @@
                 right: 'month,agendaWeek,agendaDay'
             },
             events: [
-                { title: 'Event 1', start: '2024-10-25' },
-                { title: 'Event 2', start: '2024-10-27', end: '2024-10-29' }
+                {
+                    title: 'Event 1',
+                    start: '2024-10-25'
+                },
+                {
+                    title: 'Event 2',
+                    start: '2024-10-27',
+                    end: '2024-10-29'
+                }
             ]
         });
     });
     </script>
 
-    <!-- Styles -->
     <style>
         html, body {
             height: 100%;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            overflow-x: hidden; /* 横スクロールを無効にする */
         }
 
-        /* Main container */
-        #app {
+        body {
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
         }
 
         main {
-            flex-grow: 1;
+            flex: 1;
+            width: 100%;
+            padding-bottom: 60px; /* フッターの高さ分だけ余白を確保 */
         }
 
         footer {
             background-color: #FDCEDF;
             padding: 20px;
+            text-align: center;
             color: #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            position: fixed; /* フッターを画面の下に固定 */
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 9999; /* 他のコンテンツの上に表示されるようにする */
         }
 
-        /* Other styles (e.g., calendar) */
+    /* ナビゲーションのスタイル */
+        /* カレンダーを表示するカードのサイズと位置調整 */
         .calendar-card {
             width: 550px;
             margin-left: 20px;
@@ -80,12 +86,39 @@
             border-radius: 8px;
         }
 
+<<<<<<< HEAD
+        /* カレンダー自体のサイズと位置を指定 */
+=======
+>>>>>>> ada1f1ad1bec398e137ce5e73682ecc3fe16f472
         #calendar {
             max-width: 500px;
             height: 450px;
             margin: 0 auto;
-            overflow: hidden;
+            overflow: hidden; /* カレンダー内の余分なスクロールを非表示にする */
         }
+
+       
+        /* 検索フォームのスタイル */
+        .search-form {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .search-button {
+            background-color: #FDCEDF;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        
     </style>
 
     <!-- Scripts -->
@@ -93,9 +126,8 @@
 </head>
 <body>
     <div id="app">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
-        <div class="container">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
+    <div class="container">
         @if (Request::is('rules') || Request::is('payment') || Request::is('success'))
             <!-- ルール、ペイメント、サクセスページでは、クリックできないロゴとテキストを表示 -->
             <div class="navbar-brand">
@@ -113,9 +145,11 @@
                 </span>
             </a>
         @endif
+
         @if (!Request::is('rules') && !Request::is('success') && !Request::is('payment'))
             <div class="navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto"></ul>
+
                 <ul class="navbar-nav ms-auto">
                     @guest
                         <li class="nav-item">
@@ -127,15 +161,17 @@
                             </li>
                         @endif
                     @else
-                    <!-- 管理者用メニュー追加 -->
-                    @if (Auth::user()->role === 'admin')
+
+                     <!-- 管理者用メニュー追加 -->
+                     @if (Auth::user()->role === 'admin')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.users') }}">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#}">Posts</a>
+                            <a class="nav-link" href="{{ route('admin.posts') }}">Posts</a>
                         </li>
                     @endif
+                    
                     <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" id="clipboardDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
@@ -174,6 +210,10 @@
                                     <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+<<<<<<< HEAD
+                                    <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::id()]) }}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+                                    <a class="dropdown-item" href="{{ route('admin.users') }}"><i class="fa-solid fa-user-tie"></i> Admin</a>
+=======
 
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
 
@@ -184,6 +224,7 @@
 
                                     <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
 
+>>>>>>> ada1f1ad1bec398e137ce5e73682ecc3fe16f472
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -194,14 +235,19 @@
                                     </form>
                                 </div>
                             </li>
+
                     @endguest
                 </ul>
             </div>
         @endif
     </div>
+</nav>
 
-        </nav>
 
+<<<<<<< HEAD
+        <main class="py-0">
+            @yield('content')
+=======
         <main class="py-4">
             <div class="container">
                 <div class="row justify-content-center">
@@ -224,21 +270,32 @@
                     </div>
                 </div>
             </div>
+>>>>>>> ada1f1ad1bec398e137ce5e73682ecc3fe16f472
         </main>
 
-        <!-- Footer -->
-        <footer>
+        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;"> 
             <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
             @if (!request()->is('login') && !request()->is('register') && !request()->is('rules') && !request()->is('success') && !request()->is('payment'))
             <div style="text-align: right; display: flex; align-items: center;">
-                <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a>
-                <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a>
+                <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a> <!-- Twitterの色を黒 -->
+                <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a> <!-- Facebookの色を青 -->
+                <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->        
                 <a href="{{ route('footer.about') }}" class="about" style="margin-left: 15px;">About Us</a>
                 <a href="{{ route('footer.faq') }}" class="faq" style="margin-left: 15px;">FAQ</a>
             </div>
             @endif
         </footer>
+
     </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+

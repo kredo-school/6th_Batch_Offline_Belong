@@ -13,6 +13,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AccountController;
 
 Auth::routes();
 
@@ -77,6 +78,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/faq', [FooterController::class, 'index'])->name('faq');
         Route::get('/about', [FooterController::class, 'about'])->name('about');
     });
+
+    // Profile routes
+    Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
+    Route::post('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // Include ID
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    // Account routes
+    Route::get('/account/{id}/show', [accountController::class, 'show'])->name('account.show');
+    Route::post('/account/{id}/update', [accountController::class, 'update'])->name('account.update'); // Include ID
+    Route::get('/account/edit', [accountController::class, 'edit'])->name('account.edit');
 });
 
 
