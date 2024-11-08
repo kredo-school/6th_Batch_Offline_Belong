@@ -26,20 +26,27 @@
                     <input type="search" name="search" class="form-control form-control-sm" placeholder="Search for names">
                 </form>
             </div>
+            <!-- メッセージ表示 -->
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             <table class="table table-hover align-middle bg-white border text-secondary mt-3">
-                <thead class="small table-pink text-secondary">  <!-- ピンク色に変更 -->
+                <thead class="small table-pink text-secondary">
                     <tr>
                         <th></th>
                         <th>NAME</th>
                         <th>EMAIL</th>
-                        <th>AGE</th>  <!-- age追加 -->
-                        <th>GENDER</th>  <!-- gender追加 -->
+                        <th>AGE</th>
+                        <th>GENDER</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($all_users as $user)
-                        <tr class="table-pink">  <!-- ピンク色に変更 -->
+                        <tr class="table-pink">
                             <td>
                                 @if($user->avatar)
                                     <img src="{{ $user->avatar }}" alt="" class="rounded-circle d-block mx-auto avatar-md">
@@ -51,10 +58,9 @@
                                 <a href="#" class="text-decoration-none text-dark fw-bold">{{ $user->name }}</a>
                             </td>
                             <td>{{ $user->email }}</td>
-                            <td>{{ $user->age }}</td>  <!-- ageを表示 -->
-                            <td>{{ $user->gender }}</td>  <!-- genderを表示 -->
+                            <td>{{ $user->age }}</td>
+                            <td>{{ $user->gender }}</td>
                             <td>
-                                @if( Auth::user()->id !== $user->id )
                                     <div class="dropdown">
                                         <button class="btn btn-sm" data-bs-toggle="dropdown">
                                             <i class="fa-solid fa-ellipsis"></i>
@@ -78,7 +84,7 @@
                                                     Are you sure you want to delete {{ $user->name }}? This action cannot be undone.
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="#" method="POST">
+                                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -88,7 +94,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                @endif
                             </td>
                         </tr>
                     @endforeach

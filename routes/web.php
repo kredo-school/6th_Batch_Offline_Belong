@@ -105,9 +105,11 @@ Route::group(['middleware' => 'auth'], function () {
         // 管理者のユーザー管理
         Route::get('/users', [UsersController::class, 'index'])->name('users');
         Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
+        Route::delete('/admin/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
 
         // 管理者の投稿管理
         Route::get('/posts', [PostsController::class, 'index'])->name('posts');
+
 });
 
 

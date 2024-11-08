@@ -225,32 +225,6 @@
             @yield('content')
         </main>
 
-
-        <!-- Footer -->
-        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-
-                    @endguest
-                </ul>
-            </div>
-        @endif
-    </div>
-</nav>
-
-
-        <main class="py-0">
-            @yield('content')
-        </main>
-
         <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;"> 
             <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
             @if (!request()->is('login') && !request()->is('register') && !request()->is('rules') && !request()->is('success') && !request()->is('payment'))
