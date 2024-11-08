@@ -79,7 +79,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
         }
-        
+
         #calendar {
             max-width: 500px;
             height: 450px;
@@ -140,16 +140,16 @@
                                 <a class="nav-link" href="#" id="clipboardDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
                                     <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
-                                    <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>                                   
+                                    <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link" href="#" id="heartDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-regular fa-heart" style="font-size: 30px;"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
                                     <a class="dropdown-item" href="{{ route('posts.booked') }}"><i class="fa-solid fa-heart"></i> Booked</a>
                                     <a class="dropdown-item" href="{{ route('posts.attended') }}"><i class="fa-solid fa-flag-checkered"></i> Attended</a>
                                 </div>
@@ -158,7 +158,7 @@
                                 <a class="nav-link" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i>
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">                                    
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
                                     <a class="dropdown-item" href="{{ route('posts.search') }}"><i class="fa-solid fa-magnifying-glass"></i> Post</a>
                                     <a class="dropdown-item" href="{{ route('posts.search.user') }}"><i class="fa-solid fa-user-tag"></i> User</a>
                                 </div>
@@ -167,7 +167,7 @@
                                 <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
+                                <a class="nav-link" href=""><i class="fas fa-cog" style="font-size: 30px;"></i></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -175,8 +175,8 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                    <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::id()]) }}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
-                                    
+                                    <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+
                                     <!-- 管理者だけが表示されるリンク -->
                                     @if(auth()->user() && auth()->user()->role_id == 1) <!-- ユーザーが管理者かどうかをrole_idで確認 -->
                                         <a class="dropdown-item text-danger" href="{{ route('admin.users') }}"><i class="fa-solid fa-user-tie"></i> Admin</a>
@@ -208,7 +208,7 @@
                     <!-- Admin Controls -->
                     @if(request()->is('admin/*'))
                         <div class="col-3">
-                            
+
                             <div class="list-group">
                                 <a href="{{ route('admin.users') }}" class="list-group-item {{ request()->is('admin.users') ? 'active':'' }}">
                                     <i class="fa-solid fa-users"></i> Users
