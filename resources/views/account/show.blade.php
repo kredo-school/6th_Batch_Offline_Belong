@@ -1,4 +1,4 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
 @section('content')
 <div class="container">
@@ -9,6 +9,7 @@
     @if (session('message'))
         <div class="alert alert-success">{{ session('message') }}</div>
     @endif
+    <br>
 
     <!-- プロファイル画像を中央に表示 -->
     <div class="d-flex justify-content-center mb-3">
@@ -21,8 +22,9 @@
         </div>
     </div>
 
+    <br>
     <div class="container d-flex justify-content-center">
-        <div class="card p-5 shadow-lg rounded-3" style="max-width: 800px; width: 100%;">
+        <div class="card p-5 rounded-3" style="max-width: 800px; width: 100%;">
             <h1 class="text-center mb-4">Information</h1>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
@@ -100,18 +102,75 @@
                             name="password_confirmation" required autocomplete="new-password">
                     </div>
                 </div>
-                <!-- プロフィール編集リンク (自分のプロフィールの場合のみ表示) -->
-                @if(Auth::check() && Auth::user()->id == $user->id)
-                    <a href="{{ route('account.edit') }}" class="btn-link mt-3">Edit information</a>
-                @endif
+                
+                <!-- Edit and Withdrawal Buttons -->
+                <div class="d-flex justify-content-center gap-3">
+                    <a href="{{ route('account.edit') }}" class="btn-link btn-edit">Edit information</a>
+                    <a href="#" class="btn-link btn-withdrawal">Withdrawal</a>
+                </div>
             </form>
         </div>
     </div>
 
-    
-
-    <br><br>
+    <br>
+    <br>
 </div>
+
+<!-- Payment Card -->
+<div class="container d-flex justify-content-center">
+    <div class="card p-5 rounded-3" style="max-width: 800px; width: 100%; background-color: rgba(255, 255, 255, 0.9);">
+        <h1 class="text-center mb-4">Payment</h1>
+        <form method="POST" action="{{ route('payment.store') }}" onsubmit="return validateForm()">
+            @csrf
+            
+            <div class="text-center mb-4">
+                <img src="{{ asset('images/reservation-cards.png') }}" alt="Credit Card Logos" style="max-width: 100%; height: auto;">
+            </div>
+
+            <!-- カード番号 --> 
+            <div class="mb-3">
+                <label for="card_number" class="form-label">Card Number</label>
+                <input type="text" id="card_number" name="card_number" class="form-control" required placeholder="1234 5678 9012 3456">
+            </div>
+
+            <!-- 有効期限 --> 
+            <div class="mb-3">
+                <label for="expiry_date" class="form-label">Expiration Date</label>
+                <div class="d-flex">
+                    <select id="expiry_month" name="expiry_month" class="form-control me-2" required>
+                        <option value="" disabled selected>Month</option>
+                        @for ($month = 1; $month <= 12; $month++)
+                            <option value="{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}">{{ $month }}</option>
+                        @endfor
+                    </select>
+                    <select id="expiry_year" name="expiry_year" class="form-control" required>
+                        <option value="" disabled selected>Year</option>
+                        @for ($year = date('Y'); $year <= date('Y') + 10; $year++)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endfor
+                    </select>
+                </div>
+            </div>
+
+            <!-- CVV -->
+            <div class="mb-3">
+                <label for="cvv" class="form-label">CVV</label>
+                <input type="text" id="cvv" name="cvv" class="form-control" required placeholder="***">
+            </div>
+
+            <!-- 名前 -->
+            <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" required placeholder="JOHN KURT">
+            </div>
+
+            <!-- 送信ボタン -->
+            <a href="#" class="btn-link btn-edit ">Edit Payment</a>
+        </form>
+    </div>
+</div>
+<br>
+<br>
 @endsection
 
 <style>
@@ -121,13 +180,28 @@
     border-radius: 50%;
     object-fit: cover;
 }
+
 .btn-link {
     display: inline-block;
     padding: 0.5rem 1rem;
     color: #fff;
-    background-color: #6c757d;
     border-radius: 0.25rem;
     text-decoration: none;
     font-size: 1rem;
+}
+
+/* Edit Button */
+.btn-edit {
+    background-color: #007bff; /* 青色 */
+}
+
+/* Withdrawal Button */
+.btn-withdrawal {
+    background-color: #dc3545; /* 赤色 */
+}
+
+/* ボタン間のスペース */
+.d-flex.gap-3 > * {
+    margin-right: 1rem;
 }
 </style>
