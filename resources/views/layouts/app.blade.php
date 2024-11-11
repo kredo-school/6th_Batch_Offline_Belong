@@ -86,10 +86,7 @@
             border-radius: 8px;
         }
 
-<<<<<<< HEAD
         /* カレンダー自体のサイズと位置を指定 */
-=======
->>>>>>> ada1f1ad1bec398e137ce5e73682ecc3fe16f472
         #calendar {
             max-width: 500px;
             height: 450px;
@@ -203,28 +200,15 @@
                                 <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href=""><i class="fas fa-cog" style="font-size: 30px;"></i></a>
+                                <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-<<<<<<< HEAD
                                     <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::id()]) }}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
                                     <a class="dropdown-item" href="{{ route('admin.users') }}"><i class="fa-solid fa-user-tie"></i> Admin</a>
-=======
-
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
-
-                                    <!-- 管理者だけが表示されるリンク -->
-                                    @if(auth()->user() && auth()->user()->role_id == 1) <!-- ユーザーが管理者かどうかをrole_idで確認 -->
-                                        <a class="dropdown-item text-danger" href="{{ route('admin.users') }}"><i class="fa-solid fa-user-tie"></i> Admin</a>
-                                    @endif
-
-                                    <a class="dropdown-item" href=""><i class="fa-solid fa-user-tie"></i> Admin</a>
-
->>>>>>> ada1f1ad1bec398e137ce5e73682ecc3fe16f472
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -244,33 +228,10 @@
 </nav>
 
 
-<<<<<<< HEAD
+
         <main class="py-0">
             @yield('content')
-=======
-        <main class="py-4">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <!-- Admin Controls -->
-                    @if(request()->is('admin/*'))
-                        <div class="col-3">
 
-                            <div class="list-group">
-                                <a href="{{ route('admin.users') }}" class="list-group-item {{ request()->is('admin.users') ? 'active':'' }}">
-                                    <i class="fa-solid fa-users"></i> Users
-                                </a>
-                                <a href="{{ route('admin.posts') }}" class="list-group-item {{ request()->is('admin.posts') ? 'active':'' }}">
-                                    <i class="fa-solid fa-newspaper"></i> Posts
-                                </a>
-                            </div>
-                        </div>
-                    @endif
-                    <div class="col-9">
-                        @yield('content')
-                    </div>
-                </div>
-            </div>
->>>>>>> ada1f1ad1bec398e137ce5e73682ecc3fe16f472
         </main>
 
         <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;"> 
