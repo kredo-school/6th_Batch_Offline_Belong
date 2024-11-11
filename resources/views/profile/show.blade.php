@@ -14,7 +14,7 @@
             <!-- プロファイル画像の表示 -->
             <div class="profile_image mb-3">
                 @if ($user->profile_image)
-                    <!-- 画像のURLが正しく保存されていれば、画像を表示 -->
+                  
                     <img src="{{ $user->profile_image }}" alt="Profile Image" class="rounded-image">
                 @else
                     <!-- デフォルト画像を表示 -->
