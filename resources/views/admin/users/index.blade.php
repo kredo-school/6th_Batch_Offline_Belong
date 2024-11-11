@@ -51,7 +51,8 @@
                                 @if($user->avatar)
                                     <img src="{{ $user->avatar }}" alt="" class="rounded-circle d-block mx-auto avatar-md">
                                 @else
-                                    <i class="fa-solid fa-circle-user d-block text-center icon-md"></i>
+                                    <!-- アイコンを大きくするためにクラスを変更 -->
+                                    <i class="fa-solid fa-circle-user d-block text-center" style="font-size: 3rem;"></i>
                                 @endif
                             </td>
                             <td>

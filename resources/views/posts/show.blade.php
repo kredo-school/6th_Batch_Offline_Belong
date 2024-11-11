@@ -8,14 +8,16 @@
         position: relative;
     }
 
+    /* アイコンのサイズを大きくする */
     .avatar {
-        width: 100px;
-        height: 50px;
+        width: 300px; /* 幅を大きく */
+        height: 300px; /* 高さを大きく */
     }
 
+    /* ユーザーネームのサイズを大きくする */
     .user-name {
-        font-size: 2.0rem;
-        font-weight: bold;
+        font-size: 1.5rem; /* フォントサイズを大きく */
+        font-weight: thick;
     }
 
     .icon-count {
@@ -41,18 +43,19 @@
                     <div class="col-auto">
                         <a href="#">
                             @if($post->user->avatar)
-                            <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-circle avatar w-100">
+                            <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-circle avatar">
                             @else
-                            <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
+                            <i class="fa-solid fa-circle-user text-secondary icon-lg"></i>
                             @endif
                         </a>
                     </div>
                     <div class="col ps-0">
-                        <a href="#" class="text-decoration-none text-dark">{{ $post->user->name }}</a>
+                        <!-- ユーザーネームのテキストサイズを大きくする -->
+                        <a href="#" class="text-decoration-none text-dark user-name">{{ $post->user->name }}</a>
                     </div>
 
                     <div class="col-auto">
-                        @if(Auth::user()->id === $post->user_id) <!-- Check if the authenticated user is the post creator -->
+                        @if(Auth::user()->id === $post->user_id)
                         <button class="btn btn-sm shadow-none" data-bs-toggle="dropdown">
                             <i class="fa-solid fa-ellipsis"></i>
                         </button>
@@ -139,7 +142,7 @@
                         <div class="d-flex justify-content-between mt-1">
                             <span class="text-muted small">{{ date('M d, Y', strtotime($comment->created_at)) }}</span>
 
-                            @if(Auth::user()->id === $comment->user->id) <!-- Check if the authenticated user is the comment creator -->
+                            @if(Auth::user()->id === $comment->user->id)
                             <form action="{{ route('comment.destroy', $comment->id) }}" method="post" class="d-inline">
                                 @csrf
                                 @method('DELETE')
@@ -155,8 +158,8 @@
                 <hr>
 
                 <div class="text-center mt-2">
-                    @if(now() > \Carbon\Carbon::parse($post->date)) <!-- イベント日が過去かを確認 -->
-                        @if($post->isBookedBy(Auth::user())) <!-- ログインユーザーが予約したかを確認 -->
+                    @if(now() > \Carbon\Carbon::parse($post->date))
+                        @if($post->isBookedBy(Auth::user()))
                             <a href="{{ route('reviews.create', $post) }}" class="btn btn-primary btn-sm">Write Review</a>
                         @else
                             <button class="btn btn-secondary btn-sm" disabled>Review (Unavailable)</button>
