@@ -36,5 +36,17 @@ class UsersController extends Controller
         // 検索結果をadmin.users.indexビューに渡す
         return view('admin.users.index', compact('all_users'));
     }
+
+    public function destroy($id)
+    {
+        // ユーザーを取得
+        $user = User::findOrFail($id);
+
+        // ユーザーの削除
+        $user->delete();
+
+        // メッセージ付きでリダイレクト
+        return redirect()->route('admin.users')->with('success', 'User deleted successfully.');
+    }
     
 }

@@ -49,35 +49,11 @@
     <style>
         html, body {
             height: 100%;
+            width: 100%;
             margin: 0;
             padding: 0;
             overflow-x: hidden; /* 横スクロールを無効にする */
         }
-
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1;
-            width: 100%;
-            padding-bottom: 60px; /* フッターの高さ分だけ余白を確保 */
-        }
-
-        footer {
-            background-color: #FDCEDF;
-            padding: 20px;
-            text-align: center;
-            color: #333;
-            position: fixed; /* フッターを画面の下に固定 */
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            z-index: 9999; /* 他のコンテンツの上に表示されるようにする */
-        }
-
-    /* ナビゲーションのスタイル */
         /* カレンダーを表示するカードのサイズと位置調整 */
         .calendar-card {
             width: 550px;
@@ -86,7 +62,11 @@
             border-radius: 8px;
         }
 
+<<<<<<< HEAD
         /* カレンダー自体のサイズと位置を指定 */
+=======
+
+>>>>>>> 741d4e2b115b887a816a71de5dcedb714096b9dc
         #calendar {
             max-width: 500px;
             height: 450px;
@@ -94,7 +74,23 @@
             overflow: hidden; /* カレンダー内の余分なスクロールを非表示にする */
         }
 
-       
+        /* ここにページ全体に対するレイアウト調整を追加 */
+        main {
+            width: 100%;
+            height: calc(100% - 100px); /* ナビゲーションとフッターを除いた高さ */
+            
+        }
+
+        /* フッターのスタイル */
+        footer {
+            background-color: #FDCEDF;
+            padding: 20px;
+            text-align: center;
+            color: #333;
+            bottom: 0;
+            left: 0;
+            
+        }
         /* 検索フォームのスタイル */
         .search-form {
             display: flex;
@@ -123,26 +119,113 @@
 </head>
 <body>
     <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
-    <div class="container">
-        @if (Request::is('rules') || Request::is('payment') || Request::is('success'))
-            <!-- ルール、ペイメント、サクセスページでは、クリックできないロゴとテキストを表示 -->
-            <div class="navbar-brand">
-                <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
-                <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
-                    {{ config('app.name', 'Belong') }}
-                </span>
-            </div>
-        @else
-            <!-- 他のページではクリック可能なロゴとテキストを表示 -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
-                <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
-                    {{ config('app.name', 'Belong') }}
-                </span>
-            </a>
-        @endif
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
+                <div class="container">
+                @if (Request::is('rules') || Request::is('payment') || Request::is('success'))
+                    <!-- ルール、ペイメント、サクセスページでは、クリックできないロゴとテキストを表示 -->
+                    <div class="navbar-brand">
+                        <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
+                        <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
+                            {{ config('app.name', 'Belong') }}
+                        </span>
+                    </div>
+                @else
+                    <!-- 他のページではクリック可能なロゴとテキストを表示 -->
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
+                        <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
+                            {{ config('app.name', 'Belong') }}
+                        </span>
+                    </a>
+                @endif
+                @if (!Request::is('rules') && !Request::is('success') && !Request::is('payment'))
+                    <div class="navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto"></ul>
+                        <ul class="navbar-nav ms-auto">
+                            @guest
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                </li>
+                                @if (Route::has('register'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    </li>
+                                @endif
+                            @else
+                            <!-- 管理者用メニュー追加 -->
+                            @if (Auth::user()->role === 'admin')
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.users') }}">Users</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin.posts') }}">Posts</a>
+                                </li>
+                            @endif
+                            <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" id="clipboardDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
+                                            <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
+                                            <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" id="heartDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa-regular fa-heart" style="font-size: 30px;"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
+                                            <a class="dropdown-item" href="{{ route('posts.booked') }}"><i class="fa-solid fa-heart"></i> Booked</a>
+                                            <a class="dropdown-item" href="{{ route('posts.attended') }}"><i class="fa-solid fa-flag-checkered"></i> Attended</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
+                                            <a class="dropdown-item" href="{{ route('posts.search') }}"><i class="fa-solid fa-magnifying-glass"></i> Post</a>
+                                            <a class="dropdown-item" href="{{ route('posts.search.user') }}"><i class="fa-solid fa-user-tag"></i> User</a>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href=""><i class="fas fa-cog" style="font-size: 30px;"></i></a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                        <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                            <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
+                                            <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+
+                                            <!-- 管理者だけが表示されるリンク -->
+                                            @if(auth()->user() && auth()->user()->role_id == 1) <!-- ユーザーが管理者かどうかをrole_idで確認 -->
+                                                <a class="dropdown-item text-danger" href="{{ route('admin.users') }}"><i class="fa-solid fa-user-tie"></i> Admin</a>
+                                            @endif
+
+                                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                                <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    </li>
+                            @endguest
+                        </ul>
+                    </div>
+                @endif
+            </div>
+        </nav>
+
+<<<<<<< HEAD
         @if (!Request::is('rules') && !Request::is('success') && !Request::is('payment'))
             <div class="navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto"></ul>
@@ -232,6 +315,10 @@
         <main class="py-0">
             @yield('content')
 
+=======
+        <main class="py-0">
+            @yield('content')
+>>>>>>> 741d4e2b115b887a816a71de5dcedb714096b9dc
         </main>
 
         <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;"> 
@@ -240,7 +327,7 @@
             <div style="text-align: right; display: flex; align-items: center;">
                 <a href="#"><i class="fa-brands fa-twitter" style="font-size: 24px; color: black; margin-left: 15px;"></i></a> <!-- Twitterの色を黒 -->
                 <a href="#"><i class="fa-brands fa-facebook" style="font-size: 24px; color: blue; margin-left: 15px;"></i></a> <!-- Facebookの色を青 -->
-                <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->        
+                <a href="#"><i class="fa-brands fa-instagram" style="font-size: 24px; color: red; margin-left: 15px;"></i></a> <!-- Instagramの色を赤 -->
                 <a href="{{ route('footer.about') }}" class="about" style="margin-left: 15px;">About Us</a>
                 <a href="{{ route('footer.faq') }}" class="faq" style="margin-left: 15px;">FAQ</a>
             </div>
