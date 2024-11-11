@@ -1,4 +1,4 @@
-<!doctype html>   
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -62,7 +62,6 @@
             border-radius: 8px;
         }
 
-
         #calendar {
             max-width: 500px;
             height: 450px;
@@ -74,7 +73,7 @@
         main {
             width: 100%;
             height: calc(100% - 100px); /* ナビゲーションとフッターを除いた高さ */
-            
+
         }
 
         /* フッターのスタイル */
@@ -85,7 +84,7 @@
             color: #333;
             bottom: 0;
             left: 0;
-            
+
         }
         /* 検索フォームのスタイル */
         .search-form {
@@ -107,7 +106,7 @@
             cursor: pointer;
             border-radius: 4px;
         }
-        
+
     </style>
 
     <!-- Scripts -->
@@ -197,7 +196,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                            <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+                                            <a class="dropdown-item" href="{{route('profile.show',Auth::user()->id)}}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
 
                                             <!-- 管理者だけが表示されるリンク -->
                                             @if(auth()->user() && auth()->user()->role_id == 1) <!-- ユーザーが管理者かどうかをrole_idで確認 -->
@@ -225,7 +224,7 @@
             @yield('content')
         </main>
 
-        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;"> 
+        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center; position: fixed; bottom: 0; width: 100%;">
             <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
             @if (!request()->is('login') && !request()->is('register') && !request()->is('rules') && !request()->is('success') && !request()->is('payment'))
             <div style="text-align: right; display: flex; align-items: center;">

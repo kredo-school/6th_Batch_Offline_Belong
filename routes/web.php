@@ -81,7 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Profile routes
     Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
-    Route::post('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // Include ID
+    Route::patch('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // Include ID
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
     // Account routes
