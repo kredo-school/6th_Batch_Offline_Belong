@@ -11,8 +11,8 @@
     @endif
 
     <!-- プロファイル画像の表示 -->
-    <div class="profile-image mb-3">
-        @if($user && $user->profile_image)
+    <div class="profile_image mb-3">
+        @if($user && $user->image)
             <!-- 画像がある場合、データベースに保存されたパスを表示 -->
             <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Profile Image" class="rounded-image">
         @else
@@ -27,7 +27,7 @@
 
         <div class="form-group">
             <label for="profile_image">Profile Image (JPEG, PNG, max 2MB)</label>
-            <input type="file" name="profile_image" class="form-control" accept="image/*">
+            <input type="file" name="image" class="form-control" >
         </div>
 
         <div class="form-group">
@@ -43,11 +43,11 @@
             <label for="gender">Gender</label>
             <select name="gender" class="form-control">
                 <option value="">Please select</option>
-                <option value="男性" {{ $selectedGender == '男性' ? 'selected' : '' }}>男性</option>
-                <option value="女性" {{ $selectedGender == '女性' ? 'selected' : '' }}>女性</option>
-                <option value="その他" {{ $selectedGender == 'その他' ? 'selected' : '' }}>その他</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
             </select>
         </div>
+
 
         <div class="form-group">
             <label for="bio">Self-introduction</label>
@@ -58,6 +58,10 @@
         <button type="submit" class="btn btn-primary">Update Profile</button>
     </form>
     <br>
+    <br>
+    <br>
+    <br>
+
 </div>
 @endsection
 

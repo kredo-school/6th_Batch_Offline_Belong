@@ -45,10 +45,10 @@ class ProfileController extends Controller
     $user->bio = $request->input('bio');
 
     // プロファイル画像の処理
-    if ($request->hasFile('profile_image')) {
-        // 画像の保存
-        $path = $request->file('profile_image')->store('profile_images', 'public');
-        $user->profile_image = $path;  // ファイル名をデータベースに保存
+    if ($request->image) {
+        $user->profile_image = 'data:image/' . $request->image->extension() .
+                ';base64,' . base64_encode(file_get_contents($request->image));
+        
     }
 
     // ユーザー情報を保存

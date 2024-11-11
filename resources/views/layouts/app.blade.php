@@ -62,7 +62,11 @@
             border-radius: 8px;
         }
 
+<<<<<<< HEAD
+        /* カレンダー自体のサイズと位置を指定 */
+=======
 
+>>>>>>> 741d4e2b115b887a816a71de5dcedb714096b9dc
         #calendar {
             max-width: 500px;
             height: 450px;
@@ -221,8 +225,100 @@
             </div>
         </nav>
 
+<<<<<<< HEAD
+        @if (!Request::is('rules') && !Request::is('success') && !Request::is('payment'))
+            <div class="navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto"></ul>
+
+                <ul class="navbar-nav ms-auto">
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @if (Route::has('register'))
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            </li>
+                        @endif
+                    @else
+
+                     <!-- 管理者用メニュー追加 -->
+                     @if (Auth::user()->role === 'admin')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.users') }}">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.posts') }}">Posts</a>
+                        </li>
+                    @endif
+                    
+                    <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" id="clipboardDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-regular fa-clipboard" style="font-size: 30px;"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
+                                    <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
+                                    <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" id="heartDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-regular fa-heart" style="font-size: 30px;"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
+                                    <a class="dropdown-item" href="{{ route('posts.booked') }}"><i class="fa-solid fa-heart"></i> Booked</a>
+                                    <a class="dropdown-item" href="{{ route('posts.attended') }}"><i class="fa-solid fa-flag-checkered"></i> Attended</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa-solid fa-magnifying-glass" style="font-size: 30px;"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
+                                    <a class="dropdown-item" href="{{ route('posts.search') }}"><i class="fa-solid fa-magnifying-glass"></i> Post</a>
+                                    <a class="dropdown-item" href="{{ route('posts.search.user') }}"><i class="fa-solid fa-user-tag"></i> User</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                    <i class="fa-solid fa-circle-user" style="font-size: 30px;"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('profile.show', ['id' => Auth::id()]) }}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+                                    <a class="dropdown-item" href="{{ route('admin.users') }}"><i class="fa-solid fa-user-tie"></i> Admin</a>
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="fa-solid fa-right-from-bracket"></i> {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+
+                    @endguest
+                </ul>
+            </div>
+        @endif
+    </div>
+</nav>
+
+
+
         <main class="py-0">
             @yield('content')
+
+=======
+        <main class="py-0">
+            @yield('content')
+>>>>>>> 741d4e2b115b887a816a71de5dcedb714096b9dc
         </main>
 
         <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;"> 

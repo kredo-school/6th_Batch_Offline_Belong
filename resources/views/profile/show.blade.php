@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+{{ $user }}
 <div class="container">
     <h1 class="text-center" style="font-size: 3rem; font-weight: bold;">
         Profile - {{ $user->name }}
@@ -12,13 +14,13 @@
 
     <div class="d-flex align-items-center">
         <!-- プロファイル画像の表示 -->
-        <div class="profile-image mb-3">
-            @if(isset($user) && $user->profile_image)
+        <div class="profile_image mb-3">
+            @if($user->profile_image)
                 <!-- 画像のURLが正しく保存されていれば、画像を表示 -->
-                <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Profile Image" class="rounded-image">
+                <img src="{{ $user->image }}" alt="Profile Image" class="rounded-image">
             @else
                 <!-- デフォルト画像を表示 -->
-                <img src="{{ asset('storage/profile_images/default-image.jpg') }}" alt="Default Image" class="rounded-image"> <!-- デフォルト画像URL -->
+                 <i class="fa-solid fa-circle-user fa-5x"></i>
             @endif
         </div>
 
@@ -46,6 +48,9 @@
     @endif
 
     <br><br>
+    <br>
+    <br>
+
 </div>
 @endsection
 
