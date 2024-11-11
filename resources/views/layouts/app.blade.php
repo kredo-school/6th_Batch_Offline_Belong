@@ -196,7 +196,7 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                                            <a class="dropdown-item" href=""><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
+                                            <a class="dropdown-item" href="{{route('profile.show',Auth::user()->id)}}"><i class="fa-solid fa-id-badge"></i>  Profile</a> <!-- プロフィールボタン -->
 
                                             <!-- 管理者だけが表示されるリンク -->
                                             @if(auth()->user() && auth()->user()->role_id == 1) <!-- ユーザーが管理者かどうかをrole_idで確認 -->
@@ -224,7 +224,7 @@
             @yield('content')
         </main>
 
-        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center;">
+        <footer style="background-color: #FDCEDF; padding: 20px; color: #333; display: flex; justify-content: space-between; align-items: center; position: fixed; bottom: 0; width: 100%;">
             <p style="margin: 0;">© 2024 Belong. All rights reserved.</p>
             @if (!request()->is('login') && !request()->is('register') && !request()->is('rules') && !request()->is('success') && !request()->is('payment'))
             <div style="text-align: right; display: flex; align-items: center;">
