@@ -29,7 +29,7 @@
             <br>
             <div class="d-flex justify-content-between"> <!-- Flexboxを使用して横並びに配置 -->
                 <h3 class="text-start">Thank you very much!!</h3> <!-- 左寄せ -->
-                <h1 class="text-end" style="font-family: 'Patrick Hand', cursive; font-style: italic;">John Kurt</h1> <!-- 右寄せと手書き風フォント -->
+                <h1 class="text-end" style="font-family: 'Patrick Hand', cursive; font-style: italic;">Kurt John</h1> <!-- 右寄せと手書き風フォント -->
             </div>
 
         </div>
