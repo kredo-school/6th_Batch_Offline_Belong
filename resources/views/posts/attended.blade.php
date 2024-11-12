@@ -1,6 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<style>
+    .table-header-bg {
+        background-color: #fdcdef;
+    }
+</style>
 <div class="container mt-3">
     <h2>Past Attended Posts</h2>
 
@@ -13,7 +19,7 @@
     @else
         <table class="table table-bordered text-center">
             <thead>
-                <tr class="">
+                <tr class="table-header-bg">
                     <th>Post</th>
                     <th>Title</th>
                     <th>Created By</th>

@@ -73,10 +73,16 @@ class PostController extends Controller
 
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
-        $all_categories = Category::all();
-        return view('posts.edit', compact('post', 'all_categories'));
+        $post = Post::findOrFail($id); // 投稿をIDで取得
+        $all_categories = Category::all(); // 全てのカテゴリを取得
+
+        // 投稿に関連付けられているカテゴリを取得（多対多の関係を仮定）
+        $selected_categories = $post->categories->pluck('id')->toArray();
+
+        // ビューにデータを渡す
+        return view('posts.edit', compact('post', 'all_categories', 'selected_categories'));
     }
+
 
     public function update(Request $request, $id)
     {

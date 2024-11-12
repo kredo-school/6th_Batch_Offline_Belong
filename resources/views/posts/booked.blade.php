@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- Include the font-awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+
+<!-- Custom style to set table header background color -->
+<style>
+    .table th {
+        background-color: #fdcdef; /* Change this to your desired background color */
+    }
+</style>
+
 <div class="container mt-3">
     <h2>Your Booked Posts</h2>
 
@@ -38,7 +48,7 @@
                         <td>{{ $book->post->date }}</td>
                         <td>
                             <button type="button" class="btn p-0" style="font-size: 36px;" data-bs-toggle="modal" data-bs-target="#delete-post-{{ $book->post->id }}">
-                                <i class="fa-solid fa-square-xmark"></i>
+                                <i class="fa-sharp fa-solid fa-trash text-danger"></i>
                             </button>
                         </td>
                     </tr>
