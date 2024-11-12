@@ -31,8 +31,8 @@ class ProfileController extends Controller
 {
 
     $user = User::findOrFail($id);
-    $user->name = $request->name;
-    $user->email = $request->email;
+    $user->age = $request->age;
+    $user->gender = $request->gender;
     $user->bio = $request->bio;
 
     if ($request->hasFile('profile_image')) {
