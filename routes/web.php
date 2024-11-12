@@ -23,6 +23,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/payment', [PaymentController::class, 'show'])->name('payment.show');
     Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store'); // POSTルート
+    Route::patch('/payment/{id}/update', [PaymentController::class, 'update'])->name('payment.update'); // Include ID
+    Route::get('/payment/{id}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
+
+
 
     Route::get('/rules', [RuleController::class, 'rules'])->name('rules.page');
 
@@ -81,12 +85,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Profile routes
     Route::get('/profile/{id}/show', [ProfileController::class, 'show'])->name('profile.show');
-    Route::post('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // Include ID
+    Route::patch('/profile/{id}/update', [ProfileController::class, 'update'])->name('profile.update'); // Include ID
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
     // Account routes
     Route::get('/account/{id}/show', [accountController::class, 'show'])->name('account.show');
-    Route::post('/account/{id}/update', [accountController::class, 'update'])->name('account.update'); // Include ID
+    Route::patch('/account/{id}/update', [accountController::class, 'update'])->name('account.update'); // Include ID
     Route::get('/account/edit', [accountController::class, 'edit'])->name('account.edit');
 });
 

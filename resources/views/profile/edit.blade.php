@@ -1,68 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h1 class="text-center" style="font-size: 3rem; font-weight: bold;">
-        Edit Profile
-    </h1>
+    <div class="container">
+   
+        <div class="row justify-content-center ">
+            <div class="col-7">
+                <form action="{{route('profile.update',$user->id)}}" method="post" enctype="multipart/form-data" class="p-5 shadow">
+                    @csrf
+                    @method('patch')
+                    <div class="row mb-3">
+                        <div class="col text-center">
+                            @if ($user->profile_image)
+                                <img src="{{ $user->profile_image }}" alt="">
+                            @else
+                                <i class="fa-solid fa-circle-user fa-10x"></i>
+                            @endif
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <input type="file" name="profile_image" class="form-control">
+                            <div class="form-text text-danger small">
+                                Acceptable formats: jpeg, jpg, png, gif (1MB max)
+                            </div>
+                        </div>
 
-    @if (session('message'))
-        <div class="alert alert-success">{{ session('message') }}</div>
-    @endif
+                    </div>
+                    <div class="mb-3">
+                        <label for="age" class="form-label fw-bold">Age</label>
+                        <input type="number" name="age" id="age" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="gender" class="form-label fw-bold">Gender</label>
+                        <select name="gender" id="gender" class="form-select">
+                            <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Male</option>
+                            <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Female</option>
+                            <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Other</option>
+                            <option value="prefer_not_to_say" {{ $user->gender == 'prefer_not_to_say' ? 'selected' : '' }}>Prefer not to say</option>
+                        </select>
+                    </div>
 
-    <!-- プロファイル画像の表示 -->
-    <div class="profile_image mb-3">
-        @if($user && $user->image)
-            <!-- 画像がある場合、データベースに保存されたパスを表示 -->
-            <img src="{{ asset('storage/' . $user->profile_image) }}" alt="Profile Image" class="rounded-image">
-        @else
-            <!-- 画像がない場合、デフォルト画像を表示 -->
-            <img src="{{ asset('storage/profile_images/default-image.jpg') }}" alt="Default Image" class="rounded-image"> <!-- デフォルト画像URL -->
-        @endif
+                    <div class="mb-3">
+                        <label for="bio" class="form-label fw-bold">Bio</label>
+                        <textarea name="bio" id="bio"  rows="3" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-warning px-5">Save Profile</button>
+                </form>
+            </div>
+        </div>
     </div>
-
-    <!-- プロフィール編集フォーム -->
-    <form action="{{ route('profile.update', ['id' => Auth::id()]) }}" method="POST" enctype="multipart/form-data">
-        @csrf
-
-        <div class="form-group">
-            <label for="profile_image">Profile Image (JPEG, PNG, max 2MB)</label>
-            <input type="file" name="image" class="form-control" >
-        </div>
-
-        <div class="form-group">
-            <label for="age">Age</label>
-            <input type="number" name="age" class="form-control" value="{{ old('age', $user->age ?? '') }}">
-        </div>
-
-        @php
-            $selectedGender = old('gender', $user->gender ?? '');
-        @endphp
-
-        <div class="form-group">
-            <label for="gender">Gender</label>
-            <select name="gender" class="form-control">
-                <option value="">Please select</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-            </select>
-        </div>
-
-
-        <div class="form-group">
-            <label for="bio">Self-introduction</label>
-            <textarea name="bio" class="form-control">{{ old('bio', $user->bio ?? '') }}</textarea>
-        </div>
-        <br>
-
-        <button type="submit" class="btn btn-primary">Update Profile</button>
-    </form>
     <br>
     <br>
     <br>
     <br>
 
-</div>
+    </div>
 @endsection
 
 <!-- CSSのスタイル定義 -->
@@ -70,7 +60,9 @@
     .rounded-image {
         width: 250px;
         height: 250px;
-        border-radius: 50%; /* 画像を丸くする */
-        object-fit: cover; /* 画像をコンテナにフィットさせる */
+        border-radius: 50%;
+        /* 画像を丸くする */
+        object-fit: cover;
+        /* 画像をコンテナにフィットさせる */
     }
 </style>
