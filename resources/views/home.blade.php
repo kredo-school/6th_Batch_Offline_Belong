@@ -99,18 +99,19 @@
         </div>
     </div>
 
-    <!-- カレンダーを表示する場所 -->
-    <div class="row justify-content-start mt-4"> <!-- 左揃え -->
-        <div class="col-md-8"> <!-- カレンダーのカラム -->
-            <div class="card calendar-card"> <!-- calendar-cardクラスを追加 -->
-                <div class="card-header text-center">
-                    <h5>カレンダー</h5>
-                </div>
-                <div class="card-body">
-                    <div id="calendar"></div>
+    <div class="container mt-4"><!-- カレンダーを表示する場所 -->
+        <div class="row justify-content-center mt-5"> <!-- 上部マージンを増加し中央寄せ -->
+            <div class="col-md-8 mt-5"> <!-- カレンダーのカラム -->
+                <div class="card calendar-card"> <!-- calendar-cardクラスを追加 -->
+                    <div class="card-header text-center">
+                        <h5>カレンダー</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="calendar"></div>
+                    </div>
                 </div>
             </div>
-        </div>
+
         <div class="col-md-3"> <!-- カードを配置するカラム -->
             <div class="text-left mb-2" style="margin-left: -260px;"> <!-- "Sort post"テキストを左に配置 -->
                 <h5 style="font-size: 60px; font-weight: bold;">Sort post</h5>
@@ -119,7 +120,7 @@
                 <div class="col-6 mb-4"> <!-- 1つ目のカード -->
                     <div class="card h-100"> <!-- h-100クラスを追加 -->
                         <div class="card-img-top text-center" style="position: relative;">
-                            <img src="{{ asset('images/image1.jpg') }}" alt="Image 1" style="width: 100%; height: auto;">
+                            <img src="{{ asset('images/play.jpg') }}" alt="Image 1" style="width: 100%; height: auto;">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Play</h5> <!-- 画像名をタイトルに -->
@@ -131,7 +132,7 @@
                 <div class="col-6 mb-4"> <!-- 2つ目のカード -->
                     <div class="card h-100"> <!-- h-100クラスを追加 -->
                         <div class="card-img-top text-center" style="position: relative;">
-                            <img src="{{ asset('images/image2.jpg') }}" alt="Image 2" style="width: 100%; height: auto;">
+                            <img src="{{ asset('images/Watch and Learn.jpg') }}" alt="Image 2" style="width: 100%; height: auto;">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Watch and Learn</h5> <!-- 画像名をタイトルに -->
@@ -143,7 +144,7 @@
                 <div class="col-6 mb-4"> <!-- 3つ目のカード -->
                     <div class="card h-100"> <!-- h-100クラスを追加 -->
                         <div class="card-img-top text-center" style="position: relative;">
-                            <img src="{{ asset('images/image3.jpg') }}" alt="Image 3" style="width: 100%; height: auto;">
+                            <img src="{{ asset('images/eat.jpg') }}" alt="Image 3" style="width: 100%; height: auto;">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Eat</h5> <!-- 画像名をタイトルに -->
@@ -155,7 +156,7 @@
                 <div class="col-6 mb-4"> <!-- 4つ目のカード -->
                     <div class="card h-100"> <!-- h-100クラスを追加 -->
                         <div class="card-img-top text-center" style="position: relative;">
-                            <img src="{{ asset('images/image4.jpg') }}" alt="Image 4" style="width: 100%; height: auto;">
+                            <img src="{{ asset('images/others.jpg') }}" alt="Image 4" style="width: 100%; height: auto;">
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Others</h5> <!-- 画像名をタイトルに -->

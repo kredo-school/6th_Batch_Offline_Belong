@@ -92,14 +92,24 @@
                             <span class="icon-count">{{ $post->books->count() }}</span>
                         </a>
 
-                        @if($post->isBooked())
-                            <span class="btn btn-sm shadow-none p-0 text-muted" title="Already Booked">
-                                <i class="fa-solid fa-heart text-danger icon-lg"></i>
-                            </span>
+                        {{-- 予約可能期限のチェック --}}
+                        @if($post->reservation_due_date && now()->lessThan($post->reservation_due_date))
+                            {{-- 既に予約済みの場合 --}}
+                            @if($post->isBooked())
+                                <span class="btn btn-sm shadow-none p-0 text-muted" title="Already Booked">
+                                    <i class="fa-solid fa-heart text-danger icon-lg"></i>
+                                </span>
+                            @else
+                                {{-- 予約可能な場合のみ予約ボタンを表示 --}}
+                                <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
+                                    <i class="fa-regular fa-heart text-danger icon-lg"></i>
+                                </a>
+                            @endif
                         @else
-                            <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
-                                <i class="fa-regular fa-heart text-danger icon-lg"></i>
-                            </a>
+                            {{-- 予約期限が過ぎた場合のメッセージ --}}
+                            <span class="btn btn-sm shadow-none p-0 text-muted" title="Reservation period has ended">
+                                <i class="fa-regular fa-heart text-secondary icon-lg"></i>
+                            </span>
                         @endif
                     </div>
 
@@ -173,5 +183,7 @@
 <div class="d-flex justify-content-center">
         {{ $all_posts->links() }}
 </div>
-
+<br>
+<br>
+<br>
 @endsection

@@ -22,7 +22,7 @@
         <!-- Post Table -->
         <div class="col-md-9 col-sm-12">
             <table class="table table-hover align-middle bg-white border text-secondary">
-                <thead class="small table-success text-secondary">
+                <thead class="small table-success  text-secondary">
                     <tr>
                         <th>ID</th>
                         <th>Posts</th> <!-- 画像列 -->

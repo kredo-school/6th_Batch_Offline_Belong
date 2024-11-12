@@ -24,18 +24,25 @@
                             @method('PUT') <!-- PUTメソッドを指定 -->
 
                             <!-- Category -->
-                            <div class="mb-3 row">
+                            <div class="mb-3">
                                 <label class="form-label d-block fw-bold">Category <span class="text-muted fw-normal">(Select one)</span></label>
-                                @foreach($all_categories as $category)
-                                    <div class="form-check">
-                                        <input type="radio" name="category" id="category_{{ $category->id }}" 
-                                        value="{{ $category->id }}" class="form-check-input" required>
-                                        <label for="category_{{ $category->id }}" class="form-check-label">
-                                            {{ $category->name }}
-                                        </label>
-                                    </div>
-                                @endforeach
+                                
+                                <div class="d-flex flex-wrap">
+                                    @foreach($all_categories as $category)
+                                        <div class="form-check form-check-inline">
+                                            <!-- チェックボックスに変更（選択されたカテゴリがある場合にチェックを付ける） -->
+                                            <input type="checkbox" name="category[]" id="category_{{ $category->id }}"
+                                                value="{{ $category->id }}" class="form-check-input"
+                                                {{ in_array($category->id, $selected_categories) ? 'checked' : '' }}>
 
+                                            <label for="category_{{ $category->id }}" class="form-check-label">
+                                                {{ $category->name }}
+                                            </label>
+                                        </div>
+                                    @endforeach
+                                </div>
+
+                                <!-- バリデーションエラーメッセージ -->
                                 @error('category')
                                     <div class="text-danger small">{{ $message }}</div>
                                 @enderror
@@ -127,4 +134,7 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
 @endsection

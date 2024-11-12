@@ -23,10 +23,10 @@
                             <!-- Category -->
                             <div class="mb-3">
                                 <label class="form-label d-block fw-bold">Category <span class="text-muted fw-normal">(Select one)</span></label>
-
-                                <div class="d-flex flex-column"> <!-- Flexboxを使用して縦に並べる -->
+                                
+                                <div class="d-flex flex-wrap"> <!-- Flexbox設定を変更 -->
                                     @foreach($all_categories as $category)
-                                        <div class="form-check form-check-inline"> <!-- インラインに変更 -->
+                                        <div class="form-check form-check-inline"> <!-- インライン表示 -->
                                             <input type="radio" name="category" id="category_{{ $category->id }}" 
                                             value="{{ $category->id }}" class="form-check-input" required>
                                             <label for="category_{{ $category->id }}" class="form-check-label">
@@ -122,4 +122,7 @@
             </div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
 @endsection
