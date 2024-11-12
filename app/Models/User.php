@@ -59,5 +59,10 @@ class User extends Authenticatable
         return $this->posts()->count(); // 投稿数をカウント
     }
 
+    public function payments()
+    {
+        return $this->hasOne(Payment::class); // ユーザーと支払いのリレーションを定義
+    }
+
     
 }

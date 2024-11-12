@@ -25,13 +25,19 @@
 
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label fw-bold">Name</label>
-                        <input type="text" name="name" id="name" class="form-control">
+                        <label for="age" class="form-label fw-bold">Age</label>
+                        <input type="number" name="age" id="age" class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label fw-bold">Email</label>
-                        <input type="text" name="email" id="email" class="form-control">
+                        <label for="gender" class="form-label fw-bold">Gender</label>
+                        <select name="gender" id="gender" class="form-select">
+                            <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Male</option>
+                            <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Female</option>
+                            <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Other</option>
+                            <option value="prefer_not_to_say" {{ $user->gender == 'prefer_not_to_say' ? 'selected' : '' }}>Prefer not to say</option>
+                        </select>
                     </div>
+
                     <div class="mb-3">
                         <label for="bio" class="form-label fw-bold">Bio</label>
                         <textarea name="bio" id="bio"  rows="3" class="form-control"></textarea>
