@@ -40,7 +40,7 @@
                     </div>
                 </div>
             @empty
-                <p class="lead text-muted text-center">No posts found.</p>
+                <p class="lead text-muted text-center">No post found.</p>
             @endforelse
         </div>
     </div>
