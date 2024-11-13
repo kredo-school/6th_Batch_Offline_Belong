@@ -17,8 +17,10 @@ class ProfileController extends Controller
 
     public function show($id)
     {
-        $user = User::findOrFail($id); // プロファイル情報を含むユーザーを取得
-        return view('profile.show')->with('user', $user); // ユーザー情報をビューに渡す
+        $user = User::findOrFail($id);
+        $posts = $user->posts()->paginate(3); // ユーザーの投稿を4件ずつ取得
+
+        return view('profile.show', compact('user', 'posts'));
     }
 
     public function edit() {
@@ -27,21 +29,20 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request, $id)
+    {
 
-{
+        $user = User::findOrFail($id);
+        $user->age = $request->age;
+        $user->gender = $request->gender;
+        $user->bio = $request->bio;
 
-    $user = User::findOrFail($id);
-    $user->age = $request->age;
-    $user->gender = $request->gender;
-    $user->bio = $request->bio;
+        if ($request->hasFile('profile_image')) {
+            $user->profile_image = 'data:image/'.$request->profile_image->extension().';base64,'.base64_encode(file_get_contents($request->profile_image));
+        }
+        $user->save();
 
-    if ($request->hasFile('profile_image')) {
-        $user->profile_image = 'data:image/'.$request->profile_image->extension().';base64,'.base64_encode(file_get_contents($request->profile_image));
+        return redirect()->route('profile.show', $user->id)->with('message', 'Profile updated successfully.');
     }
-    $user->save();
-
-    return redirect()->route('profile.show', $user->id)->with('message', 'Profile updated successfully.');
-}
 
 
 

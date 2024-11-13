@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .rounded-image {
+        width: 50px; /* 幅を指定 */
+        height: 50px; /* 高さを指定 */
+        border-radius: 50%; /* 丸くする */
+        object-fit: cover; /* 画像が枠に収まるように調整 */
+        font-size: 2rem; /* アイコンのサイズを調整 */
+    }
+</style>
 <div class="container mt-3">
     <h2>Reviews for {{ $post->title }}</h2>
 
@@ -8,11 +17,12 @@
         <div class="card mb-3 shadow-sm">
             <div class="card-body d-flex align-items-start">
                 <!-- ユーザーのアバター -->
-                <a href="#">
-                    @if($review->user->avatar)
-                        <img src="{{ $review->user->avatar }}" alt="{{ $review->user->name }}" class="rounded-circle avatar" style="width: 50px; height: 50px; margin-right: 15px;">
+                <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none">
+                    @if($post->user->profile_image)
+                        <img src="{{ $post->user->profile_image }}" alt="{{ $post->user->name }}" class="rounded-image">
                     @else
-                        <i class="fa-solid fa-circle-user text-secondary icon-sm" style="font-size: 50px; margin-right: 15px;"></i>
+                        <!-- デフォルト画像を表示 -->
+                        <i class="fa-solid fa-circle-user d-block text-center text-secondary" style="font-size: 3rem;"></i>
                     @endif
                 </a>
 
