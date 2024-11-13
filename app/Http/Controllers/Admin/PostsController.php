@@ -19,7 +19,7 @@ class PostsController extends Controller
 
     public function index()
     {
-        $all_posts = $this->post->latest()->paginate(10);
+        $all_posts = $this->post->latest()->paginate(6);
         return view('admin.posts.index')->with('all_posts', $all_posts);
     }
 }

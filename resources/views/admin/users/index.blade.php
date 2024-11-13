@@ -3,6 +3,18 @@
 @section('title','Admin: Users')
 
 @section('content')
+<style>
+    .table th {
+        background-color: #fdcdef; /* Change this to your desired background color */
+    }
+    .rounded-image {
+        width: 50px; /* 幅を指定 */
+        height: 50px; /* 高さを指定 */
+        border-radius: 50%; /* 丸くする */
+        object-fit: cover; /* 画像が枠に収まるように調整 */
+        font-size: 2rem; /* アイコンのサイズを調整 */
+    }
+</style>
 <div class="container">
     <div class="row mt-5">
         <!-- Admin Controls -->
@@ -47,13 +59,15 @@
                 <tbody>
                     @foreach($all_users as $user)
                         <tr class="table-pink">
-                            <td>
-                                @if($user->avatar)
-                                    <img src="{{ $user->avatar }}" alt="" class="rounded-circle d-block mx-auto avatar-md">
-                                @else
-                                    <!-- アイコンを大きくするためにクラスを変更 -->
-                                    <i class="fa-solid fa-circle-user d-block text-center" style="font-size: 3rem;"></i>
-                                @endif
+                            <td class="text-center">
+                                <a href="{{ route('profile.show', $user->id) }}" class="text-decoration-none">
+                                    @if($user->profile_image)
+                                        <img src="{{ $user->profile_image }}" alt="{{ $user->name }}" class="rounded-image text-center">
+                                    @else
+                                        <!-- デフォルト画像を表示 -->
+                                        <i class="fa-solid fa-circle-user d-block text-center text-secondary" style="font-size: 3rem;"></i>
+                                    @endif
+                                </a>
                             </td>
                             <td>
                                 <a href="#" class="text-decoration-none text-dark fw-bold">{{ $user->name }}</a>
@@ -62,39 +76,33 @@
                             <td>{{ $user->age }}</td>
                             <td>{{ $user->gender }}</td>
                             <td>
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm" data-bs-toggle="dropdown">
-                                            <i class="fa-solid fa-ellipsis"></i>
-                                        </button>
-
-                                        <div class="dropdown-menu">
-                                            <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-user-{{ $user->id }}">
-                                                <i class="fa-solid fa-trash"></i> Delete {{ $user->name }}
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- ユーザー削除の確認モーダル -->
-                                    <div class="modal fade" id="delete-user-{{ $user->id }}" tabindex="-1" aria-labelledby="delete-user-label" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="delete-user-label">Confirm Deletion</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    Are you sure you want to delete {{ $user->name }}? This action cannot be undone.
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                                    </form>
-                                                </div>
+                                <div>
+                                    <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-user-{{ $user->id }}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
+                                <!-- ユーザー削除の確認モーダル -->
+                                <div class="modal fade" id="delete-user-{{ $user->id }}" tabindex="-1" aria-labelledby="delete-user-label" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="delete-user-label">Confirm Deletion</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete {{ $user->name }}? <br>This action cannot be undone.
+                                            </div>
+                                            <div class="modal-footer">
+                                                <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -108,4 +116,7 @@
         {{ $all_users->links() }}
     </div>
 </div>
+<br>
+<br>
+<br>
 @endsection

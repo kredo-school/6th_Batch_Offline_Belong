@@ -7,9 +7,12 @@
     .card-body {
         position: relative;
     }
-    .avatar {
-        width: 100px;
-        height: 50px;
+    .rounded-image {
+        width: 50px; /* 幅を指定 */
+        height: 50px; /* 高さを指定 */
+        border-radius: 50%; /* 丸くする */
+        object-fit: cover; /* 画像が枠に収まるように調整 */
+        font-size: 2rem; /* アイコンのサイズを調整 */
     }
     .user-name {
         font-size: 2.0rem;
@@ -28,11 +31,12 @@
                     <div class="card-header bg-white py-3">
                         <div class="row align-items-center">
                             <div class="col-auto">
-                                <a href="#">
-                                    @if($post->user->avatar)
-                                        <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-circle avatar">
+                                <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none">
+                                    @if($post->user->profile_image)
+                                        <img src="{{ $post->user->profile_image }}" alt="{{ $post->user->name }}" class="rounded-image">
                                     @else
-                                        <i class="fa-solid fa-circle-user text-secondary icon-sm"></i>
+                                        <!-- デフォルト画像を表示 -->
+                                        <i class="fa-solid fa-circle-user d-block text-center text-secondary" style="font-size: 3rem;"></i>
                                     @endif
                                 </a>
                             </div>

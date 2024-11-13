@@ -3,6 +3,11 @@
 @section('title', 'Admin: Posts')
 
 @section('content')
+<style>
+    .table th {
+        background-color: #fdcdef; /* Change this to your desired background color */
+    }
+</style>
 <div class="container">
     <div class="row mt-5">
         <!-- Admin Controls -->
@@ -30,7 +35,7 @@
                         <th>TITLE</th>
                         <th>OWNER</th>
                         <th>CREATED AT</th>
-                        <th>ACTIONS</th> <!-- 削除列を追加 -->
+                        <th></th> <!-- 削除列を追加 -->
                     </tr>
                 </thead>
                 <tbody>
@@ -63,7 +68,7 @@
                             <td>
                                 <!-- 削除ボタン -->
                                 <button class="btn btn-sm text-danger" data-bs-toggle="modal" data-bs-target="#delete-post-{{ $post->id }}">
-                                    <i class="fa-solid fa-trash"></i> Delete
+                                    <i class="fa-solid fa-trash"></i> 
                                 </button>
                             </td>
                         </tr>
@@ -104,4 +109,7 @@
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>
 @endsection

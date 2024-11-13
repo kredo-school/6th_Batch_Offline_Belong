@@ -9,14 +9,11 @@
     }
 
     .rounded-image {
-        width: 250px;
-        /* 幅を調整 */
-        height: 250px;
-        /* 高さを調整 */
-        border-radius: 50%;
-        /* 丸くする */
-        object-fit: cover;
-        /* 画像の収め方を調整 */
+        width: 50px; /* 幅を指定 */
+        height: 50px; /* 高さを指定 */
+        border-radius: 50%; /* 丸くする */
+        object-fit: cover; /* 画像が枠に収まるように調整 */
+        font-size: 2rem; /* アイコンのサイズを調整 */
     }
 
     /* ユーザーネームのサイズとスタイルを調整 */
@@ -47,14 +44,16 @@
             <div class="card-header bg-white py-3">
                 <div class="row align-items-center">
                     <div class="col-auto">
-                        <a href="{{route('profile.show',Auth::user()->id)}}">
-                            @if($post->user->avatar)
-                            <img src="{{ $post->user->avatar }}" alt="{{ $post->user->name }}" class="rounded-image">
+                        <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none">
+                            @if($post->user->profile_image)
+                                <img src="{{ $post->user->profile_image }}" alt="{{ $post->user->name }}" class="rounded-image">
                             @else
-                            <i class="fa-solid fa-circle-user text-secondary icon-lg"></i>
+                                <!-- デフォルト画像を表示 -->
+                                <i class="fa-solid fa-circle-user d-block text-center text-secondary" style="font-size: 3rem;"></i>
                             @endif
                         </a>
                     </div>
+
                     <div class="col ps-0">
                         <a href="#" class="text-decoration-none text-dark fw-bold">{{ $post->user->name }}</a>
                     </div>
