@@ -83,7 +83,7 @@
                 <!-- Edit and Withdrawal Buttons -->
                 <div class="d-flex justify-content-center gap-3">
                     <a href="{{ route('account.edit') }}" class="btn-link btn-edit">Edit information</a>
-                    <a href="" class="btn-link btn-withdrawal">Withdrawal</a>
+                    <a href="{{ route('account.withdrawal')}}" class="btn-link btn-withdrawal">Withdrawal</a>
                 </div>
             </form>
         </div>

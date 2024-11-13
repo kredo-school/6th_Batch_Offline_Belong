@@ -25,8 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store'); // POSTルート
     Route::patch('/payment/{id}/update', [PaymentController::class, 'update'])->name('payment.update'); // Include ID
     Route::get('/payment/edit', [PaymentController::class, 'edit'])->name('payment.edit');
-
-
+    
 
     Route::get('/rules', [RuleController::class, 'rules'])->name('rules.page');
 
@@ -89,9 +88,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
     // Account routes
-    Route::get('/account/{id}/show', [accountController::class, 'show'])->name('account.show');
-    Route::patch('/account/{id}/update', [accountController::class, 'update'])->name('account.update'); // Include ID
-    Route::get('/account/edit', [accountController::class, 'edit'])->name('account.edit');
+    Route::get('/account/{id}/show', [AccountController::class, 'show'])->name('account.show');
+    Route::patch('/account/{id}/update', [AccountController::class, 'update'])->name('account.update'); // Include ID
+    Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
+    Route::get('/account/withdrawal', [AccountController::class, 'withdrawal'])->name('account.withdrawal');
+    Route::delete('account/{id}/destroy', [AccountController::class, 'destroy'])->name('account.destroy'); // 削除処理のルート
+
+
 });
 
 
