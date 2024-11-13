@@ -47,4 +47,10 @@ public function show($id)
 
         return redirect()->route('account.show', $user->id)->with('message', 'Information updated successfully.');
     }
+
+    public function withdrawal()
+    {
+        return view('account.withdrawal');
+    }
+
 }
