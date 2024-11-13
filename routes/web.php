@@ -92,6 +92,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/account/{id}/update', [AccountController::class, 'update'])->name('account.update'); // Include ID
     Route::get('/account/edit', [AccountController::class, 'edit'])->name('account.edit');
     Route::get('/account/withdrawal', [AccountController::class, 'withdrawal'])->name('account.withdrawal');
+    Route::delete('account/{id}/destroy', [AccountController::class, 'destroy'])->name('account.destroy'); // 削除処理のルート
+
 
 });
 
