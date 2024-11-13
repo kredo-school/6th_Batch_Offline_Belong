@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/payment', [PaymentController::class, 'show'])->name('payment.show');
     Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store'); // POSTルート
     Route::patch('/payment/{id}/update', [PaymentController::class, 'update'])->name('payment.update'); // Include ID
-    Route::get('/payment/{id}/edit', [PaymentController::class, 'edit'])->name('payment.edit');
+    Route::get('/payment/edit', [PaymentController::class, 'edit'])->name('payment.edit');
 
 
 
