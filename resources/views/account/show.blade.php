@@ -108,30 +108,22 @@
             <div class="mb-3">
                 <label for="card_number" class="form-label">Card Number</label>
                 <input id="card_number" type="text" class="form-control @error('card_number') is-invalid @enderror"
-                    name="card_number" value="{{ old('card_number', $payments->first()->card_number ?? '') }}" required autocomplete="card_number" readonly>
+                    name="card_number" value="{{$cred->card_number}}" required autocomplete="card_number" readonly>
             </div>
 
             <!-- 有効期限 -->
             <div class="mb-3">
+              
                 <label for="expiry_date" class="form-label">Expiration Date</label>
                 <div class="d-flex">
                     <select id="expiry_month" name="expiry_month" class="form-control me-2" required disabled>
-                        <option value="" disabled selected>Month</option>
-                        @for ($month = 1; $month <= 12; $month++)
-                            <option value="{{ str_pad($month, 2, '0', STR_PAD_LEFT) }}" 
-                                @if($payments->first() && $payments->first()->expiry_month == str_pad($month, 2, '0', STR_PAD_LEFT)) selected @endif>
-                                {{ $month }}
-                            </option>
-                        @endfor
+                        
+                        <option value="">{{$cred->expiry_month}}</option>
+                      
                     </select>
                     <select id="expiry_year" name="expiry_year" class="form-control" required disabled>
-                        <option value="" disabled selected>Year</option>
-                        @for ($year = date('Y'); $year <= date('Y') + 10; $year++)
-                            <option value="{{ $year }}" 
-                                @if($payments->first() && $payments->first()->expiry_year == $year) selected @endif>
-                                {{ $year }}
-                            </option>
-                        @endfor
+                        <option value="" disabled selected>{{ $cred->expiry_year }}</option>
+                      
                     </select>
                 </div>
             </div>
@@ -140,20 +132,21 @@
             <div class="mb-3">
                 <label for="cvv" class="form-label">CVV</label>
                 <input type="text" id="cvv" name="cvv" class="form-control" required placeholder="***" 
-                    value="{{ old('cvv', $payments->first()->cvv ?? '') }}" readonly>
+                    value="{{ $cred->cvv }}" readonly>
             </div>
 
             <!-- 名前 -->
             <div class="mb-3">
                 <label for="name" class="form-label">Full Name</label>
                 <input type="text" id="name" name="name" class="form-control" required placeholder="JOHN KURT"
-                    value="{{ old('name', $payments->first()->name ?? '') }}" readonly>
+                    value="{{ $cred->name }}" readonly>
             </div>
 
-            <!-- 送信ボタン -->        
+           <!-- 送信ボタン -->        
             <div class="d-flex justify-content-center mt-4">
-                <a href="{{ route('payment.edit', $payments->first()->id) }}" class="btn btn-warning px-5">Edit Payment</a>
+                <a href="{{route('payment.edit')}}" class="btn btn-warning px-5">Edit Payment</a>
             </div>
+
 
 
         </form>

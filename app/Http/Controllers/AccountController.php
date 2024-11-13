@@ -19,12 +19,13 @@ class AccountController extends Controller
         $this->user = $user;
     }
 
-    public function show($id)
+public function show($id)
     {
-        $user = User::findOrFail($id); // ユーザー情報を取得
-        $payments = $user->payments; // ユーザーの支払い情報を取得（ユーザーと支払いがリレーションを持っている場合）
+        $user = User::findOrFail(Auth::id()); // 現在のユーザー情報を取得
+        $cred = $user->payments;
+        return view('account.show')->with("user",$user)->with("cred", $cred);
 
-        return view('account.show')->with('user', $user)->with('payments', $payments); // 支払い情報もビューに渡す
+       
     }
 
 

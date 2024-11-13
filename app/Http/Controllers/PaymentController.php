@@ -14,10 +14,10 @@ class PaymentController extends Controller
     private $user;
     public function show()
     {
-        return view('payment'); // ペイメントページのビューを表示
+        return view('payment.show'); // ペイメントページのビューを表示
     }
 
-    public function edit($id) { 
+    public function edit() { 
 
       
         $user = User::findOrFail(Auth::id()); // 現在のユーザー情報を取得
@@ -25,6 +25,7 @@ class PaymentController extends Controller
         return view('payment.edit')->with("user",$user)->with("payment_cred", $payment_cred); // ビューにユーザーと支払い情報を渡す
     }
     
+
 
     public function store(Request $request)
     {
@@ -57,7 +58,7 @@ class PaymentController extends Controller
         $user = User::findOrFail($id);
 
         // 支払い情報を取得（ユーザーに関連する最初の支払い情報を更新）
-        $payment_cred = $user->payments->first();
+        $payment_cred = $user->payments;
 
         // バリデーション
         $request->validate([
