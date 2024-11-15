@@ -42,35 +42,37 @@
 
         <div class="row">
             @foreach ($posts as $post) <!-- 投稿をループで表示 -->
-                <div class="col-md-4 mb-4">
-                    <div class="card">
-                        <div class="card-img-top text-center" style="position: relative;">
-                            @if($post->image) <!-- 画像の存在を確認 -->
-                                <a href="{{ route('posts.show', $post->id) }}">
-                                    <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg" style="width: 100%; height: auto; object-fit: cover;">
-                                </a>
-                            @else
-                                <img src="{{ url('images/homepage.jpg') }}" alt="Default Image" style="width: 100%; height: auto;"> <!-- デフォルト画像 -->
-                            @endif
-                        </div>
-                        <div class="card-body">
-                            <h4 class="fw-bold">Title: {{ $post->title }}</h4>
-                            <div class="col text-start mb-1">
-                                @if($post->categories->isNotEmpty())
-                                    @foreach($post->categories as $category)
-                                        <div class="badge bg-secondary bg-opacity-50">
-                                            {{ $category->name }}
-                                        </div>
-                                    @endforeach
+                @if ($post->approved)
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-img-top text-center" style="position: relative;">
+                                @if($post->image) <!-- 画像の存在を確認 -->
+                                    <a href="{{ route('posts.show', $post->id) }}">
+                                        <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg" style="width: 100%; height: auto; object-fit: cover;">
+                                    </a>
                                 @else
-                                    <div class="badge bg-dark text-wrap">Uncategorized</div>
+                                    <img src="{{ url('images/homepage.jpg') }}" alt="Default Image" style="width: 100%; height: auto;"> <!-- デフォルト画像 -->
                                 @endif
                             </div>
-                            <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br>
-                            <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary mt-3">詳細</a>
+                            <div class="card-body">
+                                <h4 class="fw-bold">Title: {{ $post->title }}</h4>
+                                <div class="col text-start mb-1">
+                                    @if($post->categories->isNotEmpty())
+                                        @foreach($post->categories as $category)
+                                            <div class="badge bg-secondary bg-opacity-50">
+                                                {{ $category->name }}
+                                            </div>
+                                        @endforeach
+                                    @else
+                                        <div class="badge bg-dark text-wrap">Uncategorized</div>
+                                    @endif
+                                </div>
+                                <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br>
+                                <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary mt-3">詳細</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
             @endforeach
         </div>
 

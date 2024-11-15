@@ -38,40 +38,61 @@
 
         <hr>
 
-        <!-- ユーザーの投稿リスト -->
         <div class="user-posts mt-5">
             @if($posts->count())
                 <div class="row">
-                    @foreach ($posts as $post) <!-- 投稿をループで表示 -->
-                        <div class="col-md-4 mb-4">
-                            <div class="card">
-                                <div class="card-img-top text-center" style="position: relative;">
-                                    @if($post->image) <!-- 画像の存在を確認 -->
-                                        <a href="{{ route('posts.show', $post->id) }}">
-                                            <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg" style="width: 100%; height: auto; object-fit: cover;">
-                                        </a>
-                                    @else
-                                        <img src="{{ url('images/homepage.jpg') }}" alt="Default Image" style="width: 100%; height: auto;"> <!-- デフォルト画像 -->
-                                    @endif
-                                </div>
-                                <div class="card-body">
-                                    <h4 class="fw-bold">Title: {{ $post->title }}</h4>
-                                    <div class="col text-start mb-1">
-                                        @if($post->categories->isNotEmpty())
-                                            @foreach($post->categories as $category)
-                                                <div class="badge bg-secondary bg-opacity-50">
-                                                    {{ $category->name }}
-                                                </div>
-                                            @endforeach
+                    @foreach ($posts as $post)
+                        @if($post->approved || auth()->check() && auth()->id() === $post->user_id)
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <div class="card-img-top text-center" style="position: relative;">
+                                        @if($post->image)
+                                            @if($post->approved == 0 || $post->approved == 2)
+                                                <!-- If post is not approved or rejected, redirect to the approve page -->
+                                                <a href="{{ route('approve.show', $post->id) }}">
+                                                    <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg" style="width: 100%; height: auto; object-fit: cover;">
+                                                </a>
+                                            @else
+                                                <!-- If approved, show post -->
+                                                <a href="{{ route('posts.show', $post->id) }}">
+                                                    <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg" style="width: 100%; height: auto; object-fit: cover;">
+                                                </a>
+                                            @endif
                                         @else
-                                            <div class="badge bg-dark text-wrap">Uncategorized</div>
+                                            <img src="{{ url('images/homepage.jpg') }}" alt="Default Image" style="width: 100%; height: auto;">
                                         @endif
                                     </div>
-                                    <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br>
-                                    <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary mt-3">詳細</a>
+                                    <div class="card-body">
+                                        <h4 class="fw-bold">Title: {{ $post->title }}</h4>
+                                        <div class="col text-start mb-1">
+                                            @if($post->categories->isNotEmpty())
+                                                @foreach($post->categories as $category)
+                                                    <div class="badge bg-secondary bg-opacity-50">
+                                                        {{ $category->name }}
+                                                    </div>
+                                                @endforeach
+                                            @else
+                                                <div class="badge bg-dark text-wrap">Uncategorized</div>
+                                            @endif
+                                        </div>
+                                        <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br>
+                                        @if ($post->approved == 0)
+                                        <div class="badge bg-danger">
+                                            Not Approved
+                                        </div>
+                                        @elseif ($post->approved == 1)
+                                            <div class="badge bg-success">
+                                                Approved
+                                            </div>
+                                        @elseif ($post->approved == 2)
+                                            <div class="badge bg-warning">
+                                                Rejected
+                                            </div>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
 
