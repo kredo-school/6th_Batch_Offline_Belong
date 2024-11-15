@@ -263,4 +263,7 @@ public function destroy($id)
     return redirect()->route('posts.schedule')->with('success', 'Post deleted successfully.');
 }
 
+
+
+
 }
