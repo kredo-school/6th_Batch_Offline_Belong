@@ -17,11 +17,26 @@ class ProfileController extends Controller
 
     public function show($id)
     {
+        // ユーザーを取得
         $user = User::findOrFail($id);
-        $posts = $user->posts()->paginate(3); // ユーザーの投稿を4件ずつ取得
 
+        // 現在ログインしているユーザー
+        $currentUser = auth()->user();
+
+        // ユーザー自身の場合は承認されていないポストも表示、それ以外は承認されたポストのみ表示
+        if ($currentUser && $currentUser->id == $user->id) {
+            // ユーザー自身の場合、すべてのポスト（承認されていないポストも含む）を表示
+            $posts = $user->posts()->paginate(3);
+        } else {
+            // 他のユーザーの場合、承認されたポストのみ表示
+            $posts = $user->posts()->where('approved', true)->paginate(3);
+        }
+
+        // ビューに渡す
         return view('profile.show', compact('user', 'posts'));
     }
+
+
 
     public function edit() {
         $user = User::findOrFail(Auth::id()); // 現在のユーザー情報を取得

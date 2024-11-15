@@ -53,10 +53,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class)->latest();
     }
-       
+
 
     public function postCount() {
-        return $this->posts()->count(); // 投稿数をカウント
+        return $this->posts()->where('approved', true)->count();
     }
 
     public function payments()
@@ -64,5 +64,5 @@ class User extends Authenticatable
         return $this->hasOne(Payment::class); // ユーザーと支払いのリレーションを定義
     }
 
-    
+
 }

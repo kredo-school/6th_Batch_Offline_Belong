@@ -21,11 +21,14 @@
         @if(request()->is('admin/*'))
             <div class="col-md-3 col-sm-12">
                 <div class="list-group">
-                    <a href="{{ route('admin.users') }}" class="list-group-item {{ request()->is('admin.users') ? 'active':'' }}">
+                    <a href="{{ route('admin.users') }}" class="list-group-item {{ request()->routeIs('admin.users') ? 'active' : '' }}">
                         <i class="fa-solid fa-users"></i> Users
                     </a>
-                    <a href="{{ route('admin.posts') }}" class="list-group-item {{ request()->is('admin.posts') ? 'active':'' }}">
+                    <a href="{{ route('admin.posts') }}" class="list-group-item {{ request()->routeIs('admin.posts') ? 'active' : '' }}">
                         <i class="fa-solid fa-newspaper"></i> Posts
+                    </a>
+                    <a href="{{ route('admin.approve.page') }}" class="list-group-item {{ request()->routeIs('admin.approve.page') ? 'active' : '' }}">
+                        <i class="fa-solid fa-check-circle"></i> Approve
                     </a>
                 </div>
             </div>

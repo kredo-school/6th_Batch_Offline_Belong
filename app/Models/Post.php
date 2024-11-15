@@ -11,16 +11,15 @@ class Post extends Model
     use HasFactory;
 
     protected $fillable = [
-        'category',
-        'title',
-        'date',
-        'reservation_due_date',
-        'place',
-        'planned_number_of_people',
-        'participation_fee',
-        'description',
-        'image',
+        'title', 'date', 'reservation_due_date', 'place', 'planned_number_of_people', 
+        'participation_fee', 'description', 'image', 'user_id', 'approved',
     ];
+
+    // statusの初期値を設定
+    protected $attributes = [
+        'status' => 'pending',  // 投稿はデフォルトで保留状態
+    ];
+
 
     // 画像パスのアクセサ
     public function getImageUrlAttribute()
@@ -69,6 +68,7 @@ class Post extends Model
     {
         return $this->hasMany(CategoryPost::class);
     }
+
 
 }
 
