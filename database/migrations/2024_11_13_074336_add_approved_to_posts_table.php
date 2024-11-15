@@ -11,7 +11,7 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             // `approved` カラムを enum 型に変更
-            $table->enum('approved', ['0', '1', '2'])->default('0')->change();
+            $table->unsignedBigInteger('approved')->default(0)->comment("1:approved, 0:not approved");
         });
     }
 
@@ -19,7 +19,7 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             // 元に戻す場合（例えば `tinyInteger`）
-            $table->tinyInteger('approved')->default(0)->change();
+            $table->tinyInteger('approved')->default(0);
         });
     }
 
