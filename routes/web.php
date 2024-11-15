@@ -12,6 +12,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
+use App\Http\Controllers\Admin\ApprovesController;
+use App\Http\Controllers\ApproveController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccountController;
 
@@ -38,7 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Posts routes
     Route::prefix('posts')->group(function () {
         Route::get('/create', [PostController::class, 'create'])->name('posts.create'); // Route for creating a new post
-        Route::post('/', [PostController::class, 'store'])->name('posts.store'); // Route for storing a new post
+        Route::post('/post/store', [PostController::class, 'store'])->name('posts.store'); // Route for storing a new post
         Route::get('/{id}', [PostController::class, 'show'])->name('posts.show'); // Route for showing a single post
 
 
@@ -55,6 +57,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
         Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
+
+        // 拒否されたポストを編集するルート
+        Route::get('/posts/{post}/approveedit', [PostController::class, 'approveEdit'])->name('posts.approveedit');
+        Route::post('/posts/{post}/approveedit', [PostController::class, 'approveEditUpdate'])->name('posts.approveedit.update');
+
 
         Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
@@ -104,6 +111,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/search-users', [UserController::class, 'search'])->name('posts.search.user');
 
+    Route::get('/approve/{id}', [ApproveController::class, 'show'])->name('approve.show');
+
     // 管理者ページのルート
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         // 管理者のユーザー管理
@@ -114,7 +123,19 @@ Route::group(['middleware' => 'auth'], function () {
         // 管理者の投稿管理
         Route::get('/posts', [PostsController::class, 'index'])->name('posts');
 
+        // routes/web.php
+        Route::post('/approve/{post}', [PostsController::class, 'approve'])->name('approve.post');
+        Route::post('/reject/{post}', [PostsController::class, 'reject'])->name('reject.post');
+
+        // 承認ページを表示するルート
+        Route::get('/approve', [ApprovesController::class, 'index'])->name('approve.page');
+
+
+
 });
+
+
+
 
 
 
