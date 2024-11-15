@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -47,4 +46,23 @@ public function show($id)
 
         return redirect()->route('account.show', $user->id)->with('message', 'Information updated successfully.');
     }
+
+    public function withdrawal()
+    {
+        return view('account.withdrawal');
+    }
+
+    public function destroy($id)
+{
+    // ユーザーを取得
+    $user = User::findOrFail($id);
+
+    // ユーザーの削除
+    $user->delete();
+
+    // メッセージ付きでリダイレクト
+    return redirect()->route('account.show', ['id' => $user->id])->with('success', 'Your account has been deleted successfully.');
+}
+
+
 }
