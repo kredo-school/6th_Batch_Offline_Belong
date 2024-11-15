@@ -30,6 +30,9 @@
                     <a href="{{ route('admin.approve.page') }}" class="list-group-item {{ request()->routeIs('admin.approve.page') ? 'active' : '' }}">
                         <i class="fa-solid fa-check-circle"></i> Approve
                     </a>
+                    <a href="{{ route('admin.notify') }}" class="list-group-item {{ request()->routeIs('admin.notify') ? 'active' : '' }}">
+                        <i class="fa-solid fa-bell"></i> Notifications
+                    </a>
                 </div>
             </div>
         @endif

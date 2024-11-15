@@ -185,7 +185,7 @@
                                         </div>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
+                                        <a class="nav-link" href="{{ route('notifications.index') }}"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
