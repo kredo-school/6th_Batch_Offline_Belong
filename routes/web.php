@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
         Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
         Route::get('/posts/schedule', [PostController::class, 'index'])->name('posts.schedule');
+        
 
         Route::get('/category/play', [PostController::class, 'play'])->name('category.play');
         Route::get('/category/watch-and-learn', [PostController::class, 'watchAndLearn'])->name('category.watch-and-learn');
