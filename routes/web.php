@@ -10,9 +10,13 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RuleController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\ApprovesController;
+use App\Http\Controllers\Admin\NotificationsController;
+
+
 use App\Http\Controllers\ApproveController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccountController;
@@ -27,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/payment', [PaymentController::class, 'store'])->name('payment.store'); // POSTルート
     Route::patch('/payment/{id}/update', [PaymentController::class, 'update'])->name('payment.update'); // Include ID
     Route::get('/payment/edit', [PaymentController::class, 'edit'])->name('payment.edit');
-    
+
 
     Route::get('/rules', [RuleController::class, 'rules'])->name('rules.page');
 
@@ -116,6 +120,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/approve/{id}', [ApproveController::class, 'show'])->name('approve.show');
 
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+
     // 管理者ページのルート
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         // 管理者のユーザー管理
@@ -132,6 +138,12 @@ Route::group(['middleware' => 'auth'], function () {
 
         // 承認ページを表示するルート
         Route::get('/approve', [ApprovesController::class, 'index'])->name('approve.page');
+
+        // 通知送信フォーム表示ページ（GET）
+        Route::get('/notify', [NotificationsController::class, 'create'])->name('notify');
+
+        // 通知送信処理（POST）
+        Route::post('/notify', [NotificationsController::class, 'store'])->name('notify.store');
 
 
 
