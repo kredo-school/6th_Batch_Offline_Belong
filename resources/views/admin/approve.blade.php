@@ -7,6 +7,71 @@
     .table th {
         background-color: #fdcdef; /* Change this to your desired background color */
     }
+    .accordion-button {
+        font-size: 0.9rem;
+        border-radius: 5px;
+        padding: 8px;
+        background-color: #dc3545; /* Red background for reject button */
+        color: white; /* Text color white */
+        width: 100px; /* Same width for both buttons */
+        height: 40px; /* Same height for both buttons */
+        border-color: #dc3545; /* Matching border color */
+        display: flex;
+        align-items: center; /* Vertically center the text */
+        justify-content: center; /* Horizontally center the text */
+    }
+
+    /* Ensure that the reject button always stays red */
+    .accordion-button.btn-danger {
+        background-color: #dc3545; /* Red background for reject button */
+        border-color: #dc3545; /* Matching border color */
+    }
+
+    .accordion-button::after {
+        display: none; /* Remove the arrow */
+    }
+
+    .accordion-body {
+        background-color: #f8f9fa;
+        padding: 10px;
+    }
+
+    /* Style for action buttons container */
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    /* Style for approve button */
+    .btn-approve {
+        background-color: #007bff;
+        color: white;
+        width: 100px;
+        height: 40px;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+    }
+
+    .btn-approve:hover {
+        background-color: #0056b3;
+    }
+
+    /* Style for reject button */
+    .btn-reject {
+        background-color: #dc3545;
+        color: white;
+        width: 100px;
+        height: 40px;
+        border-radius: 5px;
+        font-size: 1rem;
+        transition: background-color 0.3s;
+    }
+
+    .btn-reject:hover {
+        background-color: #c82333;
+    }
 </style>
 <div class="container">
     <div class="row mt-5">
@@ -74,17 +139,37 @@
                             </td>
                             <td>{{ $post->created_at }}</td>
                             <td>
-                                <!-- Approve button (Blue) -->
-                                <form action="{{ route('admin.approve.post', $post->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-primary" style="width: 80px;">Approve</button>
-                                </form>
+                                <!-- Action buttons container with flex layout -->
+                                <div class="action-buttons">
+                                    <!-- Approve button (Blue) -->
+                                    <form action="{{ route('admin.approve.post', $post->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-approve">Approve</button>
+                                    </form>
 
-                                <!-- Reject button (Red) -->
-                                <form action="{{ route('admin.reject.post', $post->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-danger" style="width: 80px;">Reject</button>
-                                </form>
+                                    <!-- Accordion for Reject Reason -->
+                                    <div class="accordion" id="accordionRejectReason-{{ $post->id }}">
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="heading-{{ $post->id }}">
+                                                <button class="accordion-button btn btn-sm text-white text-center btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ $post->id }}" aria-expanded="false" aria-controls="collapse-{{ $post->id }}">
+                                                    Reject
+                                                </button>
+                                            </h2>
+                                            <div id="collapse-{{ $post->id }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ $post->id }}" data-bs-parent="#accordionRejectReason-{{ $post->id }}">
+                                                <div class="accordion-body">
+                                                    <form action="{{ route('admin.reject.post', $post->id) }}" method="POST">
+                                                        @csrf
+                                                        <div class="form-group mb-2">
+                                                            <textarea name="reject_reason" class="form-control" placeholder="Enter rejection reason..." required></textarea>
+                                                        </div>
+                                                        <!-- Reject button (Red) -->
+                                                        <button type="submit" class="btn btn-sm btn-danger" style="width: 80px;">Submit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
 

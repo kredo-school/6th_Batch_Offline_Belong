@@ -184,8 +184,15 @@
                                             <a class="dropdown-item" href="{{ route('posts.search.user') }}"><i class="fa-solid fa-user-tag"></i> User</a>
                                         </div>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('notifications.index') }}"><i class="fa-regular fa-bell" style="font-size: 30px;"></i></a>
+                                    <li class="nav-item" style="position: relative;">
+                                        @if (isset($unreadCount) && $unreadCount > 0)
+                                            <span class="badge bg-danger" style="position: absolute; top: -8px; right: -10px; font-size: 12px; padding: 0 5px;">
+                                                {{ $unreadCount }}
+                                            </span>
+                                        @endif
+                                        <a class="nav-link" href="{{ route('notifications.index') }}">
+                                            <i class="fa-regular fa-bell" style="font-size: 30px;"></i>
+                                        </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}"><i class="fas fa-cog" style="font-size: 30px;"></i></a>

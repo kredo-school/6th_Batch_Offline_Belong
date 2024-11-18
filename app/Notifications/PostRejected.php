@@ -4,31 +4,33 @@ namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class AdminNotification extends Notification
+class PostRejected extends Notification
 {
-    protected $message;
+    use Queueable;
 
-    // コンストラクタでメッセージを受け取る
-    public function __construct($message)
+    public $post;
+
+    public function __construct($post)
     {
-        $this->message = $message;
+        $this->post = $post;
     }
 
-    // 通知を送るチャンネルを指定
     public function via($notifiable)
     {
-        return ['database']; // データベースを使用して通知を送信
+        return ['database', 'mail']; // データベースとメールで通知
     }
 
-    // データベース通知の内容を定義
     public function toDatabase($notifiable)
     {
-        return new DatabaseMessage([
-            'message' => $this->message,
-        ]);
+        return [
+            'post_id' => $this->post->id,
+            'title' => $this->post->title,
+            'message' => 'Your post has been rejected.', // タイトルをここに含めない
+            'reason' => $this->post->reject_reason,
+            'url' => route('approve.show', $this->post->id), // 投稿詳細ページのリンク
+        ];
     }
 
     public function toMail($notifiable)
@@ -40,4 +42,3 @@ class AdminNotification extends Notification
                     ->line('Thank you for using our application!');
     }
 }
-
