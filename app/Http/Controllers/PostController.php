@@ -263,11 +263,19 @@ public function destroy($id)
     return redirect()->route('posts.schedule')->with('success', 'Post deleted successfully.');
 }
 
-public function display()
+public function display() 
 {
-// ビューにデータを渡す
-return view('posts.planned')->with('posts', $posts);
+    // 承認された投稿を日付順（新しい順）に取得（ページネーション付き）
+    $all_posts = Post::with(['categoryPost.category', 'user'])
+        ->where('approved', true)  // 承認された投稿のみ
+        ->orderBy('created_at', 'desc')  // 日付順（降順）
+        ->paginate(10); 
+    
+    // ビュー「posts.planned」に投稿データを配列として渡す
+    return view('posts.planned', ['all_posts' => $all_posts]); 
 }
+
+
 
 
 }
