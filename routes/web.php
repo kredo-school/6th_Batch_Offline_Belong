@@ -53,7 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->name('posts.edit');
         Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
         Route::get('/posts/schedule', [PostController::class, 'index'])->name('posts.schedule');
-        
+        Route::get('/posts/planned', [PostController::class, 'display'])->name('posts.planned');
 
 
         

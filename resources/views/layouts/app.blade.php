@@ -25,8 +25,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 
-
-
 <script>
     $(document).ready(function() {
         $('#calendar').fullCalendar({
@@ -35,20 +33,37 @@
                 center: 'title',
                 right: 'month,agendaWeek,agendaDay'
             },
-            events: [
-                {
-                    title: 'Event 1',
-                    start: '2024-10-25'
-                },
-                {
-                    title: 'Event 2',
-                    start: '2024-10-27',
-                    end: '2024-10-29'
+            selectable: true,  // 日付を選択できるようにする
+            editable: true,    // イベントをドラッグ＆ドロップで編集できるようにする
+            // 新しいイベントを作成するための設定
+            select: function(start, end) {
+                var title = prompt('イベントのタイトルを入力してください');
+                if (title) {
+                    $('#calendar').fullCalendar('renderEvent', {
+                        title: title,
+                        start: start,
+                        end: end
+                    });
                 }
-            ]
+                $('#calendar').fullCalendar('unselect'); // 日付選択を解除
+            },
+            // イベントを編集できる設定
+            eventDrop: function(event, delta, revertFunc) {
+                // サーバーに変更を送信する処理を追加することができます
+                alert('イベントが変更されました: ' + event.title);
+            },
+            // イベントを削除できる設定
+            eventClick: function(event, jsEvent, view) {
+                if (confirm('このイベントを削除しますか？')) {
+                    $('#calendar').fullCalendar('removeEvents', event._id);
+                }
+            }
         });
     });
-    </script>
+</script>
+
+
+
 
 
     <style>
@@ -122,7 +137,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
                 <div class="container">
-                @if (Request::is('rules') || Request::is('payment') || Request::is('success'))
+                @if (Request::is('rules') || Request::is('payment') || Request::is('success') || Request::is('login') || Request::is('register'))
                     <!-- ルール、ペイメント、サクセスページでは、クリックできないロゴとテキストを表示 -->
                     <div class="navbar-brand">
                         <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
@@ -169,6 +184,7 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
                                             <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
                                             <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>
+                                            <a class="dropdown-item" href="{{ route('posts.planned') }}"><i class="fa-solid fa-calendar-days"></i>Schedule</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">

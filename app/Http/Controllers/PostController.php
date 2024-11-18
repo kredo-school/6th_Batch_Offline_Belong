@@ -263,7 +263,11 @@ public function destroy($id)
     return redirect()->route('posts.schedule')->with('success', 'Post deleted successfully.');
 }
 
-
+public function display()
+{
+// ビューにデータを渡す
+return view('posts.planned')->with('posts', $posts);
+}
 
 
 }
