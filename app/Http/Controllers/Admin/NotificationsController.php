@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Notifications\UserNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 use App\Models\User;
 
@@ -20,32 +21,30 @@ class NotificationsController extends Controller
     // 通知を送信 public function store(Request $request)
     public function store(Request $request)
     {
+        $notifications = Auth::user()->notifications;
         // バリデーション
         $request->validate([
             'target' => 'required|in:all,single',
-            'message' => 'required|string',
-            'user_id' => 'required_if:target,single|exists:users,id',
+            'message' => 'required|string|max:255',
         ]);
 
-        // 通知メッセージ
         $message = $request->input('message');
 
-        // 通知を送信するユーザーを決定
-        if ($request->target == 'all') {
+        if ($request->input('target') === 'all') {
             // 全ユーザーに通知を送信
             $users = User::all();
+            foreach ($users as $user) {
+                $user->notify(new UserNotification($message));
+            }
         } else {
-            // 特定のユーザーに通知を送信
-            $users = User::where('id', $request->user_id)->get();
+            // 個別ユーザーに通知を送信
+            $user = User::find($request->input('user_id'));
+            if ($user) {
+                $user->notify(new UserNotification($message));
+            }
         }
 
-        // 通知を送信
-        foreach ($users as $user) {
-            // 作成した通知を送信
-            $user->notify(new UserNotification($message));
-        }
-
-        // 成功メッセージ
-        return redirect()->route('admin.notify')->with('success', 'Notification sent successfully.');
+        return redirect()->route('admin.notify')->with('success', 'Notification sent successfully!');
     }
 }
+

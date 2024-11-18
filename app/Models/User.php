@@ -64,5 +64,15 @@ class User extends Authenticatable
         return $this->hasOne(Payment::class); // ユーザーと支払いのリレーションを定義
     }
 
+    // 通知を取得するメソッド（例：UserController や NotificationController）
+    public function getUnreadNotificationsCount()
+    {
+        // ログインユーザーの未読通知数を取得
+        $unreadCount = auth()->user()->unreadNotifications->count();
+        return $unreadCount;
+    }
+
+
+
 
 }

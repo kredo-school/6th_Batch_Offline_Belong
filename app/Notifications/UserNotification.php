@@ -30,4 +30,11 @@ class UserNotification extends Notification
             'message' => $this->message, // 通知メッセージを保存
         ];
     }
+
+    public function getUnreadNotificationsCount()
+    {
+        // ログインユーザーの未読通知数を取得
+        $unreadCount = auth()->user()->unreadNotifications->count();
+        return $unreadCount;
+    }
 }
