@@ -15,20 +15,25 @@
 
             <!-- 通知メッセージ -->
             <p>
-                <!-- 投稿がリジェクトされた場合の通知メッセージ -->
-                <strong>{{ $notification->data['message'] }}</strong>
-
-                <!-- 投稿タイトルリンクの表示 -->
-                @if (isset($notification->data['post_id']))
-                    <a href="{{ route('approve.show', $notification->data['post_id']) }}" class="text-primary text-decoration-none">
-                        "{{ $notification->data['title'] ?? 'Untitled Post' }}"
-                    </a>
-                @endif
+                <!-- 通知メッセージの表示 -->
+                <strong>
+                    <!-- メッセージ内のタイトル部分をリンク化 -->
+                    @if (isset($notification->data['title']))
+                        {!! str_replace($notification->data['title'],
+                            '<a href="' . route('approve.show', $notification->data['post_id']) . '" class="text-primary text-decoration-none">' . $notification->data['title'] . '</a>',
+                            $notification->data['message']) !!}
+                    @else
+                        {{ $notification->data['message'] }}
+                    @endif
+                </strong>
 
                 <br>
+
                 <!-- リジェクト理由 -->
-                <strong>Reason:</strong> {{ $notification->data['reason'] ?? 'No reason provided.' }}
-                <br>
+                @if (isset($notification->data['reason']))
+                    <strong>Reason:</strong> {{ $notification->data['reason'] ?? 'No reason provided.' }}
+                    <br>
+                @endif
             </p>
 
             <!-- 通知の作成時間 -->
