@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Notifications\PostRejected;
 use App\Models\Post;
 use App\Models\Category; // Categoryモデルをインポート
 use Auth;
@@ -36,20 +38,28 @@ class PostsController extends Controller
         return redirect()->route('admin.approve.page')->with('message', 'Post approved successfully!');
     }
 
-    public function reject($id)
+    public function reject(Request $request, $id)
     {
+        // バリデーション
+        $request->validate([
+            'reject_reason' => 'required|string|max:500', // 理由は必須で500文字以内
+        ]);
+
         // ポストをデータベースから取得
         $post = Post::findOrFail($id);
 
-        // ポストをリジェクト（承認フラグを-1に設定）
+        // ポストをリジェクト
         $post->approved = 2;
-
-        // 変更をデータベースに保存
+        $post->reject_reason = $request->reject_reason; // リジェクト理由を保存
         $post->save();
 
-        // ユーザーのプロフィールページにリダイレクト
-        return redirect()->route('admin.approve.page')->with('message', 'Post rejected!');
+        // ポストの所有者に通知を送信
+        $post->user->notify(new PostRejected($post)); // 通知の送信
+
+        // メッセージを付けてリダイレクト
+        return redirect()->route('admin.approve.page')->with('message', 'Post rejected with reason!');
     }
+
 
 
 
