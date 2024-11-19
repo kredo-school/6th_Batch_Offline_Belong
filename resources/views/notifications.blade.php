@@ -15,21 +15,44 @@
 
             <!-- 通知メッセージ -->
             <p>
-                <!-- 通知メッセージの表示 -->
                 <strong>
-                    <!-- メッセージ内のタイトル部分をリンク化 -->
-                    @if (isset($notification->data['title']))
-                        {!! str_replace($notification->data['title'],
-                            '<a href="' . route('approve.show', $notification->data['post_id']) . '" class="text-primary text-decoration-none">' . $notification->data['title'] . '</a>',
-                            $notification->data['message']) !!}
+                    @if (isset($notification->data['type']))
+                        @if ($notification->data['type'] === 'booking')
+                            <!-- 予約通知の場合 -->
+                            <a href="{{ $notification->data['booker_profile_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                {{ $notification->data['booker_name'] ?? 'Someone' }}
+                            </a> has joined your post:
+                            <a href="{{ $notification->data['post_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                "{{ $notification->data['post_title'] ?? 'Unknown Post' }}"
+                            </a>.
+                        @elseif ($notification->data['type'] === 'rejection')
+                            <!-- 投稿リジェクト通知の場合 -->
+                            {!! str_replace($notification->data['title'] ?? 'Untitled Post',
+                                '<a href="' . route('approve.show', $notification->data['post_id'] ?? '#') . '" class="text-primary text-decoration-none">' . ($notification->data['title'] ?? 'Untitled Post') . '</a>',
+                                $notification->data['message'] ?? 'No details provided.') !!}
+                        @elseif ($notification->data['type'] === 'comment')
+                            <!-- コメント通知の場合 -->
+                            <a href="{{ $notification->data['commenter_profile_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                {{ $notification->data['commenter_name'] ?? 'Someone' }}
+                            </a> commented on your post:
+                            <a href="{{ $notification->data['post_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                "{{ $notification->data['post_title'] ?? 'Unknown Post' }}"
+                            </a>.
+                            <blockquote class="blockquote">
+                                "{{ $notification->data['body'] ?? 'No comment text provided.' }}"
+                            </blockquote>
+                        @else
+                            <!-- その他の通知 -->
+                            {{ $notification->data['message'] ?? 'No details available.' }}
+                        @endif
                     @else
-                        {{ $notification->data['message'] }}
+                        {{ $notification->data['message'] ?? 'No details available.' }}
                     @endif
                 </strong>
 
                 <br>
 
-                <!-- リジェクト理由 -->
+                <!-- リジェクト理由（該当する場合のみ） -->
                 @if (isset($notification->data['reason']))
                     <strong>Reason:</strong> {{ $notification->data['reason'] ?? 'No reason provided.' }}
                     <br>
