@@ -37,14 +37,8 @@ class BookingNotification extends Notification
     {
         return [
             'message' =>
-                // 参加者の名前へのリンク
-                '<a href="' . route('profile.show', $this->booker->id) . '" class="text-primary text-decoration-none">' .
-                $this->booker->name .
-                '</a> has joined the event. ' .
-                // イベントのタイトルへのリンク
-                '<a href="' . route('posts.show', $this->post->id) . '" class="text-primary text-decoration-none">' .
-                $this->post->title .
-                '</a>',
+                // 参加者の名前へのリンク 
+               'hi <a href ="#">Sample</a>',
             'post_id' => $this->post->id,
             'post_title' => $this->post->title,
             'post_url' => route('posts.show', $this->post->id), // 予約したポストのURL

@@ -19,9 +19,9 @@
                     @if (isset($notification->data['type']))
                         @if ($notification->data['type'] === 'booking')
                             <!-- 予約通知の場合 -->
-                            <a href="{{ $notification->data['booker_profile_url'] ?? '#' }}" class="text-primary text-decoration-none">
-                                {{ $notification->data['booker_name'] ?? 'Someone' }}
-                            </a> has joined your post:
+                            {{!! $notification->data['booker_profile_url'] ?? '#' !!}}
+
+
                             <a href="{{ $notification->data['post_url'] ?? '#' }}" class="text-primary text-decoration-none">
                                 "{{ $notification->data['post_title'] ?? 'Unknown Post' }}"
                             </a>.
