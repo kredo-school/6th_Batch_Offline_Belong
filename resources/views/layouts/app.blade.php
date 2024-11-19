@@ -17,34 +17,11 @@
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    <!-- calendar -->
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css' rel='stylesheet' />
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js'></script>
+    
 
-    <script>
-    $(document).ready(function() {
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            events: [
-                {
-                    title: 'Event 1',
-                    start: '2024-10-25'
-                },
-                {
-                    title: 'Event 2',
-                    start: '2024-10-27',
-                    end: '2024-10-29'
-                }
-            ]
-        });
-    });
-    </script>
+
+
+
 
     <style>
         html, body {
@@ -54,20 +31,7 @@
             padding: 0;
             overflow-x: hidden; /* 横スクロールを無効にする */
         }
-        /* カレンダーを表示するカードのサイズと位置調整 */
-        .calendar-card {
-            width: 550px;
-            margin-left: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        #calendar {
-            max-width: 500px;
-            height: 450px;
-            margin: 0 auto;
-            overflow: hidden; /* カレンダー内の余分なスクロールを非表示にする */
-        }
+        
 
         /* ここにページ全体に対するレイアウト調整を追加 */
         main {
@@ -117,7 +81,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
                 <div class="container">
-                @if (Request::is('rules') || Request::is('payment') || Request::is('success'))
+                @if (Request::is('rules') || Request::is('payment') || Request::is('success') || Request::is('login') || Request::is('register'))
                     <!-- ルール、ペイメント、サクセスページでは、クリックできないロゴとテキストを表示 -->
                     <div class="navbar-brand">
                         <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
@@ -164,6 +128,7 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
                                             <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
                                             <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>
+                                            <a class="dropdown-item" href="{{ route('posts.planned') }}"><i class="fa-solid fa-table-list"></i></i> Schedule</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">
