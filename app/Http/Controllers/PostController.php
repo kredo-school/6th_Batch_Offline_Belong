@@ -275,6 +275,26 @@ public function display()
     return view('posts.planned', ['all_posts' => $all_posts]); 
 }
 
+public function match(Request $request) 
+{
+    $date = $request->input('date'); // 検索する日付を取得
+
+    // 承認された投稿だけを日付で検索し、ページネーションを使って結果を取得
+    $posts = Post::whereDate('date', $date)
+                 ->where('approved', true) // 承認された投稿のみ
+                 ->get(); 
+
+    // 明示的にデータを渡す
+    return view('home')->with('posts', $posts)->with('date', $date);
+}
+
+
+
+
+
+
+
+
 
 
 

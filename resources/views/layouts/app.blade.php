@@ -17,50 +17,7 @@
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    <!-- 必要なCSSカレンダー -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css">
-
-<!-- 必要なJavaScriptカレンダー -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            selectable: true,  // 日付を選択できるようにする
-            editable: true,    // イベントをドラッグ＆ドロップで編集できるようにする
-            // 新しいイベントを作成するための設定
-            select: function(start, end) {
-                var title = prompt('イベントのタイトルを入力してください');
-                if (title) {
-                    $('#calendar').fullCalendar('renderEvent', {
-                        title: title,
-                        start: start,
-                        end: end
-                    });
-                }
-                $('#calendar').fullCalendar('unselect'); // 日付選択を解除
-            },
-            // イベントを編集できる設定
-            eventDrop: function(event, delta, revertFunc) {
-                // サーバーに変更を送信する処理を追加することができます
-                alert('イベントが変更されました: ' + event.title);
-            },
-            // イベントを削除できる設定
-            eventClick: function(event, jsEvent, view) {
-                if (confirm('このイベントを削除しますか？')) {
-                    $('#calendar').fullCalendar('removeEvents', event._id);
-                }
-            }
-        });
-    });
-</script>
+    
 
 
 
@@ -74,20 +31,7 @@
             padding: 0;
             overflow-x: hidden; /* 横スクロールを無効にする */
         }
-        /* カレンダーを表示するカードのサイズと位置調整 */
-        .calendar-card {
-            width: 550px;
-            margin-left: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        #calendar {
-            max-width: 500px;
-            height: 450px;
-            margin: 0 auto;
-            overflow: hidden; /* カレンダー内の余分なスクロールを非表示にする */
-        }
+        
 
         /* ここにページ全体に対するレイアウト調整を追加 */
         main {
@@ -184,7 +128,7 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
                                             <a class="dropdown-item" href="{{ route('posts.create') }}"><i class="fa-solid fa-circle-plus"></i> Create</a>
                                             <a class="dropdown-item" href="{{ route('posts.schedule') }}"><i class="fa-solid fa-calendar-days"></i> All Posts</a>
-                                            <a class="dropdown-item" href="{{ route('posts.planned') }}"><i class="fa-solid fa-calendar-days"></i>Schedule</a>
+                                            <a class="dropdown-item" href="{{ route('posts.planned') }}"><i class="fa-solid fa-table-list"></i></i> Schedule</a>
                                         </div>
                                     </li>
                                     <li class="nav-item dropdown">

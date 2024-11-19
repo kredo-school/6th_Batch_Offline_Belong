@@ -54,6 +54,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
         Route::get('/posts/schedule', [PostController::class, 'index'])->name('posts.schedule');
         Route::get('/posts/planned', [PostController::class, 'display'])->name('posts.planned');
+        Route::get('/posts/date', [PostController::class, 'match'])->name('posts.date');
+
 
 
         
@@ -64,6 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
         Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
+        
 
         // 拒否されたポストを編集するルート
         Route::get('/posts/{post}/approveedit', [PostController::class, 'approveEdit'])->name('posts.approveedit');
