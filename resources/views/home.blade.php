@@ -211,14 +211,19 @@
                                         class="text-decoration-none text-dark">
                                         <p class="h5 mb-0">Title: {{ $post->title }}</p>
                                         <p class="text-muted mb-0">{{ Str::limit($post->content, 80) }}</p>
-                                        <!-- コンテンツの表示を短く -->
+                                    </a>
+                                </div>
+                                <div class="col ms-3">
+                                    <a href="{{ route('posts.show', $post->id) }}"
+                                        class="text-decoration-none text-dark">
+                                        <p class="h5 mb-0">reservation_date: {{ $post->reservation_due_date }}</p>
                                     </a>
                                 </div>
                             </div>
                         @endforeach
 
                         @if (isset($_GET['date']))
-                            {{ $posts->links() }}
+                            {{ $posts->appends(['date' => $date])->links() }}
                         @endif
 
                         <!-- ページネーション -->
