@@ -15,6 +15,9 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PostsController;
 use App\Http\Controllers\Admin\ApprovesController;
 use App\Http\Controllers\Admin\NotificationsController;
+use App\Http\Controllers\Admin\ReceptionController; // 新しい名前空間に合わせてインポート
+
+
 
 
 use App\Http\Controllers\ApproveController;
@@ -129,6 +132,11 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
 
+    Route::post('/reception', [ReceptionController::class, 'store'])->name('reception.store');
+    Route::get('/admin/receptions', [ReceptionController::class, 'index'])->name('admin.receptions');
+    Route::delete('admin/receptions/{id}', [ReceptionController::class, 'destroy'])->name('admin.receptions.delete');
+
+
     // 管理者ページのルート
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         // 管理者のユーザー管理
@@ -151,6 +159,13 @@ Route::group(['middleware' => 'auth'], function () {
 
         // 通知送信処理（POST）
         Route::post('/notify', [NotificationsController::class, 'store'])->name('notify.store');
+
+
+        
+
+        
+
+        
 
 
 
