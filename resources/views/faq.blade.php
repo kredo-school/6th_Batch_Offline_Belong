@@ -7,7 +7,8 @@
     <div class="d-flex justify-content-center align-items-center" style="height: 100%;">
         <div class="col-md-6 bg-white p-4 rounded">  <!-- Removed opacity class -->
             <h1 class="text-center">Contact Information</h1>
-            
+            <form action="{{ route('reception.store') }}" method="POST">
+            @csrf
             <!-- Name Entry Field -->
             <div class="form-group">
                 <label for="name">Name</label>
@@ -22,10 +23,10 @@
             </div>
             <br>
 
-            <!-- Content Entry Field -->
+            <!-- message Entry Field -->
             <div class="form-group">
-                <label for="content">Content</label>
-                <textarea class="form-control" id="content" name="content" rows="5" placeholder="Enter your message"></textarea>
+                <label for="message">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message"></textarea>
             </div>
             <br>
 
@@ -33,6 +34,10 @@
             <div class="text-center">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
+            </form>
+            @if(session('success'))
+                <p style="color: green;">{{ session('success') }}</p>
+            @endif
         </div>
     </div>
 </div>
