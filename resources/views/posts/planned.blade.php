@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app') 
 
 @section('content')
 
@@ -8,8 +8,8 @@
 
 <!-- Post Table -->
 <div class="col-md-9 col-sm-12 mx-auto">
-    <table class="table table-hover align-middle bg-white border text-secondary w-100">
-        <thead class="small table-success text-secondary">
+    <table class="table table-hover align-middle border text-secondary w-100">
+        <thead class="small table-primary text-secondary" >
             <tr>
                 <th class="text-center">Posts</th> <!-- 画像列 -->
                 <th class="text-center">CATEGORY</th>
