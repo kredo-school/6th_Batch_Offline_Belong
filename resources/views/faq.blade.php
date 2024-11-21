@@ -8,33 +8,46 @@
         <div class="col-md-6 bg-white p-4 rounded">  <!-- Removed opacity class -->
             <h1 class="text-center">Contact Information</h1>
             <form action="{{ route('reception.store') }}" method="POST">
-            @csrf
-            <!-- Name Entry Field -->
-            <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
-            </div>
-            <br>
+                @csrf
+                <!-- Name Entry Field -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" 
+                        class="form-control" 
+                        id="name" 
+                        name="name" 
+                        value="{{ Auth::user()->name }}" 
+                        placeholder="Enter your name" 
+                        readonly> <!-- 編集不可に設定 -->
+                </div>
+                <br>
 
-            <!-- Email Entry Field -->
-            <div class="form-group">
-                <label for="email">メールアドレス</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
-            </div>
-            <br>
+                <!-- Email Entry Field -->
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" 
+                        class="form-control" 
+                        id="email" 
+                        name="email" 
+                        value="{{ Auth::user()->email }}" 
+                        placeholder="Enter your email" 
+                        readonly> <!-- 編集不可に設定 -->
+                </div>
+                <br>
 
-            <!-- message Entry Field -->
-            <div class="form-group">
-                <label for="message">Message</label>
-                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message"></textarea>
-            </div>
-            <br>
+                <!-- Message Entry Field -->
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message"></textarea>
+                </div>
+                <br>
 
-            <!-- Submit Button -->
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
+
             @if(session('success'))
                 <p style="color: green;">{{ session('success') }}</p>
             @endif
