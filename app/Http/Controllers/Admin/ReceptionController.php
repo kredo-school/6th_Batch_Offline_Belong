@@ -24,17 +24,20 @@ class ReceptionController extends Controller
     {
         // バリデーション
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
             'message' => 'required|string',
         ]);
 
-        // データベースに保存
-        Contact::create($validated);
+        // 現在のユーザー情報を取得して保存
+        Contact::create([
+            'name' => Auth::user()->name,
+            'email' => Auth::user()->email,
+            'message' => $request->message,
+        ]);
 
         // レスポンスを返す
         return redirect()->back()->with('success', 'お問い合わせ内容を受け付けました！');
     }
+
 
     public function destroy($id)
     {
