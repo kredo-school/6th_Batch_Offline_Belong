@@ -11,7 +11,7 @@
         @endif
 
         <div class="d-flex align-items-center">
-            <div class="profile_image mb-3">
+            <div class="profile-image mb-3">
                 @if ($user->profile_image)
                     <img src="{{ $user->profile_image }}" alt="Profile Image" class="rounded-image">
                 @else
@@ -48,18 +48,16 @@
                                     <div class="card-img-top text-center" style="position: relative;">
                                         @if($post->image)
                                             @if($post->approved == 0 || $post->approved == 2)
-                                                <!-- If post is not approved or rejected, redirect to the approve page -->
                                                 <a href="{{ route('approve.show', $post->id) }}">
-                                                    <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg" style="width: 100%; height: auto; object-fit: cover;">
+                                                    <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg">
                                                 </a>
                                             @else
-                                                <!-- If approved, show post -->
                                                 <a href="{{ route('posts.show', $post->id) }}">
-                                                    <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg" style="width: 100%; height: auto; object-fit: cover;">
+                                                    <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg">
                                                 </a>
                                             @endif
                                         @else
-                                            <img src="{{ url('images/homepage.jpg') }}" alt="Default Image" style="width: 100%; height: auto;">
+                                            <img src="{{ url('images/homepage.jpg') }}" alt="Default Image" class="image-lg">
                                         @endif
                                     </div>
                                     <div class="card-body">
@@ -76,19 +74,14 @@
                                             @endif
                                         </div>
                                         <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br>
-                                        @if ($post->approved == 0)
-                                        <div class="badge bg-danger">
-                                            Not Approved
-                                        </div>
+                                        @if ($post->approved == 0) 
+                                            <div class="badge bg-danger ">Not Approved</div>
                                         @elseif ($post->approved == 1)
-                                            <div class="badge bg-success">
-                                                Approved
-                                            </div>
+                                            <div class="badge bg-success w-25">Approved</div>
                                         @elseif ($post->approved == 2)
-                                            <div class="badge bg-warning">
-                                                Rejected
-                                            </div>
+                                            <div class="badge bg-warning">Rejected</div>
                                         @endif
+
                                     </div>
                                 </div>
                             </div>
@@ -111,15 +104,20 @@
 @endsection
 
 <style>
+    /* プロフィール画像を丸く表示 */
     .rounded-image {
         width: 250px;
         height: 250px;
         border-radius: 50%;
         object-fit: cover;
     }
+
+    /* 左側のプロフィール情報との間隔 */
     .ml-4 {
         margin-left: 2rem;
     }
+
+    /* プロフィール編集リンクのスタイル */
     .btn-link {
         display: inline-block;
         padding: 0.5rem 1rem;
@@ -129,14 +127,19 @@
         text-decoration: none;
         font-size: 1rem;
     }
+
     .btn-link:hover {
         background-color: #5a6268;
         text-decoration: none;
     }
+
+    /* プロフィールの詳細情報 */
     .profile-details p {
         font-size: 1.2rem;
         margin: 0.5rem 0;
     }
+
+    /* 自己紹介のボックス */
     .bio-box {
         border: 2px solid black;
         padding: 1rem;
@@ -144,4 +147,28 @@
         background-color: transparent;
         border-radius: 5px;
     }
+
+    /* 投稿カードの画像をサイズ統一 */
+    .card-img-top img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    /* ボタン内のテキスト調整 */
+    .card-body a {
+        font-size: 1rem;
+    }
+
+    
+
 </style>
