@@ -20,6 +20,9 @@
                     <a href="{{ route('admin.notify') }}" class="list-group-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
                         <i class="fa-solid fa-bell"></i> Notifications
                     </a>
+                    <a href="{{ route('admin.receptions') }}" class="list-group-item {{ request()->routeIs('admin.receptions') ? 'active' : '' }}">
+                    <i class="fa-solid fa-envelope"></i> Receptions
+                    </a>
                 </div>
             </div>
         @endif

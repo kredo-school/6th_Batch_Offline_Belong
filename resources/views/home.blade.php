@@ -1,6 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    /* カード全体に角丸を適用 */
+    .card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px; /* カードの角丸 */
+        overflow: hidden; /* 角丸を適用するためにオーバーフローを隠す */
+    }
+
+    /* 画像に角丸を適用 */
+    .card-img-top img {
+        width: 100%;
+        height: 200px; /* 固定高さを指定 */
+        object-fit: cover; /* サイズ調整 */
+        border-top-left-radius: 10px; /* 上左角の丸み */
+        border-top-right-radius: 10px; /* 上右角の丸み */
+    }
+
+    /* カードの本文をフレックスで下に配置 */
+    .card-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>
+
+
     <div class="container-fluid p-0">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -41,22 +70,19 @@
                 </div>
             </div>
 
-            <div class="row">
+            <br>
+            <div class="row"> 
                 @foreach ($posts as $post)
-                    <!-- 投稿をループで表示 -->
                     @if ($post->approved)
                         <div class="col-md-4 mb-4">
                             <div class="card">
                                 <div class="card-img-top text-center" style="position: relative;">
                                     @if ($post->image)
-                                        <!-- 画像の存在を確認 -->
                                         <a href="{{ route('posts.show', $post->id) }}">
-                                            <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}"
-                                                class="image-lg" style="width: 100%; height: auto; object-fit: cover;">
+                                            <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="image-lg">
                                         </a>
                                     @else
-                                        <img src="{{ url('images/homepage.jpg') }}" alt="Default Image"
-                                            style="width: 100%; height: auto;"> <!-- デフォルト画像 -->
+                                        <img src="{{ url('images/homepage.jpg') }}" alt="Default Image" class="image-lg">
                                     @endif
                                 </div>
                                 <div class="card-body">
@@ -73,40 +99,16 @@
                                         @endif
                                     </div>
                                     <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br>
-                                    <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary mt-3">詳細</a>
+                                    <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary mt-3">Detail</a>
                                 </div>
                             </div>
                         </div>
                     @endif
                 @endforeach
-
-            </div>
-
-            <div class="row mt-2">
-                <div class="col-md-12 text-end">
-                    <a href="#" style="font-size: 18px; color: blue; text-decoration: underline;">Suggest event</a>
-                </div>
-            </div>
-
-            <hr>
-            <div class="row justify-content-center">
-                <div class="col-md-6 d-flex justify-content-center">
-                    <div class="card mb-4" style="width: 600px; background-color: #F8E8EE;">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fa-solid fa-circle-exclamation"
-                                    style="font-size: 30px; margin-right: 10px; color: white; text-shadow: 1px 1px 0 black;"></i>
-                                <p class="mb-0" style="font-size: 20px;">notice</p>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <p class="mb-0">Your notice message here.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-            </div>
+            </div>          
+            
         </div>
+        <hr>
 
 
 
@@ -125,7 +127,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Play</h5>
                             <p class="card-text">Sports/Game etc.</p>
-                            <a href="{{ route('category.play') }}" class="btn btn-primary">詳細</a>
+                            <a href="{{ route('category.play') }}" class="btn btn-primary">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -136,7 +138,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Watch and Learn</h5>
                             <p class="card-text">Nature/Culture etc.</p>
-                            <a href="{{ route('category.watch-and-learn') }}" class="btn btn-primary">詳細</a>
+                            <a href="{{ route('category.watch-and-learn') }}" class="btn btn-primary">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -147,7 +149,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Eat</h5>
                             <p class="card-text">Food/Drinking parties etc.</p>
-                            <a href="{{ route('category.eat') }}" class="btn btn-primary">詳細</a>
+                            <a href="{{ route('category.eat') }}" class="btn btn-primary">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -158,7 +160,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Others</h5>
                             <p class="card-text">Home party/Love affair/International etc.</p>
-                            <a href="{{ route('category.others') }}" class="btn btn-primary">詳細</a>
+                            <a href="{{ route('category.others') }}" class="btn btn-primary">Detail</a>
                         </div>
                     </div>
                 </div>
@@ -211,14 +213,19 @@
                                         class="text-decoration-none text-dark">
                                         <p class="h5 mb-0">Title: {{ $post->title }}</p>
                                         <p class="text-muted mb-0">{{ Str::limit($post->content, 80) }}</p>
-                                        <!-- コンテンツの表示を短く -->
+                                    </a>
+                                </div>
+                                <div class="col ms-3">
+                                    <a href="{{ route('posts.show', $post->id) }}"
+                                        class="text-decoration-none text-dark">
+                                        <p class="h5 mb-0">reservation_date: {{ $post->reservation_due_date }}</p>
                                     </a>
                                 </div>
                             </div>
                         @endforeach
 
                         @if (isset($_GET['date']))
-                            {{ $posts->links() }}
+                            {{ $posts->appends(['date' => $date])->links() }}
                         @endif
 
                         <!-- ページネーション -->
@@ -234,6 +241,7 @@
                 </div>
             @endif
         </div>
+        
 
 
 
