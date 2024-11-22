@@ -25,10 +25,7 @@ class ReviewController extends Controller
             'comment' => $request->comment,
         ]);
 
-
-        // 投稿の所有者に通知を送信
-        $postOwner = $reviews->post->user;
-        $postOwner->notify(new ReviewNotification($reviews));
+        $post->user->notify(new ReviewNotification($post->reviews()->latest()->first()));
 
         return redirect()->route('posts.show', $post)->with('success', 'Review submitted successfully!');
     }
