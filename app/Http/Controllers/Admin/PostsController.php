@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Notifications\PostRejected;
+use App\Notifications\PostApproveNotification;
 use App\Models\Post;
 use App\Models\Category; // Categoryモデルをインポート
 use Auth;
@@ -33,6 +34,8 @@ class PostsController extends Controller
         // 承認処理
         $post->approved = true;  // フィールド名が 'approved' と仮定
         $post->save();
+
+        $post->user->notify(new PostApproveNotification($post));
 
         // 承認後、承認されていないポストのみを表示
         return redirect()->route('admin.approve.page')->with('message', 'Post approved successfully!');

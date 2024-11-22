@@ -54,6 +54,7 @@ class PostController extends Controller
     {
         // 承認された投稿のみ表示
         $post = Post::with(['user', 'categories'])->where('approved', true)->findOrFail($id);
+
         return view('posts.show', compact('post'));
     }
 
@@ -205,7 +206,7 @@ public function approveEdit(Post $post)
 {
     // 投稿がリジェクトされていない場合は、承認待ちまたは承認済みの状態であることを確認
     if ($post->approved !== 2) {
-        return redirect()->route('approveshow')->with('error', 'This post cannot be edited because it is not rejected.');
+        return redirect()->route('approve.show', $post->id)->with('error', 'This post cannot be edited because it is not rejected.');
     }
 
     // 全てのカテゴリを取得

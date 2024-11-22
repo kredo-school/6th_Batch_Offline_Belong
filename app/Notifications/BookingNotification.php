@@ -5,6 +5,8 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use App\Models\Post;
+use App\Models\User;
 
 class BookingNotification extends Notification
 {
@@ -15,8 +17,11 @@ class BookingNotification extends Notification
 
     /**
      * Create a new notification instance.
+     *
+     * @param Post $post
+     * @param User $booker
      */
-    public function __construct($post, $booker)
+    public function __construct(Post $post, User $booker)
     {
         $this->post = $post;
         $this->booker = $booker;
@@ -24,45 +29,53 @@ class BookingNotification extends Notification
 
     /**
      * Get the notification's delivery channels.
+     *
+     * @param mixed $notifiable
+     * @return array
      */
     public function via($notifiable)
     {
-        return ['database']; // データベース通知
+        return ['database', 'mail']; // データベース通知とメール通知
     }
 
     /**
-     * Get the array representation of the notification.
+     * Get the array representation of the notification for database storage.
+     *
+     * @param mixed $notifiable
+     * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
         return [
-            'message' =>
-                // 参加者の名前へのリンク 
-               'hi <a href ="#">Sample</a>',
-            'post_id' => $this->post->id,
-            'post_title' => $this->post->title,
-            'post_url' => route('posts.show', $this->post->id), // 予約したポストのURL
+            'booker_name' => $this->booker->name, // 参加者の名前
+            'booker_profile_url' => route('profile.show', ['id' => $this->booker->id]),
+            'post_id' => $this->post->id, // イベントのID
+            'post_title' => $this->post->title, // イベントのタイトル
+            'post_url' => route('posts.show', $this->post->id), // イベントのURL
+            'type' => 'booking', // 通知タイプ
         ];
     }
 
     /**
-     * Get the email notification's content.
+     * Get the mail representation of the notification.
+     *
+     * @param mixed $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            // 参加者の名前へのリンク
-            ->line(sprintf('%s has joined your event: ',
-                // 名前をリンク化
+            ->subject('New Booking for Your Event')
+            ->line(sprintf(
+                '%s has joined your event:',
                 '<a href="' . route('profile.show', $this->booker->id) . '" style="color: #007bff;">' .
                 ($this->booker->name ?? 'Someone') . '</a>'
             ))
-            // イベントタイトルへのリンク
-            ->line('Event: ' .
-                '<a href="' . route('posts.show', $this->post->id) . '" style="color: #007bff;">' .
-                $this->post->title .
-                '</a>'
-            )
+            ->line(sprintf(
+                'Event: <a href="%s" style="color: #007bff;">%s</a>',
+                route('posts.show', $this->post->id),
+                $this->post->title
+            ))
             ->line('Thank you for using our application!');
     }
 }

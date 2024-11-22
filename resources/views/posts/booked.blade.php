@@ -69,7 +69,7 @@
                                         @if ($book->post->image)
                                             <img src="{{ $book->post->image }}" alt="Post ID {{ $book->post->id }}" class="w-100 mb-3">
                                         @endif
-                                        <div class="mt-3">  
+                                        <div class="mt-3">
                                             <h4 class="fw-bold">Title: {{ $book->post->title }}</h4>
                                             <strong>Date:</strong> {{ date('M d, Y', strtotime($book->post->date)) }}<br>
                                             <strong>Reservation Due Date:</strong> {{ date('M d, Y', strtotime($book->post->reservation_due_date)) }}<br>
@@ -85,7 +85,7 @@
                                     <form action="{{ route('posts.cancel', $book->post->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
-                                        
+
                                         <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-danger btn-sm">Submit</button>
                                     </form>
@@ -98,4 +98,7 @@
         </table>
     @endif
 </div>
+<br>
+<br>
+<br>
 @endsection
