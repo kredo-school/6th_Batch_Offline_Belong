@@ -15,21 +15,76 @@
 
             <!-- 通知メッセージ -->
             <p>
-                <!-- 通知メッセージの表示 -->
                 <strong>
-                    <!-- メッセージ内のタイトル部分をリンク化 -->
-                    @if (isset($notification->data['title']))
-                        {!! str_replace($notification->data['title'],
-                            '<a href="' . route('approve.show', $notification->data['post_id']) . '" class="text-primary text-decoration-none">' . $notification->data['title'] . '</a>',
-                            $notification->data['message']) !!}
+                    @if (isset($notification->data['type']))
+                        @if ($notification->data['type'] === 'review')
+                            <!-- レビュー通知の場合 -->
+                            <p>
+                                Your post
+                                <a href="{{ $notification->data['review_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                    "{{ $notification->data['post_title'] ?? 'Unknown Post' }}"
+                                </a>
+                                has received a new review!
+                            </p>
+                            <p>Rating: {{ $notification->data['rating'] ?? 'No rating provided' }}</p>
+                        @elseif ($notification->data['type'] === 'booking')
+                            <!-- 予約通知の場合 -->
+                            <a href="{{ $notification->data['booker_profile_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                {{ $notification->data['booker_name'] ?? 'Someone' }}
+                            </a> has joined your event:
+                            <a href="{{ $notification->data['post_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                "{{ $notification->data['post_title'] ?? 'Unknown Post' }}"
+                            </a>.
+                        @elseif ($notification->data['type'] === 'rejection')
+                            <!-- 投稿リジェクト通知の場合 -->
+                            @if(isset($notification->data['post_title']) && isset($notification->data['post_url']))
+                                <p>
+                                    Your post
+                                    <a href="{{ $notification->data['post_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                        "{{ $notification->data['post_title'] ?? 'Unknown Post' }}"
+                                    </a>
+                                    has been rejected.
+                                </p>
+                                <p>Reason: {{ $notification->data['reason'] ?? 'No reason provided' }}</p>
+                            @else
+                                <p>Notification data is missing or incomplete.</p>
+                            @endif
+                        @elseif ($notification->data['type'] === 'approve')
+                            <!-- 投稿承認通知の場合 -->
+                            @if(isset($notification->data['post_title']) && isset($notification->data['post_url']))
+                                <p>
+                                    Your post
+                                    <a href="{{ $notification->data['post_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                        "{{ $notification->data['post_title'] ?? 'Unknown Post' }}"
+                                    </a>
+                                    has been approved.
+                                </p>
+                            @else
+                                <p>Notification data is missing or incomplete.</p>
+                            @endif
+                        @elseif ($notification->data['type'] === 'comment')
+                            <!-- コメント通知の場合 -->
+                            <a href="{{ $notification->data['commenter_profile_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                {{ $notification->data['commenter_name'] ?? 'Someone' }}
+                            </a> commented on your post:
+                            <a href="{{ $notification->data['post_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                "{{ $notification->data['post_title'] ?? 'Unknown Post' }}"
+                            </a>.
+                            <blockquote class="blockquote">
+                                "{{ $notification->data['body'] ?? 'No comment text provided.' }}"
+                            </blockquote>
+                        @else
+                            <!-- その他の通知 -->
+                            {{ $notification->data['message'] ?? 'No details available.' }}
+                        @endif
                     @else
-                        {{ $notification->data['message'] }}
+                        {{ $notification->data['message'] ?? 'No details available.' }}
                     @endif
                 </strong>
 
                 <br>
 
-                <!-- リジェクト理由 -->
+                <!-- リジェクト理由（該当する場合のみ） -->
                 @if (isset($notification->data['reason']))
                     <strong>Reason:</strong> {{ $notification->data['reason'] ?? 'No reason provided.' }}
                     <br>

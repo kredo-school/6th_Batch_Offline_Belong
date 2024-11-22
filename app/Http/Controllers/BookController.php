@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use App\Notifications\BookingNotification;
 
 class BookController extends Controller
 {
@@ -13,22 +14,31 @@ class BookController extends Controller
         return view('posts.booking', compact('post'));
     }
 
-    public function store(Request $request, Post $post)
+    public function store(Request $request, $postId)
     {
-        $existingBooking = Book::where('user_id', $request->user()->id)
-            ->where('post_id', $post->id)
-            ->first();
+        $post = Post::findOrFail($postId);
+        $user = auth()->user(); // 現在のユーザー
 
-        if ($existingBooking) {
-            return redirect()->route('posts.show', $post->id)->with('error', 'You have already joined this event.');
+        // すでにブックしている場合はエラーを返す
+        if ($post->books()->where('user_id', $user->id)->exists()) {
+            return redirect()->back()->with('error', 'You have already booked this event.');
         }
 
-        Book::create([
-            'user_id' => $request->user()->id,
-            'post_id' => $post->id,
-        ]);
+        // ブック処理
+        $post->books()->create(['user_id' => $user->id]);
 
-        return redirect()->route('posts.show', $post->id)->with('success', 'Successfully joined the event!');
+        // 主催者に通知を送信
+        $post->user->notify(new BookingNotification($post, $user));
+
+        // すでにブックしている他のユーザーに通知を送信
+        $bookedUsers = $post->books()->with('user')->get()->pluck('user');
+        foreach ($bookedUsers as $bookedUser) {
+            if ($bookedUser->id !== $user->id) { // 自分以外
+                $bookedUser->notify(new BookingNotification($post, $user));
+            }
+        }
+
+        return redirect()->route('posts.show', $postId)->with('success', 'You have successfully booked this event.');
     }
 
     public function index()

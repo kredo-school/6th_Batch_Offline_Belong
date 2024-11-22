@@ -17,7 +17,7 @@
                                         <i class="fa-solid fa-circle-user text-secondary" style="font-size: 30px;"></i>
                                     @endif
                                 </div>
-                                <span>{{ $book->user->name }}</span>
+                                <span><a href="{{ route('profile.show', $book->user->id) }}" class="text-decoration-none">{{ $book->user->name }}</a></span>
                             </li>
                         @endforeach
                     </ul>

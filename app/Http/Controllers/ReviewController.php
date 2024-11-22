@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Review;
+use App\Models\User;
+use App\Notifications\ReviewNotification;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
+    private $post;
     public function create(Post $post)
     {
         return view('posts.reviews.create', compact('post'));
@@ -15,22 +18,18 @@ class ReviewController extends Controller
 
     public function store(Request $request, Post $post)
     {
-        // $request->validate([
-        //     'rating' => 'required|integer|min:1|max:5',
-        //     'comment' => 'nullable|string|max:255',
-        // ]);
 
-        
-    
         $post->reviews()->create([
             'user_id' => auth()->id(),
             'rating' => $request->rating,
             'comment' => $request->comment,
         ]);
-    
+
+        $post->user->notify(new ReviewNotification($post->reviews()->latest()->first()));
+
         return redirect()->route('posts.show', $post)->with('success', 'Review submitted successfully!');
     }
-    
+
 
     public function index(Post $post)
     {
