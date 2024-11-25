@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
 <style>
     /* カード全体に角丸を適用 */
     .card {
@@ -271,6 +274,43 @@
             </div>
         </div>
         <br>
+        <div>
+        <div>
+    <h2>Category Chart</h2>
+    <canvas id="categoryChart"></canvas>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const ctx = document.getElementById('categoryChart').getContext('2d');
+
+        // LaravelからPHPデータをJavaScriptに渡す
+        const categoryLabels = {!! json_encode($categoryNames->toArray()) !!};
+        const categoryData = {!! json_encode($postCounts->toArray()) !!};
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: categoryLabels, // カテゴリ名
+                datasets: [{
+                    label: 'Number of Posts',
+                    data: categoryData, // 投稿数データ
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    });
+</script>
+
         <br>
         <hr>
         <br>

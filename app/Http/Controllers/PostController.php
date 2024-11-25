@@ -302,6 +302,18 @@ public function Big()//Big event post
     return view('your-view-name')->with('posts', $posts);
 }
 
+public function showChart()
+{
+    // カテゴリごとの投稿数を取得
+    $categories = Category::withCount('posts')->get();
+
+    // 投稿数とカテゴリ名を配列として整形
+    $categoryNames = $categories->pluck('name');
+    $postCounts = $categories->pluck('posts_count');
+
+    return view('charts.category_chart', compact('categoryNames', 'postCounts'));
+}
+
 
 
 
