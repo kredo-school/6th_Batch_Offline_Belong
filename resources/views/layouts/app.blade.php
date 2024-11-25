@@ -17,8 +17,6 @@
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    
-
 
 
 
@@ -81,7 +79,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
                 <div class="container">
-                @if (Request::is('rules') || Request::is('payment') || Request::is('success') || Request::is('login') || Request::is('register'))
+                @if (Request::is('rules') || Request::is('payment') || Request::is('success'))
                     <!-- ルール、ペイメント、サクセスページでは、クリックできないロゴとテキストを表示 -->
                     <div class="navbar-brand">
                         <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">

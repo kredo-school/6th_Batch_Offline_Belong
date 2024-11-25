@@ -20,14 +20,20 @@ use App\Http\Controllers\Admin\ReceptionController; // 新しい名前空間に�
 
 
 
+use App\Http\Controllers\homecontroller;
 use App\Http\Controllers\ApproveController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AccountController;
 
+
+
+Route::get('/', [HomeController::class, 'show'])->name('welcome');
 Auth::routes();
 
+
+
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
     Route::get('/payment', [PaymentController::class, 'show'])->name('payment.show');
@@ -58,8 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/posts/schedule', [PostController::class, 'index'])->name('posts.schedule');
         Route::get('/posts/planned', [PostController::class, 'display'])->name('posts.planned');
         Route::get('/posts/date', [PostController::class, 'match'])->name('posts.date');
-        Route::get('/chart', [PostController::class, 'showChart'])->name('chart.show');
-
+        
 
 
         Route::get('/category/play', [PostController::class, 'play'])->name('category.play');
