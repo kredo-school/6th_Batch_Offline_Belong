@@ -86,9 +86,13 @@
                             <td>{{ $user->gender }}</td>
                             <td>
                                 <div>
-                                    <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-user-{{ $user->id }}">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </button>
+                                    @if(auth()->id() !== $user->id)
+                                        <button class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#delete-user-{{ $user->id }}">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+                                    @else
+                                        <span class="text-muted">N/A</span>
+                                    @endif
                                 </div>
                                 <!-- ユーザー削除の確認モーダル -->
                                 <div class="modal fade" id="delete-user-{{ $user->id }}" tabindex="-1" aria-labelledby="delete-user-label" aria-hidden="true">

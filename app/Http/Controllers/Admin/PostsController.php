@@ -63,6 +63,18 @@ class PostsController extends Controller
         return redirect()->route('admin.approve.page')->with('message', 'Post rejected with reason!');
     }
 
+    public function destroy($id)
+    {
+        // ID に基づいてポストを取得
+        $post = Post::findOrFail($id);
+
+        // ポストを削除
+        $post->delete();
+
+        // 削除後のリダイレクト
+        return redirect()->route('admin.posts')->with('success', 'Post deleted successfully.');
+    }
+
 
 
 
