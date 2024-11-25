@@ -147,6 +147,7 @@
                                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="searchDropdown">
                                             <a class="dropdown-item" href="{{ route('posts.search') }}"><i class="fa-solid fa-magnifying-glass"></i> Post</a>
                                             <a class="dropdown-item" href="{{ route('posts.search.user') }}"><i class="fa-solid fa-user-tag"></i> User</a>
+                                            <a class="dropdown-item" href="{{ route('posts.date') }}"><i class="fa-solid fa-business-time"></i> Date</a>
                                         </div>
                                     </li>
                                     <li class="nav-item" style="position: relative;">

@@ -69,7 +69,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
         Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
-        
 
         // 拒否されたポストを編集するルート
         Route::get('/posts/{post}/approveedit', [PostController::class, 'approveEdit'])->name('posts.approveedit');
