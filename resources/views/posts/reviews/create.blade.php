@@ -25,7 +25,7 @@
         color: gold; /* ホバーしたときの星の色 */
     }
 </style>
-<div class="container mt-3">
+<div class="container mt-5">
     <h2>Review for {{ $post->title }}</h2>
     <form method="POST" action="{{ route('reviews.store', $post) }}">
         @csrf

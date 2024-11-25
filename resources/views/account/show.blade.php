@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container mt-5">
     <h1 class="text-center" style="font-size: 3rem; font-weight: bold;">
         Account - {{ $user->name }}
     </h1>
@@ -12,7 +12,7 @@
     <br>
 
     <!-- プロファイル画像を中央に表示 -->
-    <div class="d-flex justify-content-center mb-3">  
+    <div class="d-flex justify-content-center mb-3">
         <div class="profile-image">
             @if ($user->profile_image)
             <!-- 画像のURLが正しく保存されていれば、画像を表示 -->
@@ -33,7 +33,7 @@
 
                 <!-- Name and Email Fields -->
                 <div class="row mb-3">
-                    <div class="col-md-6"> 
+                    <div class="col-md-6">
                         <label for="name" class="form-label">{{ __('Name') }}</label>
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror"
                             name="name" value="{{ old('name', $user->name) }}" required autocomplete="name" autofocus readonly>
@@ -45,7 +45,7 @@
                         @enderror
                     </div>
 
-                    <div class="col-md-6"> 
+                    <div class="col-md-6">
                         <label for="email" class="form-label">{{ __('Email Address') }}</label>
                         <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
                             name="email" value="{{ old('email', $user->email) }}" required autocomplete="email" readonly>
@@ -79,11 +79,11 @@
                             name="password_confirmation" placeholder="********" required autocomplete="new-password" readonly>
                     </div>
                 </div>
-                
+
                 <!-- Edit and Withdrawal Buttons -->
                 <div class="d-flex justify-content-center gap-3">
-                    <a href="{{ route('account.edit') }}" class="btn-link btn-edit">Edit information</a>
-                    <a href="{{ route('account.withdrawal')}}" class="btn-link btn-withdrawal">Withdrawal</a>
+                    <a href="{{ route('account.edit') }}" class="btn-link btn-edit" style="text-decoration: none">Edit information</a>
+                    <a href="{{ route('account.withdrawal')}}" class="btn-link btn-withdrawal" style="text-decoration: none">Withdrawal</a>
                 </div>
             </form>
         </div>
@@ -99,56 +99,54 @@
         <h1 class="text-center mb-4">Payment</h1>
         <form method="POST" action="#" onsubmit="return validateForm()">
             @csrf
-            
+
             <div class="text-center mb-4">
                 <img src="{{ asset('images/reservation-cards.png') }}" alt="Credit Card Logos" style="max-width: 100%; height: auto;">
             </div>
 
-            <!-- カード番号 -->
-            <div class="mb-3">
-                <label for="card_number" class="form-label">Card Number</label>
-                <input id="card_number" type="text" class="form-control @error('card_number') is-invalid @enderror"
-                    name="card_number" value="{{$cred->card_number}}" required autocomplete="card_number" readonly>
-            </div>
-
-            <!-- 有効期限 -->
-            <div class="mb-3">
-              
-                <label for="expiry_date" class="form-label">Expiration Date</label>
-                <div class="d-flex">
-                    <select id="expiry_month" name="expiry_month" class="form-control me-2" required disabled>
-                        
-                        <option value="">{{$cred->expiry_month}}</option>
-                      
-                    </select>
-                    <select id="expiry_year" name="expiry_year" class="form-control" required disabled>
-                        <option value="" disabled selected>{{ $cred->expiry_year }}</option>
-                      
-                    </select>
+            @if($cred) <!-- $credが存在する場合に支払い情報を表示 -->
+                <!-- カード番号 -->
+                <div class="mb-3">
+                    <label for="card_number" class="form-label">Card Number</label>
+                    <input id="card_number" type="text" class="form-control @error('card_number') is-invalid @enderror"
+                        name="card_number" value="{{$cred->card_number}}" required autocomplete="card_number" readonly>
                 </div>
-            </div>
 
-            <!-- CVV -->
-            <div class="mb-3">
-                <label for="cvv" class="form-label">CVV</label>
-                <input type="text" id="cvv" name="cvv" class="form-control" required placeholder="***" 
-                    value="{{ $cred->cvv }}" readonly>
-            </div>
+                <!-- 有効期限 -->
+                <div class="mb-3">
+                    <label for="expiry_date" class="form-label">Expiration Date</label>
+                    <div class="d-flex">
+                        <select id="expiry_month" name="expiry_month" class="form-control me-2" required disabled>
+                            <option value="">{{$cred->expiry_month}}</option>
+                        </select>
+                        <select id="expiry_year" name="expiry_year" class="form-control" required disabled>
+                            <option value="" disabled selected>{{ $cred->expiry_year }}</option>
+                        </select>
+                    </div>
+                </div>
 
-            <!-- 名前 -->
-            <div class="mb-3">
-                <label for="name" class="form-label">Full Name</label>
-                <input type="text" id="name" name="name" class="form-control" required placeholder="JOHN KURT"
-                    value="{{ $cred->name }}" readonly>
-            </div>
+                <!-- CVV -->
+                <div class="mb-3">
+                    <label for="cvv" class="form-label">CVV</label>
+                    <input type="text" id="cvv" name="cvv" class="form-control" required placeholder="***"
+                        value="{{ $cred->cvv }}" readonly>
+                </div>
 
-           <!-- 送信ボタン -->        
-            <div class="d-flex justify-content-center mt-4">
-                <a href="{{route('payment.edit')}}" class="btn btn-warning px-5">Edit Payment</a>
-            </div>
+                <!-- 名前 -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" id="name" name="name" class="form-control" required placeholder="JOHN KURT"
+                        value="{{ $cred->name }}" readonly>
+                </div>
 
+                <!-- 送信ボタン -->
+                <div class="d-flex justify-content-center mt-4">
+                    <a href="{{route('payment.edit')}}" class="btn btn-warning px-5">Edit Payment</a>
+                </div>
 
-
+            @else
+                <p>No payment information available.</p> <!-- $credがnullの場合のメッセージ -->
+            @endif
         </form>
     </div>
 </div>
