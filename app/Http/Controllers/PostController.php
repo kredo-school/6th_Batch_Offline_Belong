@@ -283,10 +283,10 @@ public function match(Request $request)
     // 承認された投稿だけを日付で検索し、ページネーションを使って結果を取得
     $posts = Post::whereDate('date', $date)
                  ->where('approved', true) // 承認された投稿のみ
-                 ->paginate(5);
+                 ->paginate(10);
 
     // 明示的にデータを渡す
-    return view('home')->with('posts', $posts)->with('date', $date);
+    return view('posts.date')->with('posts', $posts)->with('date', $date);
 }
 
 

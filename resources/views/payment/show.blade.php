@@ -28,7 +28,7 @@
                 <!-- カード番号 --> 
                 <div class="mb-3">
                     <label for="card_number" class="form-label">Card Number</label>
-                    <input type="text" id="card_number" name="card_number" class="form-control" required placeholder="1234 5678 9012 3456">
+                    <input type="text" id="card_number" name="card_number" class="form-control" required placeholder="1234 5678 9012 3456" maxlength="19">
                 </div>
 
                 <!-- 有効期限 --> 
@@ -119,5 +119,14 @@
 
             return isValid; // フォームの送信を制御
         }
+
+        document.getElementById('card_number').addEventListener('input', function (e) {
+        let value = e.target.value.replace(/\s+/g, ''); // 入力値からスペースを除去
+        if (isNaN(value)) {
+            e.target.value = e.target.value.slice(0, -1); // 非数字の入力を防止
+            return;
+        }
+        e.target.value = value.match(/.{1,4}/g)?.join(' ') ?? ''; // 4桁ずつスペースを挿入
+        });
     </script>
 @endsection
