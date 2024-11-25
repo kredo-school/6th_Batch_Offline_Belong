@@ -17,7 +17,7 @@
     <!-- FontAwesome for Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
-    
+
 
 
 
@@ -31,7 +31,7 @@
             padding: 0;
             overflow-x: hidden; /* 横スクロールを無効にする */
         }
-        
+
 
         /* ここにページ全体に対するレイアウト調整を追加 */
         main {
@@ -161,7 +161,11 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
+                                        @if(Auth::user()->role !== 'admin')  <!-- アドミンでない場合にリンクを表示 -->
+                                            <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}">
+                                                <i class="fas fa-cog" style="font-size: 30px;"></i>
+                                            </a>
+                                        @endif
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

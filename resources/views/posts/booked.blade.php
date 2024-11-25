@@ -11,7 +11,7 @@
     }
 </style>
 
-<div class="container mt-3">
+<div class="container mt-5">
     <h2>Your Booked Posts</h2>
 
     @if (session('success'))

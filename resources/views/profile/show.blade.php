@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-3">
+    <div class="container mt-5">
         <h1 class="text-center" style="font-size: 3rem; font-weight: bold;">
             Profile - {{ $user->name }}
         </h1>
