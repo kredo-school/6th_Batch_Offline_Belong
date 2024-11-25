@@ -151,6 +151,13 @@
                 <ul class="list-group">
                     @foreach($post->comments as $comment)
                     <li class="list-group-item border-0 p-0 mb-2">
+                        <a href="{{route('profile.show', $comment->user->id)}}" style="text-decoration: none">
+                        @if ($comment->user->profile_image)
+                            <img src="{{ $comment->user->profile_image }}" alt="Profile Image" class="rounded-image" style="width: 30px; height: 30px;">
+                        @else
+                            <i class="fa-solid fa-circle-user fa-5x"></i>
+                        @endif
+                        </a>
                         <a href="{{route('profile.show',Auth::user()->id)}}" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
                         <p class="d-inline fw-light">{{ $comment->body }}</p>
 

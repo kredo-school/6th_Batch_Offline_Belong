@@ -39,8 +39,16 @@ class UsersController extends Controller
 
     public function destroy($id)
     {
-        // ユーザーを取得
+        // 現在のログイン中のユーザー
+        $currentUser = auth()->user();
+
+        // 削除対象のユーザー
         $user = User::findOrFail($id);
+
+        // 自分自身の削除を防ぐ
+        if ($currentUser->id === $user->id) {
+            return redirect()->route('admin.users')->with('error', 'You cannot delete yourself.');
+        }
 
         // ユーザーの削除
         $user->delete();
@@ -48,5 +56,6 @@ class UsersController extends Controller
         // メッセージ付きでリダイレクト
         return redirect()->route('admin.users')->with('success', 'User deleted successfully.');
     }
-    
+
+
 }

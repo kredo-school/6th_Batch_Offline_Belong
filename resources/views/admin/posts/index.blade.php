@@ -94,7 +94,7 @@
                                         Are you sure you want to delete this post?
                                     </div>
                                     <div class="modal-footer">
-                                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                                        <form action="{{ route('admin.admin.posts.destroy', $post->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
