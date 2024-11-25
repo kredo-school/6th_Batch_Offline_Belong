@@ -16,7 +16,7 @@
     <table class="table table-hover align-middle border text-secondary w-100">
         <thead class="small table-primary">
             <tr>
-                <th class="text-center">Posts</th> <!-- 画像列 -->
+                <th class="text-center">POSTS</th> <!-- 画像列 -->
                 <th class="text-center">CATEGORY</th>
                 <th class="text-center">TITLE</th>
                 <th class="text-center">OWNER</th>
