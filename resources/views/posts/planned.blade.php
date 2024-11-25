@@ -1,6 +1,11 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
 @section('content')
+<style>
+    .table th {
+        background-color: #fdcdef; /* Change this to your desired background color */
+    }
+</style>
 
 <br>
 <h1 class="text-center" style="font-size: 3rem; font-weight: bold;">Schedule</h1>
@@ -9,7 +14,7 @@
 <!-- Post Table -->
 <div class="col-md-9 col-sm-12 mx-auto">
     <table class="table table-hover align-middle border text-secondary w-100">
-        <thead class="small table-primary text-secondary" >
+        <thead class="small table-primary">
             <tr>
                 <th class="text-center">Posts</th> <!-- 画像列 -->
                 <th class="text-center">CATEGORY</th>
@@ -54,7 +59,7 @@
             @endforelse
         </tbody>
     </table>
-    
+
     <!-- ページネーション -->
     <div class="d-flex justify-content-center">
         {{ $all_posts->links() }}

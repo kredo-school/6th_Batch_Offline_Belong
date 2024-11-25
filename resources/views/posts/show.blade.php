@@ -150,28 +150,41 @@
                 <hr>
                 <ul class="list-group">
                     @foreach($post->comments as $comment)
-                    <li class="list-group-item border-0 p-0 mb-2">
-                        <a href="{{route('profile.show', $comment->user->id)}}" style="text-decoration: none">
-                        @if ($comment->user->profile_image)
-                            <img src="{{ $comment->user->profile_image }}" alt="Profile Image" class="rounded-image" style="width: 30px; height: 30px;">
-                        @else
-                            <i class="fa-solid fa-circle-user fa-5x"></i>
-                        @endif
-                        </a>
-                        <a href="{{route('profile.show',Auth::user()->id)}}" class="text-decoration-none text-dark fw-bold">{{ $comment->user->name }}</a>
-                        <p class="d-inline fw-light">{{ $comment->body }}</p>
+                    <li class="list-group-item border-0 p-2">
+                        <div class="d-flex align-items-start">
+                            <!-- ユーザープロフィールアイコン -->
+                            <a href="{{ route('profile.show', $comment->user->id) }}" class="me-2" style="text-decoration: none">
+                                @if ($comment->user->profile_image)
+                                    <img src="{{ $comment->user->profile_image }}" alt="Profile Image" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                                @else
+                                    <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
+                                @endif
+                            </a>
 
-                        <div class="d-flex justify-content-between mt-1">
-                            <span class="text-muted small">{{ date('M d, Y', strtotime($comment->created_at)) }}</span>
+                            <!-- ユーザーネームとコメント -->
+                            <div>
+                                <a href="{{ route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark fw-bold me-2">{{ $comment->user->name }}</a>
+                                <span class="text-muted small">{{ $comment->body }}</span>
 
-                            @if(Auth::user()->id === $comment->user->id)
-                            <form action="{{ route('comment.destroy', $comment->id) }}" method="post" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button class="border-0 bg-transparent text-danger p-0 small"><i class="fa-sharp fa-solid fa-trash text-danger"></i></button>
-                            </form>
-                            @endif
+                                <!-- 投稿日時 -->
+                                <div class="text-muted small mt-1">
+                                    {{ date('M d, Y', strtotime($comment->created_at)) }}
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- アクションボタン -->
+                        @if(Auth::user()->id === $comment->user->id)
+                            <div class="text-end mt-1">
+                                <form action="{{ route('comment.destroy', $comment->id) }}" method="post" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="border-0 bg-transparent text-danger p-0 small">
+                                        <i class="fa-sharp fa-solid fa-trash text-danger"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        @endif
                     </li>
                     @endforeach
                 </ul>

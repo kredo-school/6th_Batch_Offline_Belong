@@ -144,7 +144,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
         Route::delete('/admin/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
 
-        // 管理者の投稿管理
+        // 管理者の投稿管
         Route::get('/posts', [PostsController::class, 'index'])->name('posts');
         // admin/posts のポスト削除ルート
         Route::delete('/admin/posts/{post}', [PostsController::class, 'destroy'])->name('admin.posts.destroy');
