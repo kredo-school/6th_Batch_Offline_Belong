@@ -60,7 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/posts/date', [PostController::class, 'match'])->name('posts.date');
         Route::get('/chart', [PostController::class, 'showChart'])->name('chart.show');
 
-        
+
 
         Route::get('/category/play', [PostController::class, 'play'])->name('category.play');
         Route::get('/category/watch-and-learn', [PostController::class, 'watchAndLearn'])->name('category.watch-and-learn');
@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/category/others', [PostController::class, 'others'])->name('category.others');
 
         Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
+
 
         // 拒否されたポストを編集するルート
         Route::get('/posts/{post}/approveedit', [PostController::class, 'approveEdit'])->name('posts.approveedit');
@@ -142,8 +143,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/users/search', [UsersController::class, 'search'])->name('users.search');
         Route::delete('/admin/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
 
-        // 管理者の投稿管理
+        // 管理者の投稿管
         Route::get('/posts', [PostsController::class, 'index'])->name('posts');
+        // admin/posts のポスト削除ルート
+        Route::delete('/admin/posts/{post}', [PostsController::class, 'destroy'])->name('admin.posts.destroy');
 
         // routes/web.php
         Route::post('/approve/{post}', [PostsController::class, 'approve'])->name('approve.post');
@@ -159,11 +162,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/notify', [NotificationsController::class, 'store'])->name('notify.store');
 
 
-        
 
-        
 
-        
+
+
+
 
 
 

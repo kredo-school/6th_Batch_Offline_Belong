@@ -13,7 +13,7 @@
         <div class="d-flex align-items-center">
             <div class="profile-image mb-3">
                 @if ($user->profile_image)
-                    <img src="{{ $user->profile_image }}" alt="Profile Image" class="rounded-image">
+                    <img src="{{ $user->profile_image }}" alt="Profile Image" class="rounded-image" style="width: 150px; height: 150px;">
                 @else
                     <i class="fa-solid fa-circle-user fa-5x"></i>
                 @endif
@@ -33,7 +33,7 @@
         </div>
 
         @if (Auth::check() && Auth::user()->id == $user->id)
-            <a href="{{ route('profile.edit') }}" class="btn-link mt-3">Edit Profile</a>
+            <a href="{{ route('profile.edit') }}" class="btn-link mt-3" style="text-decoration: none;">Edit Profile</a>
         @endif
 
         <hr>
@@ -74,12 +74,12 @@
                                             @endif
                                         </div>
                                         <strong>Date:</strong> {{ date('M d, Y', strtotime($post->date)) }}<br>
-                                        @if ($post->approved == 0) 
-                                            <div class="badge bg-danger ">Not Approved</div>
+                                        @if ($post->approved == 0)
+                                            <div class="badge bg-danger w-25">Not Approved</div>
                                         @elseif ($post->approved == 1)
                                             <div class="badge bg-success w-25">Approved</div>
                                         @elseif ($post->approved == 2)
-                                            <div class="badge bg-warning">Rejected</div>
+                                            <div class="badge bg-warning w-25">Rejected</div>
                                         @endif
 
                                     </div>
@@ -169,6 +169,6 @@
         font-size: 1rem;
     }
 
-    
+
 
 </style>

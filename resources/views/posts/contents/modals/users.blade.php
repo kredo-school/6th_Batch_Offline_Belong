@@ -11,11 +11,13 @@
                         @foreach($post->books as $book)
                             <li class="list-group-item d-flex align-items-center">
                                 <div class="me-2">
-                                    @if($book->user->avatar)
-                                        <img src="{{ $book->user->avatar }}" alt="{{ $book->user->name }}" class="rounded-circle" style="width: 30px; height: 30px;">
-                                    @else
-                                        <i class="fa-solid fa-circle-user text-secondary" style="font-size: 30px;"></i>
-                                    @endif
+                                    <a href="{{ route('profile.show', $book->user->id) }}" style="text-decoration: none">
+                                        @if ($book->user->profile_image)
+                                            <img src="{{ $book->user->profile_image }}" alt="Profile Image" class="profile-icon">
+                                        @else
+                                            <i class="fa-solid fa-circle-user profile-icon"></i>
+                                        @endif
+                                    </a>
                                 </div>
                                 <span><a href="{{ route('profile.show', $book->user->id) }}" class="text-decoration-none">{{ $book->user->name }}</a></span>
                             </li>
@@ -31,3 +33,13 @@
         </div>
     </div>
 </div>
+<style>
+    .profile-icon {
+        width: 80px; /* 幅を統一 */
+        height: 80px; /* 高さを統一 */
+        border-radius: 50%; /* 丸くする */
+        object-fit: cover; /* 画像の比率を保持しながら枠に収める */
+        font-size: 80px; /* アイコンフォントサイズを画像サイズと一致させる */
+        display: block; /* アイコンや画像が中央に揃う */
+    }
+</style>

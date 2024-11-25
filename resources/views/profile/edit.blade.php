@@ -24,7 +24,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="age" class="form-label fw-bold">Age</label>
-                        <input type="number" name="age" id="age" class="form-control">
+                        <input type="number" name="age" id="age" class="form-control" value="{{ $user->age ?? '' }}">
                     </div>
                     <div class="mb-3">
                         <label for="gender" class="form-label fw-bold">Gender</label>
@@ -38,7 +38,7 @@
 
                     <div class="mb-3">
                         <label for="bio" class="form-label fw-bold">Bio</label>
-                        <textarea name="bio" id="bio" rows="3" class="form-control"></textarea>
+                        <textarea name="bio" id="bio" rows="3" class="form-control">{{ $user->bio ?? '' }}</textarea>
                     </div>
                     <button type="submit" class="btn btn-warning px-5">Save Profile</button>
                 </form>
