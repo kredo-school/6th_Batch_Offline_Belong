@@ -25,4 +25,6 @@ class CategoryPost extends Model
         return $this->belongsTO(Post::class, 'post_id');
     }
 
+    
+
 }

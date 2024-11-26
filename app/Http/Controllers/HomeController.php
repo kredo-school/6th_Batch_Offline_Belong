@@ -13,6 +13,10 @@ class HomeController extends Controller
     {
         $this->post = $post; // Postモデルをコンストラクトで利用
     }
+
+    public function show(){
+        return view('welcome');
+    }
     
     public function index()
     {
@@ -23,4 +27,6 @@ class HomeController extends Controller
     
         return view('home', compact('posts'));
     }
+
+    
 }
