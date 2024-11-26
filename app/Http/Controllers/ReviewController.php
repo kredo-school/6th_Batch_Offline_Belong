@@ -19,15 +19,25 @@ class ReviewController extends Controller
     public function store(Request $request, Post $post)
     {
 
-        $post->reviews()->create([
-            'user_id' => auth()->id(),
-            'rating' => $request->rating,
-            'comment' => $request->comment,
+        // バリデーション
+        $validated = $request->validate([
+            'rating' => 'required|integer|min:1|max:5',
+            'comment' => 'nullable|string|max:500',
         ]);
 
-        $post->user->notify(new ReviewNotification($post->reviews()->latest()->first()));
+        // レビューを作成し、その結果を $review に代入
+        $review = $post->reviews()->create([
+            'user_id' => auth()->id(),
+            'rating' => $validated['rating'],
+            'comment' => $validated['comment'],
+        ]);
 
-        return redirect()->route('posts.show', $post)->with('success', 'Review submitted successfully!');
+        // 投稿の主催者に通知を送信
+        $post->user->notify(new ReviewNotification($review, $post));
+
+        // 成功メッセージとともにリダイレクト
+        return redirect()->route('posts.show', $post)
+            ->with('success', 'Review submitted successfully!');
     }
 
 
