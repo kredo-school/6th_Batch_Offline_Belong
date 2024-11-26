@@ -48,15 +48,16 @@
         opacity: 0.8;
     }
 
-    /* 非アクティブなインジケーターの色 */
     .carousel-indicators button {
-        background-color: yellow; /* 半透明の黄色 */
+        background-color: black !important; /* 未選択時の色を黒に設定 */
+        opacity: 1; /* 透明度を100%に設定 */
     }
 
-    /* アクティブなインジケーターの色 */
     .carousel-indicators .active {
-        background-color: #007bff; /* 青色 */
+        background-color: #007bff !important; /* 選択中の色を青に設定 */
+        opacity: 1; /* 透明度を100%に設定 */
     }
+
 
     .carousel-control-prev,
     .carousel-control-next {
@@ -179,41 +180,43 @@
     <hr>
 
     <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-12 text-center mb-4">
-                <h5 style="font-size: 60px; font-weight: bold;">Big Event Posts</h5>
-            </div>
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center mb-4">
+            <h5 style="font-size: 60px; font-weight: bold;">Big Event Posts</h5>
         </div>
+    </div>
 
-        <div class="card-header p-0 position-relative">
-            <!-- 投稿画像のカルーセル -->
-            <div id="imageCarousel2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-                <div class="carousel-inner">
-                    @foreach($posts as $index => $post)
-                    <a href="{{ route('posts.show', $post->id) }}" class="carousel-link">
-                        <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                            <img src="{{ $post->image }}" alt="{{ $post->title }}" class="carousel-image">
-                        </div>
-                    </a>
-                    @endforeach
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel2" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel2" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-                <div class="carousel-indicators">
-                    @foreach($posts as $index => $post)
-                    <button type="button" data-bs-target="#imageCarousel2" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></button>
-                    @endforeach
-                </div>
+    <div class="card-header p-0 position-relative">
+        <!-- 投稿画像のカルーセル -->
+        <div id="imageCarousel2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+            <div class="carousel-inner">
+                @foreach($posts as $index => $post)
+                <a href="{{ route('posts.show', $post->id) }}" class="carousel-link">
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <img src="{{ $post->image }}" alt="{{ $post->title }}" class="carousel-image">
+                    </div>
+                </a>
+                @endforeach
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel2" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel2" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+            <br>
+            <br>
+            <div class="carousel-indicators">
+                @foreach($posts as $index => $post)
+                <button type="button" data-bs-target="#imageCarousel2" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></button>
+                @endforeach
             </div>
         </div>
     </div>
 </div>
+
 
         <br>
         <br>

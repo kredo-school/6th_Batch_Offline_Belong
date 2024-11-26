@@ -135,6 +135,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/approve/{id}', [ApproveController::class, 'show'])->name('approve.show');
 
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/notifications/unread', [NotificationController::class, 'fetchUnreadNotifications'])->name('notifications.unread');
+
 
     Route::post('/reception', [ReceptionController::class, 'store'])->name('reception.store');
     Route::get('/admin/receptions', [ReceptionController::class, 'index'])->name('admin.receptions');
