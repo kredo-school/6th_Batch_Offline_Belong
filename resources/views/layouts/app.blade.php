@@ -71,6 +71,38 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <script>
+    function checkNotifications() {
+        fetch("{{ route('notifications.unread') }}", {
+            headers: {
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.notifications && data.notifications.length > 0) {
+                const message = data.notifications[0].data.message || "新しい通知があります！";
+                const alertBox = document.getElementById("notification-alert");
+                const messageBox = document.getElementById("notification-message");
+
+                messageBox.textContent = message;
+                alertBox.style.display = "block";
+
+                // 通知を一定時間で非表示にする
+                setTimeout(() => {
+                    alertBox.style.display = "none";
+                }, 5000);
+            }
+        })
+        .catch(error => console.error("Error fetching notifications:", error));
+    }
+
+    // 5秒ごとに通知をチェック
+    setInterval(checkNotifications, 5000);
+</script>
+
 </head>
 <body>
     <div id="app">
@@ -209,7 +241,6 @@
             </div>
             @endif
         </footer>
-
 
     </div>
 </body>
