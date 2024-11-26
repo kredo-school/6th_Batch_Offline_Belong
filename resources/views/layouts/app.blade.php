@@ -19,8 +19,6 @@
 
 
 
-
-
     <style>
         html, body {
             height: 100%;
@@ -29,7 +27,7 @@
             padding: 0;
             overflow-x: hidden; /* 横スクロールを無効にする */
         }
-        
+
 
         /* ここにページ全体に対するレイアウト調整を追加 */
         main {
@@ -89,7 +87,7 @@
                     </div>
                 @else
                     <!-- 他のページではクリック可能なロゴとテキストを表示 -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ (auth()->check()) ? route('home') : url('/') }}">
                         <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
                         <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
                             {{ config('app.name', 'Belong') }}
@@ -159,7 +157,11 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}"><i class="fas fa-cog" style="font-size: 30px;"></i></a>
+                                        @if(Auth::user()->role !== 'admin')  <!-- アドミンでない場合にリンクを表示 -->
+                                            <a class="nav-link" href="{{ route('account.show', ['id' => Auth::id()]) }}">
+                                                <i class="fas fa-cog" style="font-size: 30px;"></i>
+                                            </a>
+                                        @endif
                                     </li>
                                     <li class="nav-item dropdown">
                                         <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

@@ -7,7 +7,7 @@
         background-color: #fdcdef;
     }
 </style>
-<div class="container mt-3">
+<div class="container mt-5">
     <h2>Past Attended Posts</h2>
 
     @if (session('success'))

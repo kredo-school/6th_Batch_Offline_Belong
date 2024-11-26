@@ -10,7 +10,7 @@
         font-size: 2rem; /* アイコンのサイズを調整 */
     }
 </style>
-<div class="container mt-3">
+<div class="container mt-5">
     <h2>Reviews for {{ $post->title }}</h2>
 
     @foreach($reviews as $review)
@@ -46,7 +46,7 @@
     @endforeach
 
     @if ($reviews->isEmpty())
-        <p class="text-center">No reviews yet.</p>
+        <p class="text-right">No reviews yet.</p>
     @endif
 </div>
 @endsection

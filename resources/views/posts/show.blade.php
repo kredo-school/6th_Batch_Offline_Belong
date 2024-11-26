@@ -8,6 +8,14 @@
         position: relative;
     }
 
+    .card-body img {
+        margin: 0; /* 画像周りの隙間を削除 */
+        padding: 0; /* 画像周りの余白を削除 */
+        display: block; /* インライン要素の隙間を取り除く */
+        width: 100%; /* 画像を親要素にフィットさせる */
+        height: auto; /* 高さを自動調整 */
+    }
+
     .rounded-image {
         width: 50px; /* 幅を指定 */
         height: 50px; /* 高さを指定 */
@@ -78,7 +86,7 @@
 
             <div class="card-body">
                 @if ($post->image)
-                <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="w-100 mb-3">
+                <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="" style="width: 100%;">
                 @endif
 
                 <div class="mt-3">
