@@ -19,10 +19,6 @@
 
 
 
-
-
-
-
     <style>
         html, body {
             height: 100%;
@@ -81,7 +77,7 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-0">
                 <div class="container">
-                @if (Request::is('rules') || Request::is('payment') || Request::is('success') || Request::is('login') || Request::is('register'))
+                @if (Request::is('rules') || Request::is('payment') || Request::is('success'))
                     <!-- ルール、ペイメント、サクセスページでは、クリックできないロゴとテキストを表示 -->
                     <div class="navbar-brand">
                         <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
@@ -91,7 +87,7 @@
                     </div>
                 @else
                     <!-- 他のページではクリック可能なロゴとテキストを表示 -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
+                    <a class="navbar-brand" href="{{ (auth()->check()) ? route('home') : url('/') }}">
                         <img src="{{ asset('images/Belongicon.png') }}" alt="Logo" style="height: 75px; width: 75px;">
                         <span style="font-size: 36px; font-family: 'Noto Serif KR', serif; font-weight: 700;">
                             {{ config('app.name', 'Belong') }}

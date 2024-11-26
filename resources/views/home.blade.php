@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <style>
     /* カード全体に角丸を適用 */
     .card {
@@ -271,6 +272,9 @@
             </div>
         </div>
         <br>
+       
+
+
         <br>
         <hr>
         <br>
