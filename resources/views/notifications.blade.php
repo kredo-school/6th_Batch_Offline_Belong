@@ -27,6 +27,11 @@
                                 has received a new review!
                             </p>
                             <p>Rating: {{ $notification->data['rating'] ?? 'No rating provided' }}</p>
+                            <p>Comment: {{ $notification->data['comment'] ?? 'No comment provided' }}</p>
+                            <p>from: <a href="{{ $notification->data['reviewer_profile_url'] ?? '#' }}" class="text-primary text-decoration-none">
+                                        {{ $notification->data['reviewer_name'] ?? 'Unknown Reviewer' }}
+                                    </a>
+                            </p>
                         @elseif ($notification->data['type'] === 'booking')
                             <!-- 予約通知の場合 -->
                             <a href="{{ $notification->data['booker_profile_url'] ?? '#' }}" class="text-primary text-decoration-none">
