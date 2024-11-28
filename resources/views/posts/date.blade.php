@@ -2,14 +2,13 @@
 
 @section('content')
 
-
 <div class="container mt-4">
     
     <!-- 検索フォーム -->
     <div class="row justify-content-center">
         <div class="col-md-6 text-center">
             <form action="{{ route('posts.date') }}" method="GET">
-            <label for="dateSearch" class="form-label" style="font-size: 36px; font-weight: bold;">Search by Date:</label>
+                <label for="dateSearch" class="form-label" style="font-size: 36px; font-weight: bold;">Search by Date:</label>
                 <input type="date" id="dateSearch" name="date" class="form-control"
                     style="max-width: 300px; margin: 0 auto;" required>
                 <button type="submit" class="btn btn-primary mt-3">Search</button>
@@ -29,7 +28,7 @@
                                 <!-- 投稿画像 -->
                                 @if ($post->image)
                                     <img src="{{ $post->image }}" alt="{{ $post->title }}" class="img-fluid"
-                                         style="width: 50px; height: 50px; object-fit: cover;">
+                                         style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
                                 @else
                                     <i class="fa-solid fa-image text-secondary" style="font-size: 2rem;"></i>
                                 @endif
