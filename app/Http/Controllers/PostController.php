@@ -302,7 +302,14 @@ public function Big()//Big event post
     return view('your-view-name')->with('posts', $posts);
 }
 
+public function free()
+    {
+        // 承認された投稿のみ取得（ページネーション付き）
+        $all_posts = Post::where('approved', true)->latest()->paginate(6);
 
+        // ビューに変数を渡す
+        return view('posts.tutorial')->with('all_posts', $all_posts);
+    }
 
 
 
