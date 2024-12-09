@@ -3,6 +3,14 @@
 @section('title', 'Watch and Learn Posts')
 
 @section('content')
+<style>
+    .post-card-img {
+        width: 100%; /* 横幅を親要素に合わせる */
+        height: 300px; /* 高さを固定 */
+        object-fit: cover; /* 画像の縦横比を崩さずにサイズに収める */
+        border-radius: 10px; /* 角丸を追加 */
+    }
+</style>
 <div class="container mt-5">
     <div class="row">
         @if ($posts->count() > 0)
