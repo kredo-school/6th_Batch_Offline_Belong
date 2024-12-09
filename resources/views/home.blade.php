@@ -82,6 +82,7 @@
         border-radius: 50%; /* 丸みを追加（任意） */
         padding: 10px; /* ボタンアイコンの余白を調整 */
     }
+
 </style>
 
 <div class="container-fluid p-0">
@@ -281,22 +282,12 @@
         <br>
         <hr>
         <br>
-        
+        <div>
+            
 
-        
-
-
-
-
-
-
-
-        <br>
         <br>
         <br>
         <br>
 
     </div>
-    <br>
-    <br>
 @endsection

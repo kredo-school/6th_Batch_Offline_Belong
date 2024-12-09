@@ -169,7 +169,7 @@ Route::group(['middleware' => 'auth'], function () {
         // 通知送信処理（POST）
         Route::post('/notify', [NotificationsController::class, 'store'])->name('notify.store');
 
-
+        
 
 
 

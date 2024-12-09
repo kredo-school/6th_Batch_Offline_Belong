@@ -7,6 +7,7 @@
         font-size: 2rem; /* アイコンのサイズを調整 */
     }
 </style>
+
 <div class="card post-card border-0">
     <!-- Card Header -->
     <div class="card-header bg-white py-3">
@@ -44,7 +45,7 @@
     <!-- Post Image -->
     @if ($post->image)
         <a href="{{ route('posts.show', $post->id) }}">
-            <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="w-100 mb-3">
+            <img src="{{ $post->image }}" alt="Post ID {{ $post->id }}" class="post-card-img mb-3">
         </a>
     @endif
 
@@ -66,20 +67,20 @@
 
     <!-- Action Buttons -->
     <div class="text-end">
-                    <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#usersModal{{ $post->id }}">
-                        <i class="fa-solid fa-user icon-lg"></i>
-                        <span class="icon-count">{{ $post->books->count() }}</span>
-                    </a>
+        <a href="#" class="btn btn-sm shadow-none p-0" data-bs-toggle="modal" data-bs-target="#usersModal{{ $post->id }}">
+            <i class="fa-solid fa-user icon-lg"></i>
+            <span class="icon-count">{{ $post->books->count() }}</span>
+        </a>
 
-                    @if($post->isBooked())
-                    <span class="btn btn-sm shadow-none p-0 text-muted" title="Already Booked">
-                        <i class="fa-solid fa-heart text-danger icon-lg"></i>
-                    </span>
-                    @else
-                    <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
-                        <i class="fa-regular fa-heart text-danger icon-lg"></i>
-                    </a>
-                    @endif
+        @if($post->isBooked())
+        <span class="btn btn-sm shadow-none p-0 text-muted" title="Already Booked">
+            <i class="fa-solid fa-heart text-danger icon-lg"></i>
+        </span>
+        @else
+        <a href="{{ route('bookings.show', $post->id) }}" class="btn btn-sm p-0" title="Book this Post">
+            <i class="fa-regular fa-heart text-danger icon-lg"></i>
+        </a>
+        @endif
     </div>
 
     <hr>
@@ -97,46 +98,46 @@
     </form>
 
     @if($post->comments && $post->comments->isNotEmpty())
-        <hr>
-        <ul class="list-group">
-            @foreach($post->comments as $comment)
-            <li class="list-group-item border-0 p-2">
-                <div class="d-flex align-items-start">
-                    <!-- ユーザープロフィールアイコン -->
-                    <a href="{{ route('profile.show', $comment->user->id) }}" class="me-2" style="text-decoration: none">
-                        @if ($comment->user->profile_image)
-                            <img src="{{ $comment->user->profile_image }}" alt="Profile Image" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
-                        @else
-                            <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
-                        @endif
-                    </a>
+    <hr>
+    <ul class="list-group">
+        @foreach($post->comments as $comment)
+        <li class="list-group-item border-0 p-2">
+            <div class="d-flex align-items-start">
+                <!-- ユーザープロフィールアイコン -->
+                <a href="{{ route('profile.show', $comment->user->id) }}" class="me-2" style="text-decoration: none">
+                    @if ($comment->user->profile_image)
+                        <img src="{{ $comment->user->profile_image }}" alt="Profile Image" class="rounded-circle" style="width: 32px; height: 32px; object-fit: cover;">
+                    @else
+                        <i class="fa-solid fa-circle-user text-secondary" style="font-size: 32px;"></i>
+                    @endif
+                </a>
 
-                    <!-- ユーザーネームとコメント -->
-                    <div>
-                        <a href="{{ route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark fw-bold me-2">{{ $comment->user->name }}</a>
-                        <span class="text-muted small">{{ $comment->body }}</span>
+                <!-- ユーザーネームとコメント -->
+                <div>
+                    <a href="{{ route('profile.show', $comment->user->id) }}" class="text-decoration-none text-dark fw-bold me-2">{{ $comment->user->name }}</a>
+                    <span class="text-muted small">{{ $comment->body }}</span>
 
-                        <!-- 投稿日時 -->
-                        <div class="text-muted small mt-1">
-                            {{ date('M d, Y', strtotime($comment->created_at)) }}
-                        </div>
+                    <!-- 投稿日時 -->
+                    <div class="text-muted small mt-1">
+                        {{ date('M d, Y', strtotime($comment->created_at)) }}
                     </div>
                 </div>
+            </div>
 
-                <!-- アクションボタン -->
-                @if(Auth::user()->id === $comment->user->id)
-                    <div class="text-end mt-1">
-                        <form action="{{ route('comment.destroy', $comment->id) }}" method="post" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="border-0 bg-transparent text-danger p-0 small">
-                                <i class="fa-sharp fa-solid fa-trash text-danger"></i>
-                            </button>
-                        </form>
-                    </div>
-                @endif
-            </li>
-            @endforeach
-        </ul>
+            <!-- アクションボタン -->
+            @if(Auth::user()->id === $comment->user->id)
+            <div class="text-end mt-1">
+                <form action="{{ route('comment.destroy', $comment->id) }}" method="post" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button class="border-0 bg-transparent text-danger p-0 small">
+                        <i class="fa-sharp fa-solid fa-trash text-danger"></i>
+                    </button>
+                </form>
+            </div>
+            @endif
+        </li>
+        @endforeach
+    </ul>
     @endif
 </div>
