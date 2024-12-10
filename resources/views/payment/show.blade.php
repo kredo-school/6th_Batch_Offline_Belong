@@ -65,8 +65,11 @@
                 <!-- 送信ボタン -->
                 <button type="submit" class="btn btn-primary form-control">Pay</button>
             </form>
-        </div>
+        </div>    
     </div>
+    <br>
+    <br>
+    
 
     <script>
         function validateForm() {
