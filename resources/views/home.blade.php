@@ -187,36 +187,38 @@
         </div>
     </div>
 
-    <div class="card-header p-0 position-relative">
-        <!-- 投稿画像のカルーセル -->
-        <div id="imageCarousel2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
-            <div class="carousel-inner">
-                @foreach($posts as $index => $post)
-                <a href="{{ route('posts.show', $post->id) }}" class="carousel-link">
-                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                        <img src="{{ $post->image }}" alt="{{ $post->title }}" class="carousel-image">
-                    </div>
-                </a>
-                @endforeach
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel2" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel2" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-            <br>
-            <br>
-            <div class="carousel-indicators">
-                @foreach($posts as $index => $post)
-                <button type="button" data-bs-target="#imageCarousel2" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></button>
-                @endforeach
+    @if(isset($message))
+        <p class="text-center">{{ $message }}</p>
+    @else
+        <div class="card-header p-0 position-relative">
+            <div id="imageCarousel2" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                <div class="carousel-inner">
+                    @foreach($big_posts as $index => $post)
+                        <a href="{{ route('posts.show', $post->id) }}" class="carousel-link">
+                            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                <img src="{{ $post->image }}" alt="{{ $post->title }}" class="carousel-image">
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel2" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel2" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+                <div class="carousel-indicators">
+                    @foreach($posts as $index => $post)
+                        <button type="button" data-bs-target="#imageCarousel2" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></button>
+                    @endforeach
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 </div>
+
 
 
         <br>
