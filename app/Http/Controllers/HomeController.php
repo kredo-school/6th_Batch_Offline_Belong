@@ -25,8 +25,21 @@ class HomeController extends Controller
                      ->take(6)
                      ->get();
     
-        return view('home', compact('posts'));
+        return view('home')->with("posts", $posts)->with("big_posts",$this->big());
     }
+
+    public function big()
+{
+    $posts = Post::where('planned_number_of_people', '>=', 20)
+                 ->where('approved', true)
+                 ->get();
+
+    // if ($posts->isEmpty()) {
+    //     return view('big-events')->with('message', '該当するイベント投稿はありません。');
+    // }
+
+    return $posts;
+}
 
     
 }
