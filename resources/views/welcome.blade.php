@@ -73,6 +73,7 @@
         .navbar {
             margin-bottom: 10px;
         }
+        
     </style>
 </head>
 <body>
@@ -135,7 +136,9 @@
                 <div class="card-container mt-5">
 
                     <div class="card ms-5 mb--5" style="rotate: -20deg;">
+                        <a class="dropdown-item" href="{{ route('posts.tutorial') }}">
                         <img src="{{ asset('images/toppage7.jpg') }}" class="card-img-top" alt="...">
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title">Title: Let's play basebal</h5>
                             <p class="card-text">Let's play baseball together!<br>Everyone is welcome</p>
@@ -144,7 +147,9 @@
                     </div>
 
                     <div class="card ms-5" style="rotate: 5deg;">
+                        <a class="dropdown-item" href="{{ route('posts.tutorial') }}">
                         <img src="{{ asset('images/toppage2.jpg') }}" class="card-img-top" alt="...">
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title">Title: Bread Making</h5>
                             <p class="card-text">Everyone who loves cooking is welcome!<br>Let's make delicious bread together!</p>
@@ -152,7 +157,9 @@
                         </div>
                     </div>
                     <div class="card ms-5" style="rotate: 15deg;">
+                        <a class="dropdown-item" href="{{ route('posts.tutorial') }}">
                         <img src="{{ asset('images/toppage3.jpg') }}" class="card-img-top" alt="...">
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title">Title: Museum</h5>
                             <p class="card-text">Let's enjoy art together!<br>Let's talk about art</p>
@@ -160,7 +167,9 @@
                         </div>
                     </div>
                     <div class="card mt--10" style="rotate: 10deg;">
+                        <a class="dropdown-item" href="{{ route('posts.tutorial') }}">
                         <img src="{{ asset('images/toppage4.jpg') }}" class="card-img-top" alt="...">
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title">Title: Nature</h5>
                             <p class="card-text">Let's visit the flower garden and enjoy nature!</p>
@@ -168,7 +177,9 @@
                         </div>
                     </div>
                     <div class="card mt--10" style="rotate: -10deg;">
+                        <a class="dropdown-item" href="{{ route('posts.tutorial') }}">
                         <img src="{{ asset('images/toppage5.jpg') }}" class="card-img-top" alt="...">
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title">Title: Party</h5>
                             <p class="card-text">Cheers to togetherness!<br>Let's have a great time!</p>
@@ -176,7 +187,9 @@
                         </div>
                     </div>
                     <div class="card" style="rotate: -10deg;">
+                        <a class="dropdown-item" href="{{ route('posts.tutorial') }}">
                         <img src="{{ asset('images/toppage6.jpg') }}" class="card-img-top" alt="...">
+                        </a>
                         <div class="card-body">
                             <h5 class="card-title">Title: Dinner</h5>
                             <p class="card-text">Let's enjoy some delicious food!<br>Let's have a great time</p>

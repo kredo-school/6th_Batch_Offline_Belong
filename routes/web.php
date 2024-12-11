@@ -29,7 +29,7 @@ use App\Http\Controllers\AccountController;
 
 Route::get('/', [HomeController::class, 'show'])->name('welcome');
 Auth::routes();
-
+Route::get('/posts/tutorial', [PostController::class, 'free'])->name('posts.tutorial');
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/posts/schedule', [PostController::class, 'index'])->name('posts.schedule');
         Route::get('/posts/planned', [PostController::class, 'display'])->name('posts.planned');
         Route::get('/posts/date', [PostController::class, 'match'])->name('posts.date');
+        
         
 
 
@@ -168,7 +169,7 @@ Route::group(['middleware' => 'auth'], function () {
         // 通知送信処理（POST）
         Route::post('/notify', [NotificationsController::class, 'store'])->name('notify.store');
 
-
+        
 
 
 

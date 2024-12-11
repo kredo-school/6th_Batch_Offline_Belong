@@ -291,18 +291,28 @@ public function match(Request $request)
 
 
 
-public function Big()//Big event post
+public function big()
 {
-    // planned_number_of_peopleが10以上で、承認された投稿のみを取得（2件に制限）
     $posts = Post::where('planned_number_of_people', '>=', 10)
-                 ->where('approved', true) // 承認された投稿
+                 ->where('approved', true)
                  ->get();
 
-    // 取得した投稿をビューに渡す
-    return view('your-view-name')->with('posts', $posts);
+    if ($posts->isEmpty()) {
+        return view('big-events')->with('message', '該当するイベント投稿はありません。');
+    }
+
+    return view('big-events')->with('posts', $posts);
 }
 
 
+public function free()
+    {
+        // 承認された投稿のみ取得（ページネーション付き）
+        $all_posts = Post::where('approved', true)->latest()->paginate(6);
+
+        // ビューに変数を渡す
+        return view('posts.tutorial')->with('all_posts', $all_posts);
+    }
 
 
 
