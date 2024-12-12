@@ -180,7 +180,7 @@
     <br>
     <hr>
 
-    <div class="container mt-4">
+    <div class="container mt-4"> 
     <div class="row justify-content-center">
         <div class="col-md-12 text-center mb-4">
             <h5 style="font-size: 60px; font-weight: bold;">Big Event Posts</h5>
@@ -210,7 +210,7 @@
                     <span class="visually-hidden">Next</span>
                 </button>
                 <div class="carousel-indicators">
-                    @foreach($posts as $index => $post)
+                    @foreach($big_posts as $index => $post)
                         <button type="button" data-bs-target="#imageCarousel2" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}"></button>
                     @endforeach
                 </div>
@@ -218,6 +218,7 @@
         </div>
     @endif
 </div>
+
 
 
 

@@ -291,18 +291,18 @@ public function match(Request $request)
 
 
 
-public function big()
-{
-    $posts = Post::where('planned_number_of_people', '>=', 10)
-                 ->where('approved', true)
-                 ->get();
+// public function big()
+// {
+//     $posts = Post::where('planned_number_of_people', '>=', 10)
+//                  ->where('approved', true)
+//                  ->get();
 
-    if ($posts->isEmpty()) {
-        return view('big-events')->with('message', '該当するイベント投稿はありません。');
-    }
+//     if ($posts->isEmpty()) {
+//         return view('big-events')->with('message', '該当するイベント投稿はありません。');
+//     }
 
-    return view('big-events')->with('posts', $posts);
-}
+//     return view('big-events')->with('posts', $posts);
+// }
 
 
 public function free()
