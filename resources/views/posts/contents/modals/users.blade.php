@@ -13,7 +13,7 @@
                                 <div class="me-2">
                                     <a href="{{ route('profile.show', $book->user->id) }}" style="text-decoration: none">
                                         @if ($book->user->profile_image)
-                                            <img src="{{ $book->user->profile_image }}" alt="Profile Image" class="profile-icon">
+                                            <img src="{{ $book->user->profile_image }}" alt="Profile Image" class="profile-icon" style="width: 80px; height: 80px;">
                                         @else
                                             <i class="fa-solid fa-circle-user profile-icon"></i>
                                         @endif
