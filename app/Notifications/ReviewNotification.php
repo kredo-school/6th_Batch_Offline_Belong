@@ -53,6 +53,7 @@ class ReviewNotification extends Notification
         return [
             'type' => 'review',
             'reviewer_name' => $this->review->user->name, // レビューしたユーザー名
+            'reviewer_profile_url' => route('profile.show', $this->review->user), // プロフィールへのリンク
             'post_title' => $this->post->title,          // 投稿タイトル
             'review_url' => route('posts.show', $this->post->id), // 投稿詳細ページのURL
             'rating' => $this->review->rating,          // 評価
