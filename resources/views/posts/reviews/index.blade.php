@@ -17,9 +17,9 @@
         <div class="card mb-3 shadow-sm">
             <div class="card-body d-flex align-items-start">
                 <!-- ユーザーのアバター -->
-                <a href="{{ route('profile.show', $post->user->id) }}" class="text-decoration-none">
-                    @if($post->user->profile_image)
-                        <img src="{{ $post->user->profile_image }}" alt="{{ $post->user->name }}" class="rounded-image">
+                <a href="{{ route('profile.show', $review->user->id) }}" class="text-decoration-none">
+                    @if($review->user->profile_image)
+                        <img src="{{ $review->user->profile_image }}" alt="{{ $review->user->name }}" class="rounded-image">
                     @else
                         <!-- デフォルト画像を表示 -->
                         <i class="fa-solid fa-circle-user d-block text-center text-secondary" style="font-size: 3rem;"></i>
